@@ -1,0 +1,152 @@
+﻿namespace AP4_C
+{
+    partial class FormMenu
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            menuStrip1 = new MenuStrip();
+            DeconnexionBtn = new ToolStripMenuItem();
+            toolStripMenuItem2 = new ToolStripMenuItem();
+            toolStripMenuItem3 = new ToolStripMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
+            toolStripMenuItem4 = new ToolStripMenuItem();
+            toolStripMenuItem5 = new ToolStripMenuItem();
+            gestionDesEmployésToolStripMenuItem = new ToolStripMenuItem();
+            quitterToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripMenuItem();
+            pnlMenu = new Panel();
+            menuStrip1.SuspendLayout();
+            SuspendLayout();
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { DeconnexionBtn, toolStripMenuItem2, toolStripMenuItem3, gestionDesEmployésToolStripMenuItem, quitterToolStripMenuItem, toolStripMenuItem1 });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(800, 24);
+            menuStrip1.TabIndex = 0;
+            menuStrip1.Text = "menuStrip1";
+            menuStrip1.ItemClicked += menuStrip1_ItemClicked;
+            // 
+            // DeconnexionBtn
+            // 
+            DeconnexionBtn.Name = "DeconnexionBtn";
+            DeconnexionBtn.Size = new Size(12, 20);
+            // 
+            // toolStripMenuItem2
+            // 
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new Size(63, 20);
+            toolStripMenuItem2.Text = "Factures";
+            toolStripMenuItem2.Click += toolStripMenuItem2_Click;
+            // 
+            // toolStripMenuItem3
+            // 
+            toolStripMenuItem3.DropDownItems.AddRange(new ToolStripItem[] { toolStripSeparator1, toolStripMenuItem4, toolStripMenuItem5 });
+            toolStripMenuItem3.Name = "toolStripMenuItem3";
+            toolStripMenuItem3.Size = new Size(48, 20);
+            toolStripMenuItem3.Text = "Stock";
+            toolStripMenuItem3.Click += toolStripMenuItem3_Click;
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(185, 6);
+            // 
+            // toolStripMenuItem4
+            // 
+            toolStripMenuItem4.Name = "toolStripMenuItem4";
+            toolStripMenuItem4.Size = new Size(188, 22);
+            toolStripMenuItem4.Text = "Réaprovissionnement";
+            toolStripMenuItem4.Click += toolStripMenuItem4_Click;
+            // 
+            // toolStripMenuItem5
+            // 
+            toolStripMenuItem5.Name = "toolStripMenuItem5";
+            toolStripMenuItem5.Size = new Size(188, 22);
+            toolStripMenuItem5.Text = "Gestion des produits";
+            toolStripMenuItem5.Click += toolStripMenuItem5_Click;
+            // 
+            // gestionDesEmployésToolStripMenuItem
+            // 
+            gestionDesEmployésToolStripMenuItem.Name = "gestionDesEmployésToolStripMenuItem";
+            gestionDesEmployésToolStripMenuItem.Size = new Size(134, 20);
+            gestionDesEmployésToolStripMenuItem.Text = "Gestion des employés";
+            gestionDesEmployésToolStripMenuItem.Click += gestionDesEmployésToolStripMenuItem_Click;
+            // 
+            // quitterToolStripMenuItem
+            // 
+            quitterToolStripMenuItem.Name = "quitterToolStripMenuItem";
+            quitterToolStripMenuItem.Size = new Size(56, 20);
+            quitterToolStripMenuItem.Text = "Quitter";
+            quitterToolStripMenuItem.Click += quitterToolStripMenuItem_Click;
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(89, 20);
+            toolStripMenuItem1.Text = "Deconnexion";
+            toolStripMenuItem1.Click += toolStripMenuItem1_Click;
+            // 
+            // pnlMenu
+            // 
+            pnlMenu.Location = new Point(0, 27);
+            pnlMenu.Name = "pnlMenu";
+            pnlMenu.Size = new Size(800, 428);
+            pnlMenu.TabIndex = 1;
+            pnlMenu.Paint += pnlMenu_Paint;
+            // 
+            // FormMenu
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(pnlMenu);
+            Controls.Add(menuStrip1);
+            Name = "FormMenu";
+            Text = "Menu";
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
+        }
+
+        #endregion
+
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem DeconnexionBtn;
+        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem toolStripMenuItem2;
+        private ToolStripMenuItem toolStripMenuItem3;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem toolStripMenuItem4;
+        private ToolStripMenuItem toolStripMenuItem5;
+        private ToolStripMenuItem gestionDesEmployésToolStripMenuItem;
+        private ToolStripMenuItem quitterToolStripMenuItem;
+        public Panel pnlMenu;
+    }
+}
