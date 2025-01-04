@@ -174,12 +174,10 @@ public partial class Ap4CamoelContext : DbContext
 
             entity.HasOne(d => d.IdfactureNavigation).WithMany(p => p.Commandes)
                 .HasForeignKey(d => d.Idfacture)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("commande_ibfk_3");
 
             entity.HasOne(d => d.IdreservNavigation).WithMany(p => p.Commandes)
                 .HasForeignKey(d => d.Idreserv)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("commande_ibfk_2");
         });
 
@@ -321,7 +319,9 @@ public partial class Ap4CamoelContext : DbContext
 
             entity.Property(e => e.Idcommande).HasColumnName("IDCOMMANDE");
             entity.Property(e => e.Idinstance).HasColumnName("IDINSTANCE");
-            entity.Property(e => e.Idetat).HasColumnName("IDETAT");
+            entity.Property(e => e.Idetat)
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("IDETAT");
             entity.Property(e => e.Idplat).HasColumnName("IDPLAT");
 
             entity.HasOne(d => d.IdcommandeNavigation).WithMany(p => p.InstancePlats)
@@ -576,9 +576,7 @@ public partial class Ap4CamoelContext : DbContext
 
             entity.HasIndex(e => e.Idplat, "I_FK_PLATDUJOUR_PLAT");
 
-            entity.Property(e => e.Ddmmyyyy)
-                .HasColumnType("datetime")
-                .HasColumnName("DDMMYYYY");
+            entity.Property(e => e.Ddmmyyyy).HasColumnName("DDMMYYYY");
             entity.Property(e => e.Idplat).HasColumnName("IDPLAT");
             entity.Property(e => e.Idper).HasColumnName("IDPER");
 
@@ -612,9 +610,7 @@ public partial class Ap4CamoelContext : DbContext
                 .HasColumnName("DDMMYYYY");
             entity.Property(e => e.Idplat).HasColumnName("IDPLAT");
             entity.Property(e => e.Idper).HasColumnName("IDPER");
-            entity.Property(e => e.Qtereap)
-                .HasColumnType("double(6,2)")
-                .HasColumnName("QTEREAP");
+            entity.Property(e => e.Qtereap).HasColumnName("QTEREAP");
 
             entity.HasOne(d => d.IdperNavigation).WithMany(p => p.Reaprovisions)
                 .HasForeignKey(d => d.Idper)
@@ -636,7 +632,12 @@ public partial class Ap4CamoelContext : DbContext
 
             entity.HasIndex(e => e.Idtable, "I_FK_RESERVATION_TABLER");
 
+            entity.HasIndex(e => e.Qr, "UC_Person").IsUnique();
+
             entity.Property(e => e.Idreserv).HasColumnName("IDRESERV");
+            entity.Property(e => e.Commentaire)
+                .HasMaxLength(255)
+                .HasColumnName("COMMENTAIRE");
             entity.Property(e => e.Datedebut)
                 .HasColumnType("datetime")
                 .HasColumnName("DATEDEBUT");
@@ -646,9 +647,7 @@ public partial class Ap4CamoelContext : DbContext
             entity.Property(e => e.Idclient).HasColumnName("IDCLIENT");
             entity.Property(e => e.Idtable).HasColumnName("IDTABLE");
             entity.Property(e => e.Nbpers).HasColumnName("NBPERS");
-            entity.Property(e => e.Qr)
-                .HasMaxLength(255)
-                .HasColumnName("QR");
+            entity.Property(e => e.Qr).HasColumnName("QR");
 
             entity.HasOne(d => d.IdtableNavigation).WithMany(p => p.Reservations)
                 .HasForeignKey(d => d.Idtable)

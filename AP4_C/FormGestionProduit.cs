@@ -24,7 +24,7 @@ namespace AP4_C
             affichagePlat();
         }
 
-        public static List<Plat>listePlats()
+        public static List<Plat> listePlats()
         {
             return Modele.MonModel.Plats
                 .Select(x => new Plat
@@ -58,5 +58,15 @@ namespace AP4_C
                 MessageBox.Show("Erreur lors du chargement des données : " + ex.Message);
             }
         }
-}
+
+        private void PlatDgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void pnlGestionProduit_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+    }
 }

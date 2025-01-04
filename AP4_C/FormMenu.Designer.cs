@@ -35,6 +35,8 @@
             toolStripSeparator1 = new ToolStripSeparator();
             toolStripMenuItem4 = new ToolStripMenuItem();
             toolStripMenuItem5 = new ToolStripMenuItem();
+            modificationDesPlatsToolStripMenuItem = new ToolStripMenuItem();
+            modificationDunPlatToolStripMenuItem = new ToolStripMenuItem();
             gestionDesEmployésToolStripMenuItem = new ToolStripMenuItem();
             quitterToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripMenuItem();
@@ -66,7 +68,7 @@
             // 
             // toolStripMenuItem3
             // 
-            toolStripMenuItem3.DropDownItems.AddRange(new ToolStripItem[] { toolStripSeparator1, toolStripMenuItem4, toolStripMenuItem5 });
+            toolStripMenuItem3.DropDownItems.AddRange(new ToolStripItem[] { toolStripSeparator1, toolStripMenuItem4, toolStripMenuItem5, modificationDesPlatsToolStripMenuItem, modificationDunPlatToolStripMenuItem });
             toolStripMenuItem3.Name = "toolStripMenuItem3";
             toolStripMenuItem3.Size = new Size(48, 20);
             toolStripMenuItem3.Text = "Stock";
@@ -75,21 +77,35 @@
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(185, 6);
+            toolStripSeparator1.Size = new Size(189, 6);
             // 
             // toolStripMenuItem4
             // 
             toolStripMenuItem4.Name = "toolStripMenuItem4";
-            toolStripMenuItem4.Size = new Size(188, 22);
+            toolStripMenuItem4.Size = new Size(192, 22);
             toolStripMenuItem4.Text = "Réaprovissionnement";
             toolStripMenuItem4.Click += toolStripMenuItem4_Click;
             // 
             // toolStripMenuItem5
             // 
             toolStripMenuItem5.Name = "toolStripMenuItem5";
-            toolStripMenuItem5.Size = new Size(188, 22);
-            toolStripMenuItem5.Text = "Gestion des produits";
+            toolStripMenuItem5.Size = new Size(192, 22);
+            toolStripMenuItem5.Text = "Liste des Plats";
             toolStripMenuItem5.Click += toolStripMenuItem5_Click;
+            // 
+            // modificationDesPlatsToolStripMenuItem
+            // 
+            modificationDesPlatsToolStripMenuItem.Name = "modificationDesPlatsToolStripMenuItem";
+            modificationDesPlatsToolStripMenuItem.Size = new Size(192, 22);
+            modificationDesPlatsToolStripMenuItem.Text = "Ajout d'un plat";
+            modificationDesPlatsToolStripMenuItem.Click += modificationDesPlatsToolStripMenuItem_Click;
+            // 
+            // modificationDunPlatToolStripMenuItem
+            // 
+            modificationDunPlatToolStripMenuItem.Name = "modificationDunPlatToolStripMenuItem";
+            modificationDunPlatToolStripMenuItem.Size = new Size(192, 22);
+            modificationDunPlatToolStripMenuItem.Text = "Modification d'un plat";
+            modificationDunPlatToolStripMenuItem.Click += modificationDunPlatToolStripMenuItem_Click;
             // 
             // gestionDesEmployésToolStripMenuItem
             // 
@@ -108,7 +124,7 @@
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(89, 20);
+            toolStripMenuItem1.Size = new Size(88, 20);
             toolStripMenuItem1.Text = "Deconnexion";
             toolStripMenuItem1.Click += toolStripMenuItem1_Click;
             // 
@@ -148,5 +164,7 @@
         private ToolStripMenuItem gestionDesEmployésToolStripMenuItem;
         private ToolStripMenuItem quitterToolStripMenuItem;
         public Panel pnlMenu;
+        private ToolStripMenuItem modificationDesPlatsToolStripMenuItem;
+        private ToolStripMenuItem modificationDunPlatToolStripMenuItem;
     }
 }

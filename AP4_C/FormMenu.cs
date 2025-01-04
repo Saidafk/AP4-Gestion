@@ -52,11 +52,16 @@ namespace AP4_C
             SF.openChildForm(new FormGestionProduit());
         }
 
+        private void modificationDesPlatsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SousFormulaire SF = new SousFormulaire(pnlMenu);
+            SF.openChildForm(new FormModificationPlat(EtatGestion.Create));
+        }
+
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             SousFormulaire SF = new SousFormulaire(pnlMenu);
             SF.openChildForm(new FormFacture());
-
 
         }
 
@@ -85,6 +90,12 @@ namespace AP4_C
         {
 
         }
-        
+
+        private void modificationDunPlatToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            SousFormulaire SF = new SousFormulaire(pnlMenu);
+            SF.openChildForm(new FormModificationPlat(EtatGestion.Update));
+        }
     }
 }

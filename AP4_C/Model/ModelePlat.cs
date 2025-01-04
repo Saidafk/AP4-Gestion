@@ -50,7 +50,54 @@ namespace AP4_C.Model
             return vretour;
         }
 
+        public static bool AjouterNouveauPlat(string Libelleplat, int Idtypeplat, int Qte, double Prixplatht, bool Veggie, string? Lienimg, int Idrestau)
+        {
+            Plat unPlat;
+            bool vretour = true;
+            try
+            {
+                unPlat = new Plat();
+                unPlat.Libelleplat = Libelleplat;
+                unPlat.Qte = 0;
+                unPlat.Prixplatht = Prixplatht;
+                unPlat.Veggie = Veggie;
+                unPlat.Lienimg = Lienimg;
+                unPlat.Idtypeplat = Idtypeplat;
+                unPlat.Idrestau = 1;
 
+                Modele.MonModel.Plats.Add(unPlat);
+                Modele.MonModel.SaveChanges();
+            }
+            catch (Exception)
+            {
+                vretour = false;
+            }
+            return vretour;
+        }
+
+        public static bool ModifierPlat(int idPlat, string Libelleplat, int Idtypeplat, int Qte, double Prixplatht, bool Veggie, string? Lienimg, int Idrestau)
+        {
+            Plat unPlat;
+            bool vretour = true;
+            try
+            {
+                unPlat = RetournePlat(idPlat);
+                unPlat.Libelleplat = Libelleplat;
+                unPlat.Qte = 0;
+                unPlat.Prixplatht = Prixplatht;
+                unPlat.Veggie = Veggie;
+                unPlat.Lienimg = Lienimg;
+                unPlat.Idtypeplat = Idtypeplat;
+                unPlat.Idrestau = 1;
+
+                Modele.MonModel.SaveChanges();
+            }
+            catch (Exception)
+            {
+                vretour = false;
+            }
+            return vretour;
+        }
 
         public static List<Plat> listePlats()
         {

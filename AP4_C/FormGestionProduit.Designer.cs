@@ -39,21 +39,23 @@
             // 
             // pnlGestionProduit
             // 
-            pnlGestionProduit.BackColor = Color.Fuchsia;
+            pnlGestionProduit.BackColor = SystemColors.ControlLightLight;
             pnlGestionProduit.Controls.Add(PlatDgv);
             pnlGestionProduit.Location = new Point(0, 0);
             pnlGestionProduit.Name = "pnlGestionProduit";
             pnlGestionProduit.Size = new Size(800, 428);
             pnlGestionProduit.TabIndex = 0;
+            pnlGestionProduit.Paint += pnlGestionProduit_Paint;
             // 
             // PlatDgv
             // 
-            PlatDgv.BackgroundColor = SystemColors.ActiveCaption;
+            PlatDgv.BackgroundColor = SystemColors.ControlLightLight;
             PlatDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             PlatDgv.Location = new Point(26, 31);
             PlatDgv.Name = "PlatDgv";
             PlatDgv.Size = new Size(725, 385);
             PlatDgv.TabIndex = 1;
+            PlatDgv.CellContentClick += PlatDgv_CellContentClick;
             // 
             // PlatBs
             // 

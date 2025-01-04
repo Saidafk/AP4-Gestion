@@ -19,6 +19,8 @@ public partial class Reservation
 
     public DateTime? Datefin { get; set; }
 
+    public string? Commentaire { get; set; }
+
     public virtual ICollection<Commande> Commandes { get; set; } = new List<Commande>();
 
     public virtual Tabler IdtableNavigation { get; set; } = null!;

@@ -48,8 +48,6 @@ namespace AP4_C
             }
             else
                 gbInfo.Visible = false;
-
-
         }
 
         public void RemplirlesPlats()

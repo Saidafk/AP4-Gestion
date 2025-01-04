@@ -11,7 +11,7 @@ public partial class Reaprovision
 
     public ulong Idper { get; set; }
 
-    public double Qtereap { get; set; }
+    public int Qtereap { get; set; }
 
     public virtual Personnel IdperNavigation { get; set; } = null!;
 

@@ -7,7 +7,7 @@ public partial class InstancePlat
 {
     public int Idcommande { get; set; }
 
-    public int Idinstance { get; set; }
+    public string Idinstance { get; set; } = null!;
 
     public int Idplat { get; set; }
 
