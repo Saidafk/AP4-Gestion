@@ -28,16 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             pnlGestionProduit = new Panel();
+            PlatDgv = new DataGridView();
+            PlatBs = new BindingSource(components);
+            pnlGestionProduit.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PlatDgv).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PlatBs).BeginInit();
             SuspendLayout();
             // 
             // pnlGestionProduit
             // 
             pnlGestionProduit.BackColor = Color.Fuchsia;
+            pnlGestionProduit.Controls.Add(PlatDgv);
             pnlGestionProduit.Location = new Point(0, 0);
             pnlGestionProduit.Name = "pnlGestionProduit";
             pnlGestionProduit.Size = new Size(800, 428);
             pnlGestionProduit.TabIndex = 0;
+            // 
+            // PlatDgv
+            // 
+            PlatDgv.BackgroundColor = SystemColors.ActiveCaption;
+            PlatDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            PlatDgv.Location = new Point(26, 31);
+            PlatDgv.Name = "PlatDgv";
+            PlatDgv.Size = new Size(725, 385);
+            PlatDgv.TabIndex = 1;
+            // 
+            // PlatBs
+            // 
+            PlatBs.DataSource = typeof(Entities.Plat);
             // 
             // FormGestionProduit
             // 
@@ -48,11 +68,17 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormGestionProduit";
             Text = "FormGestionProduit";
+            Load += FormGestionProduit_Load;
+            pnlGestionProduit.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)PlatDgv).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PlatBs).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel pnlGestionProduit;
+        private DataGridView PlatDgv;
+        private BindingSource PlatBs;
     }
 }

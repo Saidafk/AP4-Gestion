@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AP4_C.Entities;
+using AP4_C.Model;
 
 namespace AP4_C
 {
@@ -16,5 +18,45 @@ namespace AP4_C
         {
             InitializeComponent();
         }
-    }
+
+        private void FormGestionProduit_Load(object sender, EventArgs e)
+        {
+            affichagePlat();
+        }
+
+        public static List<Plat>listePlats()
+        {
+            return Modele.MonModel.Plats
+                .Select(x => new Plat
+                {
+                    Idplat = x.Idplat,
+                    Libelleplat = x.Libelleplat
+                })
+                .ToList();
+        }
+
+        private void affichagePlat()
+        {
+            try
+            {
+                var platsAffiches = Modele.MonModel.Plats
+                .Select(x => new
+                {
+                    Id = x.Idplat,
+                    Type = x.IdtypeplatNavigation.Typeplat1, // Correction here
+                    Libelle = x.Libelleplat,
+                    Quantité = x.Qte,
+                    Prix = x.Prixplatht,
+                    Végétarien = x.Veggie
+                })
+                .ToList();
+
+                PlatDgv.DataSource = platsAffiches;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors du chargement des données : " + ex.Message);
+            }
+        }
+}
 }

@@ -88,6 +88,7 @@ namespace AP4_C
             int idplat = Convert.ToInt32(cbPlat.SelectedValue);
             int Qtereap = Convert.ToInt32(tbQte.Text);
             ModeleReap.AjouterReap(idper, idplat, Qtereap);
+            ModelePlat.AjouterPlat(idplat, Qtereap);
 
             resetForm();
         }
