@@ -28,17 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             pnlGestionEmploye = new Panel();
+            EmployeDgv = new DataGridView();
+            EmployeBs = new BindingSource(components);
+            pnlGestionEmploye.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)EmployeDgv).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)EmployeBs).BeginInit();
             SuspendLayout();
             // 
             // pnlGestionEmploye
             // 
-            pnlGestionEmploye.BackColor = Color.Red;
+            pnlGestionEmploye.BackColor = Color.White;
+            pnlGestionEmploye.Controls.Add(EmployeDgv);
             pnlGestionEmploye.Location = new Point(0, 0);
             pnlGestionEmploye.Name = "pnlGestionEmploye";
             pnlGestionEmploye.Size = new Size(800, 428);
             pnlGestionEmploye.TabIndex = 0;
             pnlGestionEmploye.Paint += pnlGestionEmploye_Paint;
+            // 
+            // EmployeDgv
+            // 
+            EmployeDgv.BackgroundColor = SystemColors.ControlLightLight;
+            EmployeDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            EmployeDgv.Location = new Point(86, 46);
+            EmployeDgv.Name = "EmployeDgv";
+            EmployeDgv.Size = new Size(612, 327);
+            EmployeDgv.TabIndex = 0;
             // 
             // FormGestionEmploye
             // 
@@ -49,11 +65,16 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormGestionEmploye";
             Text = "FormGestionEmploye";
+            pnlGestionEmploye.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)EmployeDgv).EndInit();
+            ((System.ComponentModel.ISupportInitialize)EmployeBs).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         public Panel pnlGestionEmploye;
+        private DataGridView EmployeDgv;
+        private BindingSource EmployeBs;
     }
 }

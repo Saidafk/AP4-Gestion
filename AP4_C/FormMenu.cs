@@ -93,9 +93,21 @@ namespace AP4_C
 
         private void modificationDunPlatToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
             SousFormulaire SF = new SousFormulaire(pnlMenu);
             SF.openChildForm(new FormModificationPlat(EtatGestion.Update));
+        }
+
+        private void listeDesEmployeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ajoutDunEmployéToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SousFormulaire SF = new SousFormulaire(pnlMenu);
+            SF.openChildForm(new FormAjoutModifPersonnel());
+
         }
     }
 }

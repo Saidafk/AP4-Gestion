@@ -38,6 +38,9 @@
             modificationDesPlatsToolStripMenuItem = new ToolStripMenuItem();
             modificationDunPlatToolStripMenuItem = new ToolStripMenuItem();
             gestionDesEmployésToolStripMenuItem = new ToolStripMenuItem();
+            listeDesEmployeToolStripMenuItem = new ToolStripMenuItem();
+            ajoutDunEmployéToolStripMenuItem = new ToolStripMenuItem();
+            modificationDunEmployéToolStripMenuItem = new ToolStripMenuItem();
             quitterToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripMenuItem();
             pnlMenu = new Panel();
@@ -109,10 +112,31 @@
             // 
             // gestionDesEmployésToolStripMenuItem
             // 
+            gestionDesEmployésToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { listeDesEmployeToolStripMenuItem, ajoutDunEmployéToolStripMenuItem, modificationDunEmployéToolStripMenuItem });
             gestionDesEmployésToolStripMenuItem.Name = "gestionDesEmployésToolStripMenuItem";
             gestionDesEmployésToolStripMenuItem.Size = new Size(134, 20);
             gestionDesEmployésToolStripMenuItem.Text = "Gestion des employés";
             gestionDesEmployésToolStripMenuItem.Click += gestionDesEmployésToolStripMenuItem_Click;
+            // 
+            // listeDesEmployeToolStripMenuItem
+            // 
+            listeDesEmployeToolStripMenuItem.Name = "listeDesEmployeToolStripMenuItem";
+            listeDesEmployeToolStripMenuItem.Size = new Size(218, 22);
+            listeDesEmployeToolStripMenuItem.Text = "Liste des employés";
+            listeDesEmployeToolStripMenuItem.Click += listeDesEmployeToolStripMenuItem_Click;
+            // 
+            // ajoutDunEmployéToolStripMenuItem
+            // 
+            ajoutDunEmployéToolStripMenuItem.Name = "ajoutDunEmployéToolStripMenuItem";
+            ajoutDunEmployéToolStripMenuItem.Size = new Size(218, 22);
+            ajoutDunEmployéToolStripMenuItem.Text = "Ajout d'un employé";
+            ajoutDunEmployéToolStripMenuItem.Click += ajoutDunEmployéToolStripMenuItem_Click;
+            // 
+            // modificationDunEmployéToolStripMenuItem
+            // 
+            modificationDunEmployéToolStripMenuItem.Name = "modificationDunEmployéToolStripMenuItem";
+            modificationDunEmployéToolStripMenuItem.Size = new Size(218, 22);
+            modificationDunEmployéToolStripMenuItem.Text = "Modification d'un employé";
             // 
             // quitterToolStripMenuItem
             // 
@@ -124,7 +148,7 @@
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(88, 20);
+            toolStripMenuItem1.Size = new Size(89, 20);
             toolStripMenuItem1.Text = "Deconnexion";
             toolStripMenuItem1.Click += toolStripMenuItem1_Click;
             // 
@@ -166,5 +190,8 @@
         public Panel pnlMenu;
         private ToolStripMenuItem modificationDesPlatsToolStripMenuItem;
         private ToolStripMenuItem modificationDunPlatToolStripMenuItem;
+        private ToolStripMenuItem listeDesEmployeToolStripMenuItem;
+        private ToolStripMenuItem ajoutDunEmployéToolStripMenuItem;
+        private ToolStripMenuItem modificationDunEmployéToolStripMenuItem;
     }
 }

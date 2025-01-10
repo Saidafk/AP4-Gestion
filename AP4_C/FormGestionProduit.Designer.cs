@@ -53,7 +53,7 @@
             PlatDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             PlatDgv.Location = new Point(26, 31);
             PlatDgv.Name = "PlatDgv";
-            PlatDgv.Size = new Size(725, 385);
+            PlatDgv.Size = new Size(677, 339);
             PlatDgv.TabIndex = 1;
             PlatDgv.CellContentClick += PlatDgv_CellContentClick;
             // 

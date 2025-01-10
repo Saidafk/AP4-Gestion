@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AP4_C.Entities;
 using Microsoft.VisualBasic.Logging;
+using Microsoft.VisualBasic.ApplicationServices;
 
 
 namespace AP4_C.Model
@@ -16,7 +17,7 @@ namespace AP4_C.Model
         {
             bool present = false;
 
-            List<User> lesUsers = Modele.MonModel.Users.Where(p => p.Email == login).ToList();
+            List<AP4_C.Entities.User> lesUsers = Modele.MonModel.Users.Where(p => p.Email == login).ToList();
             if (lesUsers.Count() == 1)
             {
                 present = true;
@@ -27,7 +28,7 @@ namespace AP4_C.Model
         public static bool estAdmin(string login)
         {
             bool admin = false;
-            User unUser = RecupererUser(login);
+            AP4_C.Entities.User unUser = RecupererUser(login);
             if (Modele.MonModel.Managers.First(x => x.Idper == unUser.Id) != null)
             {
                 Manager unAdmin = Modele.MonModel.Managers.First(x => x.Idper == unUser.Id);
@@ -42,9 +43,10 @@ namespace AP4_C.Model
             return admin;
         }
 
-        public static User RecupererUser(string login)
+      
+        public static AP4_C.Entities.User RecupererUser(string login)
         {
-            User unUser = new User();
+            AP4_C.Entities.User unUser = new AP4_C.Entities.User();
             try
             {
                 unUser = Modele.MonModel.Users.First(x => x.Email == login);
