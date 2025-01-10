@@ -60,7 +60,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(800, 428);
             panel1.TabIndex = 0;
-            panel1.Paint += panel1_Paint;
             // 
             // gbInfo
             // 
@@ -103,7 +102,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(193, 58);
             label3.Name = "label3";
-            label3.Size = new Size(26, 15);
+            label3.Size = new Size(27, 15);
             label3.TabIndex = 8;
             label3.Text = "prix";
             // 
@@ -118,12 +117,12 @@
             // 
             // cbVeggie
             // 
+            cbVeggie.DropDownStyle = ComboBoxStyle.DropDownList;
             cbVeggie.FormattingEnabled = true;
             cbVeggie.Location = new Point(47, 138);
             cbVeggie.Name = "cbVeggie";
             cbVeggie.Size = new Size(121, 23);
             cbVeggie.TabIndex = 4;
-            cbVeggie.SelectedIndexChanged += cbVeggie_SelectedIndexChanged;
             // 
             // prixTxt
             // 
@@ -140,7 +139,6 @@
             cbTypePlat.Name = "cbTypePlat";
             cbTypePlat.Size = new Size(230, 23);
             cbTypePlat.TabIndex = 5;
-            cbTypePlat.SelectedIndexChanged += cbTypePlat_SelectedIndexChanged;
             // 
             // nomPlatTxt
             // 
@@ -156,7 +154,7 @@
             button1.Size = new Size(94, 61);
             button1.TabIndex = 0;
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            button1.Click += button1_Click_1;
             // 
             // label1
             // 

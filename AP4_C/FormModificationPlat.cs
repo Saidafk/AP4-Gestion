@@ -49,12 +49,13 @@ namespace AP4_C
             }
             else if (etat == EtatGestion.Update)
             {
-                label1.Text = "Modification d'une Equipe";
+                label1.Text = "Modification d'un plat";
                 button1.Text = "MODIFIER";
                 gbInfo.Visible = true;
                 nomPlatTxt.Visible = true;
                 prixTxt.Visible = true;
                 cbTypePlat.Visible = true;
+                cbVeggie.Visible = true;
                 cbPlat.Visible = true;
                 cbVeggie.Items.Add(true);
                 cbVeggie.Items.Add(false);
@@ -67,7 +68,7 @@ namespace AP4_C
 
         public void RemplirlesPlats()
         {
-            cbPlat.ValueMember = "Idplat";//permet de stocker l'identifiant
+            cbPlat.ValueMember = "Idplat";
             cbPlat.DisplayMember = "Libelleplat";
             listePlatBs.DataSource = (ModelePlat.listePlats()).Select(x => new { x.Idplat, x.Libelleplat });
             cbPlat.DataSource = listePlatBs;
@@ -78,22 +79,55 @@ namespace AP4_C
         public void RemplirTypePlats()
         {
             cbTypePlat.ValueMember = "Idtypeplat";//permet de stocker l'identifiant
-            cbTypePlat.DisplayMember = "TypePlat";
-            listeTypePlatBs.DataSource = (ModeleTypePlat.listeTypesPlats()).Select(x => new { x.Idtypeplat, x.Plats });
+            cbTypePlat.DisplayMember = "Typeplat1";
+            listeTypePlatBs.DataSource = (ModeleTypePlat.listeTypesPlats()).Select(x => new { x.Idtypeplat, x.Typeplat1 });
             cbTypePlat.DataSource = listeTypePlatBs;
             cbTypePlat.SelectedIndex = -1;
+
+        }
+        public void remplirVeggie()
+        {
 
         }
 
 
         private void cbPlat_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cbPlat.SelectedIndex != -1 && cbPlat.SelectedValue != null)
-            {
-                int idP = Convert.ToInt32(cbPlat.SelectedValue);
-                Plat P = ModelePlat.RetournePlat(idP);
-            }
 
+        {
+            if (etat==EtatGestion.Update)
+            {
+                if (cbPlat.SelectedIndex != -1 && cbPlat.SelectedValue != null)
+                {
+                    int idP = Convert.ToInt32(cbPlat.SelectedValue);
+                    Plat P = ModelePlat.RetournePlat(idP);
+                    gbInfo.Visible = true;
+                }
+                else
+                {
+                    gbInfo.Visible = false;
+                }
+
+                if (cbPlat.SelectedValue != null)
+                {
+                    int idPlat = (int)cbPlat.SelectedValue;
+
+
+                    var plat = ModelePlat.RetournePlat(idPlat);
+
+                    if (plat != null)
+                    {
+
+                        nomPlatTxt.Text = plat.Libelleplat;
+                        prixTxt.Text = plat.Prixplatht.ToString();
+                        cbVeggie.SelectedItem = plat.Veggie;
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erreur lors de la récupération des données du plat.");
+                    }
+                }
+            }
         }
 
         private void Annuler_Click()
@@ -126,7 +160,7 @@ namespace AP4_C
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e)
         {
             int idPlat;
             string Libelleplat = nomPlatTxt.Text;
@@ -162,6 +196,8 @@ namespace AP4_C
                 if (cbPlat.SelectedValue != null)
                 {
                     idPlat = (int)cbPlat.SelectedValue;
+
+                    //idPlat = Convert.ToInt32(cbPlat.SelectedValue);
                 }
                 else
                 {
@@ -177,5 +213,7 @@ namespace AP4_C
                 }
             }
         }
+
+        
     }
 }

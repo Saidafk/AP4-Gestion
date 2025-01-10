@@ -43,7 +43,7 @@ namespace AP4_C
                 .Select(x => new
                 {
                     Id = x.Idplat,
-                    Type = x.IdtypeplatNavigation.Typeplat1, // Correction here
+                    Type = x.IdtypeplatNavigation.Typeplat1, 
                     Libelle = x.Libelleplat,
                     Quantité = x.Qte,
                     Prix = x.Prixplatht,
