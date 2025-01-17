@@ -65,6 +65,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormGestionEmploye";
             Text = "FormGestionEmploye";
+            Load += FormGestionEmploye_Load;
             pnlGestionEmploye.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)EmployeDgv).EndInit();
             ((System.ComponentModel.ISupportInitialize)EmployeBs).EndInit();

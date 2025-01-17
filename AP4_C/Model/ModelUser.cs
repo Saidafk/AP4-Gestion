@@ -11,7 +11,7 @@ using Microsoft.VisualBasic.ApplicationServices;
 
 namespace AP4_C.Model
 {
-    public partial class ModelUser
+    public class ModelUser
     {
         public static bool presenceUser(string login)
         {

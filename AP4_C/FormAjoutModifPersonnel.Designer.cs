@@ -30,30 +30,30 @@
         {
             components = new System.ComponentModel.Container();
             panelAjoutModif = new Panel();
-            cbPersonnel = new ComboBox();
-            PersonnelBs = new BindingSource(components);
+            cbEmploye = new ComboBox();
+            EmployeBS = new BindingSource(components);
             panelAjoutModif.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)PersonnelBs).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)EmployeBS).BeginInit();
             SuspendLayout();
             // 
             // panelAjoutModif
             // 
             panelAjoutModif.BackColor = SystemColors.ActiveCaption;
-            panelAjoutModif.Controls.Add(cbPersonnel);
+            panelAjoutModif.Controls.Add(cbEmploye);
             panelAjoutModif.Location = new Point(3, 12);
             panelAjoutModif.Name = "panelAjoutModif";
             panelAjoutModif.Size = new Size(800, 428);
             panelAjoutModif.TabIndex = 0;
             panelAjoutModif.Paint += panelAjoutModif_Paint;
             // 
-            // cbPersonnel
+            // cbEmploye
             // 
-            cbPersonnel.FormattingEnabled = true;
-            cbPersonnel.Location = new Point(311, 47);
-            cbPersonnel.Name = "cbPersonnel";
-            cbPersonnel.Size = new Size(121, 23);
-            cbPersonnel.TabIndex = 0;
-            cbPersonnel.SelectedIndexChanged += cbPersonnel_SelectedIndexChanged;
+            cbEmploye.FormattingEnabled = true;
+            cbEmploye.Location = new Point(311, 47);
+            cbEmploye.Name = "cbEmploye";
+            cbEmploye.Size = new Size(121, 23);
+            cbEmploye.TabIndex = 0;
+            cbEmploye.SelectedIndexChanged += cbPersonnel_SelectedIndexChanged;
             // 
             // FormAjoutModifPersonnel
             // 
@@ -63,15 +63,16 @@
             Controls.Add(panelAjoutModif);
             Name = "FormAjoutModifPersonnel";
             Text = "FormAjoutModifPersonnel";
+            Load += FormAjoutModifPersonnel_Load;
             panelAjoutModif.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)PersonnelBs).EndInit();
+            ((System.ComponentModel.ISupportInitialize)EmployeBS).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel panelAjoutModif;
-        private ComboBox cbPersonnel;
-        private BindingSource PersonnelBs;
+        private ComboBox cbEmploye;
+        private BindingSource EmployeBS;
     }
 }
