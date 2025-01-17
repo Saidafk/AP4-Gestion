@@ -57,5 +57,18 @@ namespace AP4_C.Model
             }
             return unUser;
         }
+        public static AP4_C.Entities.User RecupererUserParID(ulong id)
+        {
+            AP4_C.Entities.User unUser = new AP4_C.Entities.User();
+            try
+            {
+                unUser = Modele.MonModel.Users.First(x => x.Id == id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            return unUser;
+        }
     }
 }

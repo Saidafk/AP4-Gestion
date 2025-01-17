@@ -30,13 +30,15 @@ namespace AP4_C
         {
             try
             {
-                var EmployeAffiches = Modele.MonModel.Employes
-                 
+                var EmployeAffiches = Modele.MonModel.Users
+
             .Select(x => new
             {
-                Id = x.Idper,
-                
-                
+                Id = x.Id,
+                Nom = x.Nom,
+
+
+
             })
                 .ToList();
 
@@ -51,6 +53,11 @@ namespace AP4_C
         private void FormGestionEmploye_Load(object sender, EventArgs e)
         {
             affichageEmploye();
+        }
+
+        private void EmployeDgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

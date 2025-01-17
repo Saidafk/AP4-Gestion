@@ -44,6 +44,7 @@
             cbPlat = new ComboBox();
             listePlatBs = new BindingSource(components);
             listeTypePlatBs = new BindingSource(components);
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             panel1.SuspendLayout();
             gbInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)listePlatBs).BeginInit();
@@ -210,5 +211,6 @@
         private Label label4;
         private Label label3;
         private Label label2;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

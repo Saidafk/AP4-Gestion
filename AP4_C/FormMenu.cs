@@ -72,8 +72,7 @@ namespace AP4_C
 
         private void gestionDesEmployésToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SousFormulaire SF = new SousFormulaire(pnlMenu);
-            SF.openChildForm(new FormGestionEmploye());
+
         }
 
         private void quitterToolStripMenuItem_Click(object sender, EventArgs e)
@@ -100,14 +99,21 @@ namespace AP4_C
 
         private void listeDesEmployeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            SousFormulaire SF = new SousFormulaire(pnlMenu);
+            SF.openChildForm(new FormGestionEmploye());
         }
 
         private void ajoutDunEmployéToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SousFormulaire SF = new SousFormulaire(pnlMenu);
-            SF.openChildForm(new FormAjoutModifPersonnel(EtatGestionEmploye.UpdateEmploye));
+            SF.openChildForm(new FormAjoutModifPersonnel(EtatGestionEmploye.CreateEmploye));
 
+        }
+
+        private void modificationDunEmployéToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SousFormulaire SF = new SousFormulaire(pnlMenu);
+            SF.openChildForm(new FormAjoutModifPersonnel(EtatGestionEmploye.UpdateEmploye));
         }
     }
 }

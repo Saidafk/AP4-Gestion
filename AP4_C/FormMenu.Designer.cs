@@ -137,6 +137,7 @@
             modificationDunEmployéToolStripMenuItem.Name = "modificationDunEmployéToolStripMenuItem";
             modificationDunEmployéToolStripMenuItem.Size = new Size(218, 22);
             modificationDunEmployéToolStripMenuItem.Text = "Modification d'un employé";
+            modificationDunEmployéToolStripMenuItem.Click += modificationDunEmployéToolStripMenuItem_Click;
             // 
             // quitterToolStripMenuItem
             // 

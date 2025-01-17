@@ -55,6 +55,7 @@
             EmployeDgv.Name = "EmployeDgv";
             EmployeDgv.Size = new Size(612, 327);
             EmployeDgv.TabIndex = 0;
+            EmployeDgv.CellContentClick += EmployeDgv_CellContentClick;
             // 
             // FormGestionEmploye
             // 
