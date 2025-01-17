@@ -34,11 +34,11 @@ namespace AP4_C
 
             if (etatemploye == EtatGestionEmploye.CreateEmploye) // cas etat create
             {
-                //label1.Text = "Ajout d'un nouveau plat";
-                //button1.Text = "AJOUTER";
-                
-                //nomPlatTxt.Visible = true;
-                //prixTxt.Visible = true;
+                labelemploye.Text = "Ajout d'un nouvel employé";
+                buttonemploye.Text = "AJOUTER";
+
+                tbNom.Visible = true;
+                tbPrenom.Visible = true;
                 cbEmploye.Visible = false;
                 //cbPlat.Visible = false;
                 //cbVeggie.Items.Add(true);

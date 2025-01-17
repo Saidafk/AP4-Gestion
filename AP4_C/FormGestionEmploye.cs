@@ -30,14 +30,15 @@ namespace AP4_C
         {
             try
             {
-                var EmployeAffiches = Modele.MonModel.Users
+                var EmployeAffiches = ModelEmploye.listeEmployes()
 
             .Select(x => new
             {
                 Id = x.Id,
                 Nom = x.Nom,
-
-
+                Prenom = x.Prenom,
+                Email = x.Email,
+                //Cuisinier = x.Cuisinier,
 
             })
                 .ToList();

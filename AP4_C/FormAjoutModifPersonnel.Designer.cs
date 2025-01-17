@@ -30,14 +30,20 @@
         {
             components = new System.ComponentModel.Container();
             panelAjoutModif = new Panel();
+            labelemploye = new Label();
+            groupBox1 = new GroupBox();
+            buttonemploye = new Button();
             cbEmploye = new ComboBox();
             EmployeBS = new BindingSource(components);
-            groupBox1 = new GroupBox();
-            labelemploye = new Label();
-            buttonemploye = new Button();
+            tbNom = new TextBox();
+            tbPrenom = new TextBox();
+            tbEmail = new TextBox();
+            Nom = new Label();
+            label1 = new Label();
+            label2 = new Label();
             panelAjoutModif.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)EmployeBS).BeginInit();
             groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)EmployeBS).BeginInit();
             SuspendLayout();
             // 
             // panelAjoutModif
@@ -51,17 +57,23 @@
             panelAjoutModif.Size = new Size(800, 428);
             panelAjoutModif.TabIndex = 0;
             // 
-            // cbEmploye
+            // labelemploye
             // 
-            cbEmploye.FormattingEnabled = true;
-            cbEmploye.Location = new Point(325, 54);
-            cbEmploye.Name = "cbEmploye";
-            cbEmploye.Size = new Size(121, 23);
-            cbEmploye.TabIndex = 0;
-            cbEmploye.SelectedIndexChanged += cbPersonnel_SelectedIndexChanged;
+            labelemploye.AutoSize = true;
+            labelemploye.Location = new Point(342, 11);
+            labelemploye.Name = "labelemploye";
+            labelemploye.Size = new Size(78, 15);
+            labelemploye.TabIndex = 2;
+            labelemploye.Text = "labelemploye";
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(label1);
+            groupBox1.Controls.Add(Nom);
+            groupBox1.Controls.Add(tbEmail);
+            groupBox1.Controls.Add(tbPrenom);
+            groupBox1.Controls.Add(tbNom);
             groupBox1.Controls.Add(buttonemploye);
             groupBox1.Location = new Point(62, 92);
             groupBox1.Name = "groupBox1";
@@ -69,15 +81,6 @@
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Gestion Employe";
-            // 
-            // labelemploye
-            // 
-            labelemploye.AutoSize = true;
-            labelemploye.Location = new Point(352, 13);
-            labelemploye.Name = "labelemploye";
-            labelemploye.Size = new Size(78, 15);
-            labelemploye.TabIndex = 2;
-            labelemploye.Text = "labelemploye";
             // 
             // buttonemploye
             // 
@@ -87,6 +90,63 @@
             buttonemploye.TabIndex = 0;
             buttonemploye.Text = "button1";
             buttonemploye.UseVisualStyleBackColor = true;
+            // 
+            // cbEmploye
+            // 
+            cbEmploye.FormattingEnabled = true;
+            cbEmploye.Location = new Point(324, 42);
+            cbEmploye.Name = "cbEmploye";
+            cbEmploye.Size = new Size(121, 23);
+            cbEmploye.TabIndex = 0;
+            cbEmploye.SelectedIndexChanged += cbPersonnel_SelectedIndexChanged;
+            // 
+            // tbNom
+            // 
+            tbNom.Location = new Point(85, 52);
+            tbNom.Name = "tbNom";
+            tbNom.Size = new Size(100, 23);
+            tbNom.TabIndex = 3;
+            // 
+            // tbPrenom
+            // 
+            tbPrenom.Location = new Point(258, 52);
+            tbPrenom.Name = "tbPrenom";
+            tbPrenom.Size = new Size(100, 23);
+            tbPrenom.TabIndex = 4;
+            // 
+            // tbEmail
+            // 
+            tbEmail.Location = new Point(469, 52);
+            tbEmail.Name = "tbEmail";
+            tbEmail.Size = new Size(100, 23);
+            tbEmail.TabIndex = 5;
+            // 
+            // Nom
+            // 
+            Nom.AutoSize = true;
+            Nom.Location = new Point(36, 55);
+            Nom.Name = "Nom";
+            Nom.Size = new Size(34, 15);
+            Nom.TabIndex = 6;
+            Nom.Text = "Nom";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(203, 55);
+            label1.Name = "label1";
+            label1.Size = new Size(49, 15);
+            label1.TabIndex = 7;
+            label1.Text = "Prénom";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(416, 55);
+            label2.Name = "label2";
+            label2.Size = new Size(36, 15);
+            label2.TabIndex = 8;
+            label2.Text = "Email";
             // 
             // FormAjoutModifPersonnel
             // 
@@ -99,8 +159,9 @@
             Load += FormAjoutModifPersonnel_Load;
             panelAjoutModif.ResumeLayout(false);
             panelAjoutModif.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)EmployeBS).EndInit();
             groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)EmployeBS).EndInit();
             ResumeLayout(false);
         }
 
@@ -112,5 +173,11 @@
         private Label labelemploye;
         private GroupBox groupBox1;
         private Button buttonemploye;
+        private TextBox tbPrenom;
+        private TextBox tbNom;
+        private TextBox tbEmail;
+        private Label label2;
+        private Label label1;
+        private Label Nom;
     }
 }
