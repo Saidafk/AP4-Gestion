@@ -50,7 +50,7 @@ namespace AP4_C.Model
             return vretour;
         }
 
-        public static bool AjouterNouveauPlat(string Libelleplat, int Idtypeplat, int Qte, double Prixplatht, bool Veggie, string? Lienimg, int Idrestau)
+        public static bool AjouterNouveauPlat(string Libelleplat, int Idtypeplat, int Qte, double Prixplatht, bool Veggie, string? Lienimg, int Idrestau, string Description)
         {
             Plat unPlat;
             bool vretour = true;
@@ -59,6 +59,7 @@ namespace AP4_C.Model
                 unPlat = new Plat();
                 unPlat.Libelleplat = Libelleplat;
                 unPlat.Qte = 0;
+                unPlat.Description = Description;
                 unPlat.Prixplatht = Prixplatht;
                 unPlat.Veggie = Veggie;
                 unPlat.Lienimg = Lienimg;

@@ -119,6 +119,7 @@ namespace AP4_C
 
                         nomPlatTxt.Text = plat.Libelleplat;
                         prixTxt.Text = plat.Prixplatht.ToString();
+                        tbDescription.Text = plat.Description;
                         cbVeggie.SelectedItem = plat.Veggie;
                         cbTypePlat.SelectedValue = plat.Idtypeplat;
 
@@ -136,6 +137,7 @@ namespace AP4_C
 
             nomPlatTxt.Text = "";
             prixTxt.Text = "";
+            tbDescription.Text = "";
             cbTypePlat.SelectedIndex = -1;
             cbVeggie.SelectedIndex = -1;
             cbPlat.SelectedIndex = -1;
@@ -167,6 +169,7 @@ namespace AP4_C
             string Libelleplat = nomPlatTxt.Text;
             double Prixplatht = double.Parse(prixTxt.Text);
             bool Veggie = bool.Parse(cbVeggie.SelectedItem.ToString());
+            string Description = tbDescription.Text;
             string? Lienimg = null;
             int Idtypeplat = (int)cbTypePlat.SelectedValue;
             int Qte = 0;
@@ -180,7 +183,7 @@ namespace AP4_C
                     return;
                 }
 
-                if (ModelePlat.AjouterNouveauPlat(Libelleplat, Idtypeplat, Qte, Prixplatht, Veggie, Lienimg, Idrestau))
+                if (ModelePlat.AjouterNouveauPlat(Libelleplat, Idtypeplat, Qte, Prixplatht, Veggie, Lienimg, Idrestau, Description))
                 {
                     MessageBox.Show("Plat ajouté");
                     RemplirlesPlats();
@@ -215,6 +218,9 @@ namespace AP4_C
             }
         }
 
-        
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

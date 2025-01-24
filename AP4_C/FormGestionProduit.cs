@@ -45,6 +45,7 @@ namespace AP4_C
                     Id = x.Idplat,
                     Type = x.IdtypeplatNavigation.Typeplat1, 
                     Libelle = x.Libelleplat,
+                    Description = x.Description,
                     Quantité = x.Qte,
                     Prix = x.Prixplatht,
                     Végétarien = x.Veggie

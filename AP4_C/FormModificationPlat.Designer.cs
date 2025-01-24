@@ -31,6 +31,8 @@
             components = new System.ComponentModel.Container();
             panel1 = new Panel();
             gbInfo = new GroupBox();
+            label6 = new Label();
+            tbDescription = new RichTextBox();
             label5 = new Label();
             label4 = new Label();
             label3 = new Label();
@@ -64,6 +66,8 @@
             // 
             // gbInfo
             // 
+            gbInfo.Controls.Add(label6);
+            gbInfo.Controls.Add(tbDescription);
             gbInfo.Controls.Add(label5);
             gbInfo.Controls.Add(label4);
             gbInfo.Controls.Add(label3);
@@ -75,10 +79,28 @@
             gbInfo.Controls.Add(button1);
             gbInfo.Location = new Point(52, 70);
             gbInfo.Name = "gbInfo";
-            gbInfo.Size = new Size(669, 242);
+            gbInfo.Size = new Size(682, 319);
             gbInfo.TabIndex = 1;
             gbInfo.TabStop = false;
             gbInfo.Text = "Information sur le plat";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(206, 138);
+            label6.Name = "label6";
+            label6.Size = new Size(67, 15);
+            label6.TabIndex = 13;
+            label6.Text = "Description";
+            // 
+            // tbDescription
+            // 
+            tbDescription.Location = new Point(278, 110);
+            tbDescription.Name = "tbDescription";
+            tbDescription.Size = new Size(385, 108);
+            tbDescription.TabIndex = 12;
+            tbDescription.Text = "";
+            tbDescription.TextChanged += richTextBox1_TextChanged;
             // 
             // label5
             // 
@@ -150,7 +172,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(549, 164);
+            button1.Location = new Point(569, 235);
             button1.Name = "button1";
             button1.Size = new Size(94, 61);
             button1.TabIndex = 0;
@@ -212,5 +234,7 @@
         private Label label3;
         private Label label2;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private RichTextBox tbDescription;
+        private Label label6;
     }
 }
