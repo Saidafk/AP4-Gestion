@@ -5,8 +5,6 @@ namespace AP4_C.Entities;
 
 public partial class Employe
 {
-    internal object User;
-
     public ulong Idper { get; set; }
 
     public virtual Cuisinier? Cuisinier { get; set; }

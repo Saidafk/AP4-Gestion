@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AP4_C.Entities;
 
-public class User
+public partial class User
 {
     public ulong Id { get; set; }
 

@@ -13,6 +13,8 @@ public partial class Plat
 
     public string Libelleplat { get; set; } = null!;
 
+    public string? Description { get; set; }
+
     public int Qte { get; set; }
 
     public double Prixplatht { get; set; }

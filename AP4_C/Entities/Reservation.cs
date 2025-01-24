@@ -7,7 +7,7 @@ public partial class Reservation
 {
     public int Idreserv { get; set; }
 
-    public ulong Idclient { get; set; }
+    public ulong? Idclient { get; set; }
 
     public int Idtable { get; set; }
 

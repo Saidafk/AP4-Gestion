@@ -22,6 +22,8 @@ public partial class Ap4CamoelContext : DbContext
 
     public virtual DbSet<CacheLock> CacheLocks { get; set; }
 
+    public virtual DbSet<Chat> Chats { get; set; }
+
     public virtual DbSet<Client> Clients { get; set; }
 
     public virtual DbSet<Commande> Commandes { get; set; }
@@ -45,6 +47,8 @@ public partial class Ap4CamoelContext : DbContext
     public virtual DbSet<JobBatch> JobBatches { get; set; }
 
     public virtual DbSet<Manager> Managers { get; set; }
+
+    public virtual DbSet<Message> Messages { get; set; }
 
     public virtual DbSet<Migration> Migrations { get; set; }
 
@@ -129,6 +133,23 @@ public partial class Ap4CamoelContext : DbContext
             entity.Property(e => e.Owner)
                 .HasMaxLength(255)
                 .HasColumnName("owner");
+        });
+
+        modelBuilder.Entity<Chat>(entity =>
+        {
+            entity.HasKey(e => e.IdChat).HasName("PRIMARY");
+
+            entity.ToTable("chat");
+
+            entity.HasIndex(e => e.IdServeur, "idServeur");
+
+            entity.Property(e => e.IdChat).HasColumnName("idChat");
+            entity.Property(e => e.IdServeur).HasColumnName("idServeur");
+
+            entity.HasOne(d => d.IdServeurNavigation).WithMany(p => p.Chats)
+                .HasForeignKey(d => d.IdServeur)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_IDSERVEUR");
         });
 
         modelBuilder.Entity<Client>(entity =>
@@ -400,6 +421,34 @@ public partial class Ap4CamoelContext : DbContext
                 .HasConstraintName("manager_ibfk_1");
         });
 
+        modelBuilder.Entity<Message>(entity =>
+        {
+            entity.HasKey(e => e.IdMessage).HasName("PRIMARY");
+
+            entity.ToTable("messages");
+
+            entity.HasIndex(e => new { e.IdChat, e.BoolCuisinier }, "idChat");
+
+            entity.Property(e => e.IdMessage).HasColumnName("idMessage");
+            entity.Property(e => e.ALire)
+                .IsRequired()
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("a_lire");
+            entity.Property(e => e.BoolCuisinier).HasColumnName("boolCuisinier");
+            entity.Property(e => e.Contenu)
+                .HasMaxLength(255)
+                .HasColumnName("contenu");
+            entity.Property(e => e.Date)
+                .HasColumnType("datetime")
+                .HasColumnName("date");
+            entity.Property(e => e.IdChat).HasColumnName("idChat");
+
+            entity.HasOne(d => d.IdChatNavigation).WithMany(p => p.Messages)
+                .HasForeignKey(d => d.IdChat)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_IDCHAT");
+        });
+
         modelBuilder.Entity<Migration>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
@@ -517,7 +566,12 @@ public partial class Ap4CamoelContext : DbContext
             entity.HasIndex(e => e.Idtypeplat, "I_FK_PLAT_TYPEPLAT");
 
             entity.Property(e => e.Idplat).HasColumnName("IDPLAT");
-            entity.Property(e => e.Idrestau).HasColumnName("IDRESTAU");
+            entity.Property(e => e.Description)
+                .HasMaxLength(255)
+                .HasColumnName("description");
+            entity.Property(e => e.Idrestau)
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("IDRESTAU");
             entity.Property(e => e.Idtypeplat).HasColumnName("IDTYPEPLAT");
             entity.Property(e => e.Libelleplat)
                 .HasMaxLength(128)
@@ -576,7 +630,9 @@ public partial class Ap4CamoelContext : DbContext
 
             entity.HasIndex(e => e.Idplat, "I_FK_PLATDUJOUR_PLAT");
 
-            entity.Property(e => e.Ddmmyyyy).HasColumnName("DDMMYYYY");
+            entity.Property(e => e.Ddmmyyyy)
+                .HasColumnType("datetime")
+                .HasColumnName("DDMMYYYY");
             entity.Property(e => e.Idplat).HasColumnName("IDPLAT");
             entity.Property(e => e.Idper).HasColumnName("IDPER");
 
