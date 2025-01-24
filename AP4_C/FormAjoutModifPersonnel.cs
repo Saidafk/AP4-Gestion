@@ -26,7 +26,7 @@ namespace AP4_C
         {
             InitializeComponent();
             this.etatemploye = etatemploye;
-            
+
         }
 
         private void FormAjoutModifPersonnel_Load(object sender, EventArgs e)
@@ -40,33 +40,26 @@ namespace AP4_C
                 tbNom.Visible = true;
                 tbPrenom.Visible = true;
                 cbEmploye.Visible = false;
-                //cbPlat.Visible = false;
-                //cbVeggie.Items.Add(true);
-                //cbVeggie.Items.Add(false);
+                
 
             }
             else if (etatemploye == EtatGestionEmploye.UpdateEmploye)
             {
-                //label1.Text = "Modification d'un plat";
-                //button1.Text = "MODIFIER";
-                //gbInfo.Visible = true;
-                //nomPlatTxt.Visible = true;
-                //prixTxt.Visible = true;
+                labelemploye.Text = "Modification d'un employé";
+                buttonemploye.Text = "MODIFIER";
+                gbinfoEmployer.Visible = false;
                 cbEmploye.Visible = true;
-                //cbVeggie.Visible = true;
-                //cbPlat.Visible = true;
-                //cbVeggie.Items.Add(true);
-                //cbVeggie.Items.Add(false);
-                RemplirlesEmploye();
+                
+                
             }
 
-            
+            RemplirlesEmploye();
 
         }
 
         public void RemplirlesEmploye()
         {
-            
+
             cbEmploye.ValueMember = "Id";
             cbEmploye.DisplayMember = "NomComplet";
             EmployeBS.DataSource = (ModelEmploye.listeEmployes()).Select(x => new { x.Id, NomComplet = x.Nom+" "+x.Prenom });
@@ -85,28 +78,26 @@ namespace AP4_C
                     ulong idEmploye = Convert.ToUInt64(cbEmploye.SelectedValue);
                     Employe E = ModelEmploye.RetourneEmploye(idEmploye);
                     cbEmploye.Visible = true;
-
-                    //gbInfo.Visible = true;
+                    gbinfoEmployer.Visible = true;
                 }
-                /*else
+                else
                 {
-                    //gbInfo.Visible = false;
+                    gbinfoEmployer.Visible = false;
                 }
-                */
+                
                 if (cbEmploye.SelectedValue != null)
                 {
-                    ulong idEmp;
-                    idEmp = (ulong)cbEmploye.SelectedValue;
+                    ulong idPer;
+                    idPer = (ulong)cbEmploye.SelectedValue;
 
-                    var employe = ModelEmploye.RetourneEmploye(idEmp);
+                    var employe = ModelUser.RetourneUser(idPer);
 
                     if (employe != null)
                     {
 
-                        /*nomPlatTxt.Text = plat.Libelleplat;
-                        prixTxt.Text = plat.Prixplatht.ToString();
-                        cbVeggie.SelectedItem = plat.Veggie;
-                        cbTypePlat.SelectedValue = plat.Idtypeplat;*/
+                        tbNom.Text = employe.Nom;
+                        tbPrenom.Text = employe.Prenom;
+                        tbEmail.Text = employe.Email;
 
                     }
                     else
@@ -117,7 +108,58 @@ namespace AP4_C
             }
         }
 
-        
+        private void buttonemploye_Click(object sender, EventArgs e)
+        {
+           
+                ulong Idper;
+                string NomPersonnel = tbNom.Text;
+                string PrenomPersonnel = tbPrenom.Text;
+                string EmailPersonnel = tbEmail.Text;
+
+            
+                
+
+                if (etatemploye == EtatGestionEmploye.CreateEmploye)
+                {
+                    if (string.IsNullOrEmpty(NomPersonnel) || string.IsNullOrEmpty(PrenomPersonnel) || string.IsNullOrEmpty(EmailPersonnel))
+                    {
+                        MessageBox.Show("Veuillez remplir tous les champs obligatoires");
+                        return;
+                    }
+
+                    if (ModelUser.AjouterNouveauPersonnel(NomPersonnel, PrenomPersonnel, EmailPersonnel))
+                    {
+                        MessageBox.Show("Personnel ajouté");
+                        RemplirlesEmploye();
+                        
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erreur lors de l'ajout du personnel");
+                    }
+                }
+
+                else if (etatemploye == EtatGestionEmploye.UpdateEmploye)
+                {
+                    if (cbEmploye.SelectedValue != null)
+                    {
+                    Idper = (ulong)cbEmploye.SelectedValue;
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Veuillez sélectionner un personnel à modifier.");
+                        return;
+                    }
+
+                    if (ModelUser.ModifierUser(Idper, NomPersonnel, PrenomPersonnel, EmailPersonnel))
+                    {
+                        MessageBox.Show("Plat modifié");
+                        RemplirlesEmploye();
+                        
+                    }
+                }
+            }
         
     }
 }

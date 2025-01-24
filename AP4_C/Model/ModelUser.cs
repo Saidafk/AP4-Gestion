@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AP4_C.Entities;
 using Microsoft.VisualBasic.Logging;
 using Microsoft.VisualBasic.ApplicationServices;
+using static AP4_C.Model.ModelePersonnel;
 
 
 namespace AP4_C.Model
@@ -35,15 +36,16 @@ namespace AP4_C.Model
                 if (unAdmin.Estadmin == true)
                 {
                     admin = true;
-                }else
+                }
+                else
                 {
                     admin = false;
                 }
-            }           
+            }
             return admin;
         }
 
-      
+
         public static AP4_C.Entities.User RecupererUser(string login)
         {
             AP4_C.Entities.User unUser = new AP4_C.Entities.User();
@@ -70,5 +72,88 @@ namespace AP4_C.Model
             }
             return unUser;
         }
+
+        public static bool estPersonnel(string login)
+        {
+            bool personnel = false;
+            AP4_C.Entities.User unUser = RecupererUser(login);
+            if (Modele.MonModel.Personnel.FirstOrDefault(x => x.Idper == unUser.Id) != null)
+            {
+                Personnel unPersonnel = Modele.MonModel.Personnel.First(x => x.Idper == unUser.Id);
+
+                personnel = true;
+            }
+            else
+            {
+                personnel = false;
+            }
+            return personnel;
+        }
+
+        public static bool AjouterNouveauPersonnel(string NomPersonnel, string PrenomPersonnel, string EmailPersonnel)
+        {
+            AP4_C.Entities.User unUser;
+            bool vretour = true;
+            try
+            {
+                
+                    unUser = new AP4_C.Entities.User();
+                    unUser.Nom = NomPersonnel;
+                    unUser.Prenom = PrenomPersonnel;
+                    unUser.Email = EmailPersonnel;
+
+                    Modele.MonModel.Users.Add(unUser);
+                    Modele.MonModel.SaveChanges();
+                
+            }
+            catch (Exception)
+            {
+                vretour = false;
+            }
+            return vretour;
+        }
+
+        public static bool ModifierUser(ulong Idper, string NomPersonnel, string PrenomPersonnel, string EmailPersonnel)
+        {
+            AP4_C.Entities.User unUser;
+            bool vretour = true;
+            try
+            {
+                if (estPersonnel(EmailPersonnel))
+                {
+                    unUser = new AP4_C.Entities.User();
+                    unUser.Nom = NomPersonnel;
+                    unUser.Prenom = PrenomPersonnel;
+                    unUser.Email = EmailPersonnel;
+
+                    Modele.MonModel.SaveChanges();
+
+                }
+                else
+                {
+                    throw new Exception("Error");
+                }
+            }
+            catch (Exception)
+            {
+                vretour = false;
+            }
+            return vretour;
+        }
+
+        public static AP4_C.Entities.User RetourneUser(ulong idUser)
+        {
+            AP4_C.Entities.User unUser = new AP4_C.Entities.User();
+            try
+            {
+                unUser = Modele.MonModel.Users.First(x => x.Id == idUser);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            return unUser;
+        }
+
     }
 }

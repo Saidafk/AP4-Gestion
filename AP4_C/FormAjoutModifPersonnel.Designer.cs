@@ -31,18 +31,18 @@
             components = new System.ComponentModel.Container();
             panelAjoutModif = new Panel();
             labelemploye = new Label();
-            groupBox1 = new GroupBox();
+            gbinfoEmployer = new GroupBox();
+            label2 = new Label();
+            label1 = new Label();
+            Nom = new Label();
+            tbEmail = new TextBox();
+            tbPrenom = new TextBox();
+            tbNom = new TextBox();
             buttonemploye = new Button();
             cbEmploye = new ComboBox();
             EmployeBS = new BindingSource(components);
-            tbNom = new TextBox();
-            tbPrenom = new TextBox();
-            tbEmail = new TextBox();
-            Nom = new Label();
-            label1 = new Label();
-            label2 = new Label();
             panelAjoutModif.SuspendLayout();
-            groupBox1.SuspendLayout();
+            gbinfoEmployer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)EmployeBS).BeginInit();
             SuspendLayout();
             // 
@@ -50,7 +50,7 @@
             // 
             panelAjoutModif.BackColor = SystemColors.ActiveCaption;
             panelAjoutModif.Controls.Add(labelemploye);
-            panelAjoutModif.Controls.Add(groupBox1);
+            panelAjoutModif.Controls.Add(gbinfoEmployer);
             panelAjoutModif.Controls.Add(cbEmploye);
             panelAjoutModif.Location = new Point(3, 12);
             panelAjoutModif.Name = "panelAjoutModif";
@@ -66,69 +66,30 @@
             labelemploye.TabIndex = 2;
             labelemploye.Text = "labelemploye";
             // 
-            // groupBox1
+            // gbinfoEmployer
             // 
-            groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(label1);
-            groupBox1.Controls.Add(Nom);
-            groupBox1.Controls.Add(tbEmail);
-            groupBox1.Controls.Add(tbPrenom);
-            groupBox1.Controls.Add(tbNom);
-            groupBox1.Controls.Add(buttonemploye);
-            groupBox1.Location = new Point(62, 92);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(636, 264);
-            groupBox1.TabIndex = 1;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Gestion Employe";
+            gbinfoEmployer.Controls.Add(label2);
+            gbinfoEmployer.Controls.Add(label1);
+            gbinfoEmployer.Controls.Add(Nom);
+            gbinfoEmployer.Controls.Add(tbEmail);
+            gbinfoEmployer.Controls.Add(tbPrenom);
+            gbinfoEmployer.Controls.Add(tbNom);
+            gbinfoEmployer.Controls.Add(buttonemploye);
+            gbinfoEmployer.Location = new Point(62, 92);
+            gbinfoEmployer.Name = "gbinfoEmployer";
+            gbinfoEmployer.Size = new Size(636, 264);
+            gbinfoEmployer.TabIndex = 1;
+            gbinfoEmployer.TabStop = false;
+            gbinfoEmployer.Text = "Gestion Employe";
             // 
-            // buttonemploye
+            // label2
             // 
-            buttonemploye.Location = new Point(488, 173);
-            buttonemploye.Name = "buttonemploye";
-            buttonemploye.Size = new Size(121, 73);
-            buttonemploye.TabIndex = 0;
-            buttonemploye.Text = "button1";
-            buttonemploye.UseVisualStyleBackColor = true;
-            // 
-            // cbEmploye
-            // 
-            cbEmploye.FormattingEnabled = true;
-            cbEmploye.Location = new Point(324, 42);
-            cbEmploye.Name = "cbEmploye";
-            cbEmploye.Size = new Size(121, 23);
-            cbEmploye.TabIndex = 0;
-            cbEmploye.SelectedIndexChanged += cbPersonnel_SelectedIndexChanged;
-            // 
-            // tbNom
-            // 
-            tbNom.Location = new Point(85, 52);
-            tbNom.Name = "tbNom";
-            tbNom.Size = new Size(100, 23);
-            tbNom.TabIndex = 3;
-            // 
-            // tbPrenom
-            // 
-            tbPrenom.Location = new Point(258, 52);
-            tbPrenom.Name = "tbPrenom";
-            tbPrenom.Size = new Size(100, 23);
-            tbPrenom.TabIndex = 4;
-            // 
-            // tbEmail
-            // 
-            tbEmail.Location = new Point(469, 52);
-            tbEmail.Name = "tbEmail";
-            tbEmail.Size = new Size(100, 23);
-            tbEmail.TabIndex = 5;
-            // 
-            // Nom
-            // 
-            Nom.AutoSize = true;
-            Nom.Location = new Point(36, 55);
-            Nom.Name = "Nom";
-            Nom.Size = new Size(34, 15);
-            Nom.TabIndex = 6;
-            Nom.Text = "Nom";
+            label2.AutoSize = true;
+            label2.Location = new Point(393, 55);
+            label2.Name = "label2";
+            label2.Size = new Size(36, 15);
+            label2.TabIndex = 8;
+            label2.Text = "Email";
             // 
             // label1
             // 
@@ -139,14 +100,54 @@
             label1.TabIndex = 7;
             label1.Text = "Prénom";
             // 
-            // label2
+            // Nom
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(416, 55);
-            label2.Name = "label2";
-            label2.Size = new Size(36, 15);
-            label2.TabIndex = 8;
-            label2.Text = "Email";
+            Nom.AutoSize = true;
+            Nom.Location = new Point(36, 55);
+            Nom.Name = "Nom";
+            Nom.Size = new Size(34, 15);
+            Nom.TabIndex = 6;
+            Nom.Text = "Nom";
+            // 
+            // tbEmail
+            // 
+            tbEmail.Location = new Point(435, 52);
+            tbEmail.Name = "tbEmail";
+            tbEmail.Size = new Size(195, 23);
+            tbEmail.TabIndex = 5;
+            // 
+            // tbPrenom
+            // 
+            tbPrenom.Location = new Point(258, 52);
+            tbPrenom.Name = "tbPrenom";
+            tbPrenom.Size = new Size(100, 23);
+            tbPrenom.TabIndex = 4;
+            // 
+            // tbNom
+            // 
+            tbNom.Location = new Point(85, 52);
+            tbNom.Name = "tbNom";
+            tbNom.Size = new Size(100, 23);
+            tbNom.TabIndex = 3;
+            // 
+            // buttonemploye
+            // 
+            buttonemploye.Location = new Point(488, 173);
+            buttonemploye.Name = "buttonemploye";
+            buttonemploye.Size = new Size(121, 73);
+            buttonemploye.TabIndex = 0;
+            buttonemploye.UseVisualStyleBackColor = true;
+            buttonemploye.Click += buttonemploye_Click;
+            // 
+            // cbEmploye
+            // 
+            cbEmploye.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbEmploye.FormattingEnabled = true;
+            cbEmploye.Location = new Point(324, 42);
+            cbEmploye.Name = "cbEmploye";
+            cbEmploye.Size = new Size(121, 23);
+            cbEmploye.TabIndex = 0;
+            cbEmploye.SelectedIndexChanged += cbPersonnel_SelectedIndexChanged;
             // 
             // FormAjoutModifPersonnel
             // 
@@ -159,8 +160,8 @@
             Load += FormAjoutModifPersonnel_Load;
             panelAjoutModif.ResumeLayout(false);
             panelAjoutModif.PerformLayout();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            gbinfoEmployer.ResumeLayout(false);
+            gbinfoEmployer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)EmployeBS).EndInit();
             ResumeLayout(false);
         }
@@ -171,7 +172,7 @@
         private ComboBox cbEmploye;
         private BindingSource EmployeBS;
         private Label labelemploye;
-        private GroupBox groupBox1;
+        private GroupBox gbinfoEmployer;
         private Button buttonemploye;
         private TextBox tbPrenom;
         private TextBox tbNom;
