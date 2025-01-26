@@ -7,7 +7,7 @@ public partial class Reservation
 {
     public int Idreserv { get; set; }
 
-    public ulong? Idclient { get; set; }
+    public ulong Idclient { get; set; }
 
     public int Idtable { get; set; }
 
@@ -22,6 +22,8 @@ public partial class Reservation
     public string? Commentaire { get; set; }
 
     public virtual ICollection<Commande> Commandes { get; set; } = new List<Commande>();
+
+    public virtual Client IdclientNavigation { get; set; } = null!;
 
     public virtual Tabler IdtableNavigation { get; set; } = null!;
 }

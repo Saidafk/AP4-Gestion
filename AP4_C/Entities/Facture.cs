@@ -13,6 +13,8 @@ public partial class Facture
 
     public DateTime Datefacture { get; set; }
 
+    public int IdTable { get; set; }
+
     public virtual ICollection<Commande> Commandes { get; set; } = new List<Commande>();
 
     public virtual MoyenPaiement IdmoyenpaiementNavigation { get; set; } = null!;

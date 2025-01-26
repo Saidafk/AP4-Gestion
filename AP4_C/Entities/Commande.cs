@@ -7,7 +7,7 @@ public partial class Commande
 {
     public int Idcommande { get; set; }
 
-    public ulong Idclient { get; set; }
+    public ulong? Idclient { get; set; }
 
     public int? Idreserv { get; set; }
 
@@ -15,7 +15,7 @@ public partial class Commande
 
     public string? Commentaireclient { get; set; }
 
-    public virtual Client IdclientNavigation { get; set; } = null!;
+    public virtual Client? IdclientNavigation { get; set; }
 
     public virtual Facture? IdfactureNavigation { get; set; }
 

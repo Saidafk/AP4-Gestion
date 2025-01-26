@@ -83,8 +83,8 @@ namespace AP4_C
             listeTypePlatBs.DataSource = (ModeleTypePlat.listeTypesPlats()).Select(x => new { x.Idtypeplat, x.Typeplat1 });
             cbTypePlat.DataSource = listeTypePlatBs;
             cbTypePlat.SelectedIndex = -1;
-
         }
+        
         public void remplirVeggie()
         {
 

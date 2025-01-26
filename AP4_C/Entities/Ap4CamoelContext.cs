@@ -190,7 +190,6 @@ public partial class Ap4CamoelContext : DbContext
 
             entity.HasOne(d => d.IdclientNavigation).WithMany(p => p.Commandes)
                 .HasForeignKey(d => d.Idclient)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("commande_ibfk_4");
 
             entity.HasOne(d => d.IdfactureNavigation).WithMany(p => p.Commandes)
@@ -258,6 +257,7 @@ public partial class Ap4CamoelContext : DbContext
             entity.Property(e => e.Datefacture)
                 .HasColumnType("datetime")
                 .HasColumnName("DATEFACTURE");
+            entity.Property(e => e.IdTable).HasColumnName("idTable");
             entity.Property(e => e.Idmoyenpaiement).HasColumnName("IDMOYENPAIEMENT");
             entity.Property(e => e.Tva).HasColumnName("TVA");
 
@@ -684,7 +684,7 @@ public partial class Ap4CamoelContext : DbContext
 
             entity.ToTable("reservation");
 
-            entity.HasIndex(e => e.Idclient, "I_FK_RESERVATION_CLIENT");
+            entity.HasIndex(e => e.Idclient, "IDCLIENT");
 
             entity.HasIndex(e => e.Idtable, "I_FK_RESERVATION_TABLER");
 
@@ -704,6 +704,11 @@ public partial class Ap4CamoelContext : DbContext
             entity.Property(e => e.Idtable).HasColumnName("IDTABLE");
             entity.Property(e => e.Nbpers).HasColumnName("NBPERS");
             entity.Property(e => e.Qr).HasColumnName("QR");
+
+            entity.HasOne(d => d.IdclientNavigation).WithMany(p => p.Reservations)
+                .HasForeignKey(d => d.Idclient)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("reservation_ibfk_3");
 
             entity.HasOne(d => d.IdtableNavigation).WithMany(p => p.Reservations)
                 .HasForeignKey(d => d.Idtable)
