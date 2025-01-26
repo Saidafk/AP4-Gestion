@@ -30,9 +30,29 @@ namespace AP4_C
             cbFacture.DataSource = bsFacture;
             cbFacture.SelectedIndex = -1;
         }
-     
 
-           private void cbFacture_SelectedIndexChanged(object sender, EventArgs e)
+        /*public void RemplirTicket()
+        {
+
+            cbTicket.ValueMember = "Idfacture"; // permet de stocker l'identifiant
+            cbTicket.DisplayMember = "Idfacture"; // affiche l'identifiant
+            bsFacture.DataSource = ModeleFacture.listeFacture().Select(x => new { x.Idfacture }).ToList();
+            cbTicket.DataSource = bsFacture;
+            cbTicket.SelectedIndex = -1;
+        }*/
+
+        public void RemplirTable()
+        {
+
+            cbTable.ValueMember = "Idtable"; // permet de stocker l'identifiant
+            cbTable.DisplayMember = "Idtable"; // affiche l'identifiant
+            bsTable.DataSource = ModeleTable.listeTable().Select(x => new { x.Idtable }).ToList();
+            cbTable.DataSource = bsTable;
+            cbTable.SelectedIndex = -1;
+        }
+
+
+        private void cbFacture_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbFacture.SelectedIndex != -1 && cbFacture.SelectedValue != null)
             {
@@ -68,19 +88,6 @@ namespace AP4_C
             }
         }
 
-        public bool VerifierFactureExiste(int factureId)
-        {
-            bool vFacture = true;
-            ModeleCommande.listeCommande().ForEach(c =>
-            {
-                if (c.Idfacture == factureId)
-                {
-                    vFacture = false;
-                }
-            });
-            return vFacture;
-        }
-
 
         private void affichageCommandes()
         {
@@ -114,8 +121,29 @@ namespace AP4_C
         private void FormFacture_Load(object sender, EventArgs e)
         {
             RemplirFacture();
+            RemplirTable();
             affichageCommandes();
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (cbFacture.SelectedValue != null)
+            {
+                int Idfacture = (int)cbFacture.SelectedValue;
+                int Idtable = int.Parse(cbTable.Text);
+                DateTime Datefacture = dtpDateFacture.Value;
+
+                if (ModeleFacture.ModifierFacture(Idfacture, Datefacture, Idtable))
+                {
+                    MessageBox.Show("Facture modifiée");
+                    RemplirFacture();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner une facture.");
+            }
         }
     }
 }

@@ -33,6 +33,7 @@
             bsFacture = new BindingSource(components);
             cbFacture = new ComboBox();
             gbInfoFacture = new GroupBox();
+            button1 = new Button();
             dgvCommande = new DataGridView();
             cbTable = new ComboBox();
             cbTicket = new ComboBox();
@@ -43,10 +44,12 @@
             label3 = new Label();
             label2 = new Label();
             bsCommande = new BindingSource(components);
+            bsTable = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)bsFacture).BeginInit();
             gbInfoFacture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCommande).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bsCommande).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bsTable).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -70,6 +73,7 @@
             // 
             // gbInfoFacture
             // 
+            gbInfoFacture.Controls.Add(button1);
             gbInfoFacture.Controls.Add(dgvCommande);
             gbInfoFacture.Controls.Add(cbTable);
             gbInfoFacture.Controls.Add(cbTicket);
@@ -86,12 +90,23 @@
             gbInfoFacture.TabStop = false;
             gbInfoFacture.Text = "Facture";
             // 
+            // button1
+            // 
+            button1.Location = new Point(621, 210);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 22;
+            button1.Text = "Modifier";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // dgvCommande
             // 
+            dgvCommande.BackgroundColor = SystemColors.InactiveCaption;
             dgvCommande.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCommande.Location = new Point(274, 98);
             dgvCommande.Name = "dgvCommande";
-            dgvCommande.Size = new Size(387, 194);
+            dgvCommande.Size = new Size(169, 194);
             dgvCommande.TabIndex = 21;
             // 
             // cbTable
@@ -113,7 +128,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(30, 143);
+            label6.Location = new Point(324, 65);
             label6.Name = "label6";
             label6.Size = new Size(91, 15);
             label6.TabIndex = 8;
@@ -156,7 +171,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(290, 19);
+            label2.Location = new Point(308, 19);
             label2.Name = "label2";
             label2.Size = new Size(107, 15);
             label2.TabIndex = 0;
@@ -180,6 +195,7 @@
             gbInfoFacture.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCommande).EndInit();
             ((System.ComponentModel.ISupportInitialize)bsCommande).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bsTable).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -200,5 +216,7 @@
         private ComboBox cbTicket;
         private DataGridView dgvCommande;
         private BindingSource bsCommande;
+        private Button button1;
+        private BindingSource bsTable;
     }
 }
