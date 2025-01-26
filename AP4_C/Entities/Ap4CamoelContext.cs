@@ -174,6 +174,10 @@ public partial class Ap4CamoelContext : DbContext
 
             entity.ToTable("commande");
 
+            entity.HasIndex(e => e.Idplat, "IDPLAT");
+
+            entity.HasIndex(e => e.Idtable, "IDTABLE");
+
             entity.HasIndex(e => e.Idclient, "I_FK_COMMANDE_CLIENT");
 
             entity.HasIndex(e => e.Idfacture, "I_FK_COMMANDE_FACTURE");
@@ -186,7 +190,9 @@ public partial class Ap4CamoelContext : DbContext
                 .HasColumnName("COMMENTAIRECLIENT");
             entity.Property(e => e.Idclient).HasColumnName("IDCLIENT");
             entity.Property(e => e.Idfacture).HasColumnName("IDFACTURE");
+            entity.Property(e => e.Idplat).HasColumnName("IDPLAT");
             entity.Property(e => e.Idreserv).HasColumnName("IDRESERV");
+            entity.Property(e => e.Idtable).HasColumnName("IDTABLE");
 
             entity.HasOne(d => d.IdclientNavigation).WithMany(p => p.Commandes)
                 .HasForeignKey(d => d.Idclient)
@@ -257,8 +263,8 @@ public partial class Ap4CamoelContext : DbContext
             entity.Property(e => e.Datefacture)
                 .HasColumnType("datetime")
                 .HasColumnName("DATEFACTURE");
-            entity.Property(e => e.IdTable).HasColumnName("idTable");
             entity.Property(e => e.Idmoyenpaiement).HasColumnName("IDMOYENPAIEMENT");
+            entity.Property(e => e.Idtable).HasColumnName("IDTABLE");
             entity.Property(e => e.Tva).HasColumnName("TVA");
 
             entity.HasOne(d => d.IdmoyenpaiementNavigation).WithMany(p => p.Factures)

@@ -7,8 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Input;
 using AP4_C.Entities;
 using AP4_C.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace AP4_C
 {
@@ -30,7 +32,7 @@ namespace AP4_C
         }
      
 
-        private void cbFacture_SelectedIndexChanged(object sender, EventArgs e)
+           private void cbFacture_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbFacture.SelectedIndex != -1 && cbFacture.SelectedValue != null)
             {
@@ -50,15 +52,14 @@ namespace AP4_C
 
                 var facture = ModeleFacture.RetourneFacture(idFacture);
 
+
                 if (facture != null)
                 {
                     cbTicket.Text = facture.Idfacture.ToString();
                     dtpDateFacture.Value = facture.Datefacture;
-                    cbTable.Text = facture.IdTable.ToString();
-                    //tbCommande.Text = facture.Description;
-                    //tbPrix.Text = facture.Prix.ToString();
-                    //tbTTC.Text = facture.Prix.ToString();
-                    //tbTVA.Text = facture.Prix.ToString();
+                    cbTable.Text = facture.Idtable.ToString();
+
+                    affichageCommandes();
                 }
                 else
                 {
@@ -67,9 +68,53 @@ namespace AP4_C
             }
         }
 
+        public bool VerifierFactureExiste(int factureId)
+        {
+            bool vFacture = true;
+            ModeleCommande.listeCommande().ForEach(c =>
+            {
+                if (c.Idfacture == factureId)
+                {
+                    vFacture = false;
+                }
+            });
+            return vFacture;
+        }
+
+
+        private void affichageCommandes()
+        {
+            try
+            {
+                if (cbFacture.SelectedValue != null)
+                {
+                    int idFacture = Convert.ToInt32(cbFacture.SelectedValue);
+
+                    var CommandeAffiches = ModeleCommande.listeCommande()
+                        .Where(x => x.Idfacture == idFacture)
+                        .Select(x => new
+                        {
+                            NomPlat = ModelePlat.RentourneNomPlat(x.Idplat)?.Libelleplat
+                        })
+                        .ToList();
+
+                    dgvCommande.DataSource = CommandeAffiches;
+                }
+                else
+                {
+                    dgvCommande.DataSource = null; // or clear the datagridview
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors du chargement des données : " + ex.Message);
+            }
+        }
+
         private void FormFacture_Load(object sender, EventArgs e)
         {
             RemplirFacture();
+            affichageCommandes();
 
         }
     }

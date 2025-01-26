@@ -104,5 +104,36 @@ namespace AP4_C.Model
         {
             return Modele.MonModel.Plats.ToList();
         }
+
+        public static Plat RentourneNomPlat(int Idplat)
+        {
+            var commandePlat = Modele.MonModel.Plats.FirstOrDefault(x => x.Idplat == Idplat);
+            return commandePlat;
+        }
+
+        public static List<Plat> RentournePlatsParFacture(int idFacture)
+        {
+            List<Plat> plats = new List<Plat>();
+            try
+            {
+                // Récupérer les commandes associées à la facture
+                var commandes = ModeleCommande.RetourneCommandesParFacture(idFacture);
+
+                // Récupérer les plats associés à ces commandes
+                foreach (var commande in commandes)
+                {
+                    var plat = Modele.MonModel.Plats.FirstOrDefault(x => x.Idplat == commande.Idplat);
+                    if (plat != null)
+                    {
+                        plats.Add(plat);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur : " + ex.Message);
+            }
+            return plats;
+        }
     }
 }

@@ -13,6 +13,10 @@ public partial class Commande
 
     public int? Idfacture { get; set; }
 
+    public int? Idtable { get; set; }
+
+    public int Idplat { get; set; }
+
     public string? Commentaireclient { get; set; }
 
     public virtual Client? IdclientNavigation { get; set; }

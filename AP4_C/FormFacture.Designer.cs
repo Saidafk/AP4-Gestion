@@ -33,23 +33,20 @@
             bsFacture = new BindingSource(components);
             cbFacture = new ComboBox();
             gbInfoFacture = new GroupBox();
-            cbPlat = new ComboBox();
+            dgvCommande = new DataGridView();
             cbTable = new ComboBox();
             cbTicket = new ComboBox();
-            tbTVA = new TextBox();
-            tbTTC = new TextBox();
-            label9 = new Label();
-            label7 = new Label();
-            Prix = new Label();
-            tbPrix = new TextBox();
             label6 = new Label();
             label5 = new Label();
             dtpDateFacture = new DateTimePicker();
             label4 = new Label();
             label3 = new Label();
             label2 = new Label();
+            bsCommande = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)bsFacture).BeginInit();
             gbInfoFacture.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCommande).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bsCommande).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -73,15 +70,9 @@
             // 
             // gbInfoFacture
             // 
-            gbInfoFacture.Controls.Add(cbPlat);
+            gbInfoFacture.Controls.Add(dgvCommande);
             gbInfoFacture.Controls.Add(cbTable);
             gbInfoFacture.Controls.Add(cbTicket);
-            gbInfoFacture.Controls.Add(tbTVA);
-            gbInfoFacture.Controls.Add(tbTTC);
-            gbInfoFacture.Controls.Add(label9);
-            gbInfoFacture.Controls.Add(label7);
-            gbInfoFacture.Controls.Add(Prix);
-            gbInfoFacture.Controls.Add(tbPrix);
             gbInfoFacture.Controls.Add(label6);
             gbInfoFacture.Controls.Add(label5);
             gbInfoFacture.Controls.Add(dtpDateFacture);
@@ -95,13 +86,13 @@
             gbInfoFacture.TabStop = false;
             gbInfoFacture.Text = "Facture";
             // 
-            // cbPlat
+            // dgvCommande
             // 
-            cbPlat.FormattingEnabled = true;
-            cbPlat.Location = new Point(259, 143);
-            cbPlat.Name = "cbPlat";
-            cbPlat.Size = new Size(175, 23);
-            cbPlat.TabIndex = 21;
+            dgvCommande.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCommande.Location = new Point(274, 98);
+            dgvCommande.Name = "dgvCommande";
+            dgvCommande.Size = new Size(387, 194);
+            dgvCommande.TabIndex = 21;
             // 
             // cbTable
             // 
@@ -119,58 +110,10 @@
             cbTicket.Size = new Size(121, 23);
             cbTicket.TabIndex = 19;
             // 
-            // tbTVA
-            // 
-            tbTVA.Location = new Point(449, 230);
-            tbTVA.Name = "tbTVA";
-            tbTVA.Size = new Size(100, 23);
-            tbTVA.TabIndex = 18;
-            // 
-            // tbTTC
-            // 
-            tbTTC.Location = new Point(449, 194);
-            tbTTC.Name = "tbTTC";
-            tbTTC.Size = new Size(100, 23);
-            tbTTC.TabIndex = 17;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Location = new Point(379, 230);
-            label9.Name = "label9";
-            label9.Size = new Size(28, 15);
-            label9.TabIndex = 16;
-            label9.Text = "TVA";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(357, 197);
-            label7.Name = "label7";
-            label7.Size = new Size(77, 15);
-            label7.TabIndex = 14;
-            label7.Text = "Montant TTC";
-            // 
-            // Prix
-            // 
-            Prix.AutoSize = true;
-            Prix.Location = new Point(480, 103);
-            Prix.Name = "Prix";
-            Prix.Size = new Size(26, 15);
-            Prix.TabIndex = 13;
-            Prix.Text = "Prix";
-            // 
-            // tbPrix
-            // 
-            tbPrix.Location = new Point(466, 143);
-            tbPrix.Name = "tbPrix";
-            tbPrix.Size = new Size(83, 23);
-            tbPrix.TabIndex = 12;
-            // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(162, 146);
+            label6.Location = new Point(30, 143);
             label6.Name = "label6";
             label6.Size = new Size(91, 15);
             label6.TabIndex = 8;
@@ -235,6 +178,8 @@
             ((System.ComponentModel.ISupportInitialize)bsFacture).EndInit();
             gbInfoFacture.ResumeLayout(false);
             gbInfoFacture.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCommande).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bsCommande).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -251,14 +196,9 @@
         private Label label5;
         private DateTimePicker dtpDateFacture;
         private Label label4;
-        private TextBox tbTVA;
-        private TextBox tbTTC;
-        private Label label9;
-        private Label label7;
-        private Label Prix;
-        private TextBox tbPrix;
-        private ComboBox cbPlat;
         private ComboBox cbTable;
         private ComboBox cbTicket;
+        private DataGridView dgvCommande;
+        private BindingSource bsCommande;
     }
 }
