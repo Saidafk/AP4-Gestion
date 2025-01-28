@@ -31,13 +31,14 @@
             components = new System.ComponentModel.Container();
             panel1 = new Panel();
             gbInfo = new GroupBox();
+            ANNULER = new Button();
+            label5 = new Label();
+            checkBoxVeggie = new CheckBox();
             label6 = new Label();
             tbDescription = new RichTextBox();
-            label5 = new Label();
             label4 = new Label();
             label3 = new Label();
             label2 = new Label();
-            cbVeggie = new ComboBox();
             prixTxt = new TextBox();
             cbTypePlat = new ComboBox();
             nomPlatTxt = new TextBox();
@@ -63,16 +64,18 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(800, 428);
             panel1.TabIndex = 0;
+            panel1.Paint += panel1_Paint_1;
             // 
             // gbInfo
             // 
+            gbInfo.Controls.Add(ANNULER);
+            gbInfo.Controls.Add(label5);
+            gbInfo.Controls.Add(checkBoxVeggie);
             gbInfo.Controls.Add(label6);
             gbInfo.Controls.Add(tbDescription);
-            gbInfo.Controls.Add(label5);
             gbInfo.Controls.Add(label4);
             gbInfo.Controls.Add(label3);
             gbInfo.Controls.Add(label2);
-            gbInfo.Controls.Add(cbVeggie);
             gbInfo.Controls.Add(prixTxt);
             gbInfo.Controls.Add(cbTypePlat);
             gbInfo.Controls.Add(nomPlatTxt);
@@ -83,6 +86,33 @@
             gbInfo.TabIndex = 1;
             gbInfo.TabStop = false;
             gbInfo.Text = "Information sur le plat";
+            // 
+            // ANNULER
+            // 
+            ANNULER.Location = new Point(568, 236);
+            ANNULER.Name = "ANNULER";
+            ANNULER.Size = new Size(95, 61);
+            ANNULER.TabIndex = 1;
+            ANNULER.UseVisualStyleBackColor = true;
+            ANNULER.Click += ANNULER_Click;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(47, 137);
+            label5.Name = "label5";
+            label5.Size = new Size(42, 15);
+            label5.TabIndex = 15;
+            label5.Text = "Veggie";
+            // 
+            // checkBoxVeggie
+            // 
+            checkBoxVeggie.AutoSize = true;
+            checkBoxVeggie.Location = new Point(26, 138);
+            checkBoxVeggie.Name = "checkBoxVeggie";
+            checkBoxVeggie.Size = new Size(15, 14);
+            checkBoxVeggie.TabIndex = 14;
+            checkBoxVeggie.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
@@ -102,15 +132,6 @@
             tbDescription.Text = "";
             tbDescription.TextChanged += richTextBox1_TextChanged;
             // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(6, 141);
-            label5.Name = "label5";
-            label5.Size = new Size(42, 15);
-            label5.TabIndex = 10;
-            label5.Text = "veggie";
-            // 
             // label4
             // 
             label4.AutoSize = true;
@@ -125,7 +146,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(193, 58);
             label3.Name = "label3";
-            label3.Size = new Size(27, 15);
+            label3.Size = new Size(26, 15);
             label3.TabIndex = 8;
             label3.Text = "prix";
             // 
@@ -137,15 +158,6 @@
             label2.Size = new Size(32, 15);
             label2.TabIndex = 7;
             label2.Text = "nom";
-            // 
-            // cbVeggie
-            // 
-            cbVeggie.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbVeggie.FormattingEnabled = true;
-            cbVeggie.Location = new Point(47, 138);
-            cbVeggie.Name = "cbVeggie";
-            cbVeggie.Size = new Size(121, 23);
-            cbVeggie.TabIndex = 4;
             // 
             // prixTxt
             // 
@@ -172,7 +184,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(569, 235);
+            button1.Location = new Point(468, 236);
             button1.Name = "button1";
             button1.Size = new Size(94, 61);
             button1.TabIndex = 0;
@@ -225,16 +237,17 @@
         private GroupBox gbInfo;
         private Button button1;
         private TextBox nomPlatTxt;
-        private ComboBox cbVeggie;
         private TextBox prixTxt;
         private ComboBox cbTypePlat;
         private BindingSource listeTypePlatBs;
-        private Label label5;
         private Label label4;
         private Label label3;
         private Label label2;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private RichTextBox tbDescription;
         private Label label6;
+        private CheckBox checkBoxVeggie;
+        private Label label5;
+        private Button ANNULER;
     }
 }

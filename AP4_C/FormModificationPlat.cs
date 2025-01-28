@@ -38,27 +38,29 @@ namespace AP4_C
             {
                 label1.Text = "Ajout d'un nouveau plat";
                 button1.Text = "AJOUTER";
+                ANNULER.Text = "ANNULER";
                 gbInfo.Visible = true;
                 nomPlatTxt.Visible = true;
                 prixTxt.Visible = true;
                 cbTypePlat.Visible = true;
                 cbPlat.Visible = false;
-                cbVeggie.Items.Add(true);
-                cbVeggie.Items.Add(false);
+                //cbVeggie.Items.Add(true);
+                //cbVeggie.Items.Add(false);
 
             }
             else if (etat == EtatGestion.Update)
             {
                 label1.Text = "Modification d'un plat";
                 button1.Text = "MODIFIER";
+                ANNULER.Text = "ANNULER";
                 gbInfo.Visible = true;
                 nomPlatTxt.Visible = true;
                 prixTxt.Visible = true;
                 cbTypePlat.Visible = true;
-                cbVeggie.Visible = true;
+                //cbVeggie.Visible = true;
                 cbPlat.Visible = true;
-                cbVeggie.Items.Add(true);
-                cbVeggie.Items.Add(false);
+                //cbVeggie.Items.Add(true);
+                //cbVeggie.Items.Add(false);
             }
 
             RemplirlesPlats();
@@ -84,7 +86,7 @@ namespace AP4_C
             cbTypePlat.DataSource = listeTypePlatBs;
             cbTypePlat.SelectedIndex = -1;
         }
-        
+
         public void remplirVeggie()
         {
 
@@ -94,7 +96,7 @@ namespace AP4_C
         private void cbPlat_SelectedIndexChanged(object sender, EventArgs e)
 
         {
-            if (etat==EtatGestion.Update)
+            if (etat == EtatGestion.Update)
             {
                 if (cbPlat.SelectedIndex != -1 && cbPlat.SelectedValue != null)
                 {
@@ -120,7 +122,7 @@ namespace AP4_C
                         nomPlatTxt.Text = plat.Libelleplat;
                         prixTxt.Text = plat.Prixplatht.ToString();
                         tbDescription.Text = plat.Description;
-                        cbVeggie.SelectedItem = plat.Veggie;
+                        //cbVeggie.SelectedItem = plat.Veggie;
                         cbTypePlat.SelectedValue = plat.Idtypeplat;
 
                     }
@@ -139,7 +141,7 @@ namespace AP4_C
             prixTxt.Text = "";
             tbDescription.Text = "";
             cbTypePlat.SelectedIndex = -1;
-            cbVeggie.SelectedIndex = -1;
+            checkBoxVeggie.Checked = false;
             cbPlat.SelectedIndex = -1;
         }
 
@@ -168,7 +170,8 @@ namespace AP4_C
             int idPlat;
             string Libelleplat = nomPlatTxt.Text;
             double Prixplatht = double.Parse(prixTxt.Text);
-            bool Veggie = bool.Parse(cbVeggie.SelectedItem.ToString());
+            bool Veggie = checkBoxVeggie.Checked;
+            //bool Veggie = bool.Parse(cbVeggie.SelectedItem.ToString());
             string Description = tbDescription.Text;
             string? Lienimg = null;
             int Idtypeplat = (int)cbTypePlat.SelectedValue;
@@ -221,6 +224,16 @@ namespace AP4_C
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void panel1_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void ANNULER_Click(object sender, EventArgs e)
+        {
+            Annuler_Click();
         }
     }
 }

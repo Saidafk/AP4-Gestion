@@ -102,8 +102,12 @@
             // 
             // dgvCommande
             // 
+            dgvCommande.AllowDrop = true;
+            dgvCommande.AllowUserToOrderColumns = true;
+            dgvCommande.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvCommande.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvCommande.BackgroundColor = SystemColors.InactiveCaption;
-            dgvCommande.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCommande.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvCommande.Location = new Point(274, 98);
             dgvCommande.Name = "dgvCommande";
             dgvCommande.Size = new Size(169, 194);
