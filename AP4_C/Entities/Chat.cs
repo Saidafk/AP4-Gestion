@@ -7,9 +7,9 @@ public partial class Chat
 {
     public int IdChat { get; set; }
 
-    public ulong? IdServeur { get; set; }
+    public ulong IdServeur { get; set; }
 
-    public virtual Serveur? IdServeurNavigation { get; set; }
+    public virtual Serveur IdServeurNavigation { get; set; } = null!;
 
     public virtual ICollection<Message> Messages { get; set; } = new List<Message>();
 }

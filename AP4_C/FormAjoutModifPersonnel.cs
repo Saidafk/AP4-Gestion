@@ -40,7 +40,7 @@ namespace AP4_C
                 tbNom.Visible = true;
                 tbPrenom.Visible = true;
                 cbEmploye.Visible = false;
-                
+
 
             }
             else if (etatemploye == EtatGestionEmploye.UpdateEmploye)
@@ -49,8 +49,8 @@ namespace AP4_C
                 buttonemploye.Text = "MODIFIER";
                 gbinfoEmployer.Visible = false;
                 cbEmploye.Visible = true;
-                
-                
+
+
             }
 
             RemplirlesEmploye();
@@ -84,7 +84,7 @@ namespace AP4_C
                 {
                     gbinfoEmployer.Visible = false;
                 }
-                
+
                 if (cbEmploye.SelectedValue != null)
                 {
                     ulong idPer;
@@ -110,57 +110,61 @@ namespace AP4_C
 
         private void buttonemploye_Click(object sender, EventArgs e)
         {
-           
-                ulong Idper;
-                string NomPersonnel = tbNom.Text;
-                string PrenomPersonnel = tbPrenom.Text;
-                string EmailPersonnel = tbEmail.Text;
 
-            
-                
+            ulong Idper;
+            string NomPersonnel = tbNom.Text;
+            string PrenomPersonnel = tbPrenom.Text;
+            string EmailPersonnel = tbEmail.Text;
 
-                if (etatemploye == EtatGestionEmploye.CreateEmploye)
+
+
+
+            if (etatemploye == EtatGestionEmploye.CreateEmploye)
+            {
+                if (string.IsNullOrEmpty(NomPersonnel) || string.IsNullOrEmpty(PrenomPersonnel) || string.IsNullOrEmpty(EmailPersonnel))
                 {
-                    if (string.IsNullOrEmpty(NomPersonnel) || string.IsNullOrEmpty(PrenomPersonnel) || string.IsNullOrEmpty(EmailPersonnel))
-                    {
-                        MessageBox.Show("Veuillez remplir tous les champs obligatoires");
-                        return;
-                    }
-
-                    if (ModelUser.AjouterNouveauPersonnel(NomPersonnel, PrenomPersonnel, EmailPersonnel))
-                    {
-                        MessageBox.Show("Personnel ajouté");
-                        RemplirlesEmploye();
-                        
-                    }
-                    else
-                    {
-                        MessageBox.Show("Erreur lors de l'ajout du personnel");
-                    }
+                    MessageBox.Show("Veuillez remplir tous les champs obligatoires");
+                    return;
                 }
 
-                else if (etatemploye == EtatGestionEmploye.UpdateEmploye)
+                if (ModelUser.AjouterNouveauPersonnel(NomPersonnel, PrenomPersonnel, EmailPersonnel))
                 {
-                    if (cbEmploye.SelectedValue != null)
-                    {
-                    Idper = (ulong)cbEmploye.SelectedValue;
+                    MessageBox.Show("Personnel ajouté");
+                    RemplirlesEmploye();
 
-                    }
-                    else
-                    {
-                        MessageBox.Show("Veuillez sélectionner un personnel à modifier.");
-                        return;
-                    }
-
-                    if (ModelUser.ModifierUser(Idper, NomPersonnel, PrenomPersonnel, EmailPersonnel))
-                    {
-                        MessageBox.Show("Plat modifié");
-                        RemplirlesEmploye();
-                        
-                    }
+                }
+                else
+                {
+                    MessageBox.Show("Erreur lors de l'ajout du personnel");
                 }
             }
-        
+
+            else if (etatemploye == EtatGestionEmploye.UpdateEmploye)
+            {
+                if (cbEmploye.SelectedValue != null)
+                {
+                    Idper = (ulong)cbEmploye.SelectedValue;
+
+                }
+                else
+                {
+                    MessageBox.Show("Veuillez sélectionner un personnel à modifier.");
+                    return;
+                }
+
+                if (ModelUser.ModifierUser(Idper, NomPersonnel, PrenomPersonnel, EmailPersonnel))
+                {
+                    MessageBox.Show("Plat modifié");
+                    RemplirlesEmploye();
+
+                }
+            }
+        }
+
+        private void panelAjoutModif_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
 

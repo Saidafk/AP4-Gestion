@@ -148,8 +148,8 @@ public partial class Ap4CamoelContext : DbContext
 
             entity.HasOne(d => d.IdServeurNavigation).WithMany(p => p.Chats)
                 .HasForeignKey(d => d.IdServeur)
-                .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("FK_IDSERVEUR");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("chat_ibfk_1");
         });
 
         modelBuilder.Entity<Client>(entity =>
@@ -174,13 +174,7 @@ public partial class Ap4CamoelContext : DbContext
 
             entity.ToTable("commande");
 
-            entity.HasIndex(e => e.Idplat, "IDPLAT");
-
-            entity.HasIndex(e => e.Idtable, "IDTABLE");
-
             entity.HasIndex(e => e.Idclient, "I_FK_COMMANDE_CLIENT");
-
-            entity.HasIndex(e => e.Idfacture, "I_FK_COMMANDE_FACTURE");
 
             entity.HasIndex(e => e.Idreserv, "I_FK_COMMANDE_RESERVATION");
 
@@ -189,18 +183,12 @@ public partial class Ap4CamoelContext : DbContext
                 .HasMaxLength(128)
                 .HasColumnName("COMMENTAIRECLIENT");
             entity.Property(e => e.Idclient).HasColumnName("IDCLIENT");
-            entity.Property(e => e.Idfacture).HasColumnName("IDFACTURE");
-            entity.Property(e => e.Idplat).HasColumnName("IDPLAT");
             entity.Property(e => e.Idreserv).HasColumnName("IDRESERV");
             entity.Property(e => e.Idtable).HasColumnName("IDTABLE");
 
             entity.HasOne(d => d.IdclientNavigation).WithMany(p => p.Commandes)
                 .HasForeignKey(d => d.Idclient)
                 .HasConstraintName("commande_ibfk_4");
-
-            entity.HasOne(d => d.IdfactureNavigation).WithMany(p => p.Commandes)
-                .HasForeignKey(d => d.Idfacture)
-                .HasConstraintName("commande_ibfk_3");
 
             entity.HasOne(d => d.IdreservNavigation).WithMany(p => p.Commandes)
                 .HasForeignKey(d => d.Idreserv)
@@ -253,19 +241,30 @@ public partial class Ap4CamoelContext : DbContext
 
         modelBuilder.Entity<Facture>(entity =>
         {
-            entity.HasKey(e => e.Idfacture).HasName("PRIMARY");
+            entity.HasKey(e => new { e.Idfacture, e.Idcommande })
+                .HasName("PRIMARY")
+                .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
 
             entity.ToTable("facture");
 
+            entity.HasIndex(e => e.Idcommande, "IDCOMMANDE");
+
             entity.HasIndex(e => e.Idmoyenpaiement, "I_FK_FACTURE_MOYEN_PAIEMENT");
 
-            entity.Property(e => e.Idfacture).HasColumnName("IDFACTURE");
+            entity.Property(e => e.Idfacture)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("IDFACTURE");
+            entity.Property(e => e.Idcommande).HasColumnName("IDCOMMANDE");
             entity.Property(e => e.Datefacture)
                 .HasColumnType("datetime")
                 .HasColumnName("DATEFACTURE");
             entity.Property(e => e.Idmoyenpaiement).HasColumnName("IDMOYENPAIEMENT");
-            entity.Property(e => e.Idtable).HasColumnName("IDTABLE");
             entity.Property(e => e.Tva).HasColumnName("TVA");
+
+            entity.HasOne(d => d.IdcommandeNavigation).WithMany(p => p.Factures)
+                .HasForeignKey(d => d.Idcommande)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("facture_ibfk_2");
 
             entity.HasOne(d => d.IdmoyenpaiementNavigation).WithMany(p => p.Factures)
                 .HasForeignKey(d => d.Idmoyenpaiement)
@@ -433,13 +432,9 @@ public partial class Ap4CamoelContext : DbContext
 
             entity.ToTable("messages");
 
-            entity.HasIndex(e => new { e.IdChat, e.BoolCuisinier }, "idChat");
+            entity.HasIndex(e => e.IdChat, "idChat");
 
             entity.Property(e => e.IdMessage).HasColumnName("idMessage");
-            entity.Property(e => e.ALire)
-                .IsRequired()
-                .HasDefaultValueSql("'1'")
-                .HasColumnName("a_lire");
             entity.Property(e => e.BoolCuisinier).HasColumnName("boolCuisinier");
             entity.Property(e => e.Contenu)
                 .HasMaxLength(255)
@@ -452,7 +447,7 @@ public partial class Ap4CamoelContext : DbContext
             entity.HasOne(d => d.IdChatNavigation).WithMany(p => p.Messages)
                 .HasForeignKey(d => d.IdChat)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_IDCHAT");
+                .HasConstraintName("messages_ibfk_1");
         });
 
         modelBuilder.Entity<Migration>(entity =>
@@ -575,9 +570,7 @@ public partial class Ap4CamoelContext : DbContext
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
-            entity.Property(e => e.Idrestau)
-                .HasDefaultValueSql("'1'")
-                .HasColumnName("IDRESTAU");
+            entity.Property(e => e.Idrestau).HasColumnName("IDRESTAU");
             entity.Property(e => e.Idtypeplat).HasColumnName("IDTYPEPLAT");
             entity.Property(e => e.Libelleplat)
                 .HasMaxLength(128)
@@ -636,9 +629,7 @@ public partial class Ap4CamoelContext : DbContext
 
             entity.HasIndex(e => e.Idplat, "I_FK_PLATDUJOUR_PLAT");
 
-            entity.Property(e => e.Ddmmyyyy)
-                .HasColumnType("datetime")
-                .HasColumnName("DDMMYYYY");
+            entity.Property(e => e.Ddmmyyyy).HasColumnName("DDMMYYYY");
             entity.Property(e => e.Idplat).HasColumnName("IDPLAT");
             entity.Property(e => e.Idper).HasColumnName("IDPER");
 
@@ -690,7 +681,7 @@ public partial class Ap4CamoelContext : DbContext
 
             entity.ToTable("reservation");
 
-            entity.HasIndex(e => e.Idclient, "IDCLIENT");
+            entity.HasIndex(e => e.Idclient, "I_FK_RESERVATION_CLIENT");
 
             entity.HasIndex(e => e.Idtable, "I_FK_RESERVATION_TABLER");
 
@@ -710,11 +701,6 @@ public partial class Ap4CamoelContext : DbContext
             entity.Property(e => e.Idtable).HasColumnName("IDTABLE");
             entity.Property(e => e.Nbpers).HasColumnName("NBPERS");
             entity.Property(e => e.Qr).HasColumnName("QR");
-
-            entity.HasOne(d => d.IdclientNavigation).WithMany(p => p.Reservations)
-                .HasForeignKey(d => d.Idclient)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("reservation_ibfk_3");
 
             entity.HasOne(d => d.IdtableNavigation).WithMany(p => p.Reservations)
                 .HasForeignKey(d => d.Idtable)

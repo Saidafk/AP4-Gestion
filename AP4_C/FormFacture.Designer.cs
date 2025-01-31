@@ -33,10 +33,11 @@
             bsFacture = new BindingSource(components);
             cbFacture = new ComboBox();
             gbInfoFacture = new GroupBox();
+            txtPrix = new TextBox();
+            txtTable = new TextBox();
+            txtTicket = new TextBox();
             button1 = new Button();
             dgvCommande = new DataGridView();
-            cbTable = new ComboBox();
-            cbTicket = new ComboBox();
             label6 = new Label();
             label5 = new Label();
             dtpDateFacture = new DateTimePicker();
@@ -73,10 +74,11 @@
             // 
             // gbInfoFacture
             // 
+            gbInfoFacture.Controls.Add(txtPrix);
+            gbInfoFacture.Controls.Add(txtTable);
+            gbInfoFacture.Controls.Add(txtTicket);
             gbInfoFacture.Controls.Add(button1);
             gbInfoFacture.Controls.Add(dgvCommande);
-            gbInfoFacture.Controls.Add(cbTable);
-            gbInfoFacture.Controls.Add(cbTicket);
             gbInfoFacture.Controls.Add(label6);
             gbInfoFacture.Controls.Add(label5);
             gbInfoFacture.Controls.Add(dtpDateFacture);
@@ -90,13 +92,37 @@
             gbInfoFacture.TabStop = false;
             gbInfoFacture.Text = "Facture";
             // 
+            // txtPrix
+            // 
+            txtPrix.Location = new Point(530, 214);
+            txtPrix.Name = "txtPrix";
+            txtPrix.ReadOnly = true;
+            txtPrix.Size = new Size(100, 23);
+            txtPrix.TabIndex = 25;
+            // 
+            // txtTable
+            // 
+            txtTable.Location = new Point(121, 95);
+            txtTable.Name = "txtTable";
+            txtTable.ReadOnly = true;
+            txtTable.Size = new Size(100, 23);
+            txtTable.TabIndex = 24;
+            // 
+            // txtTicket
+            // 
+            txtTicket.Location = new Point(121, 57);
+            txtTicket.Name = "txtTicket";
+            txtTicket.ReadOnly = true;
+            txtTicket.Size = new Size(100, 23);
+            txtTicket.TabIndex = 23;
+            // 
             // button1
             // 
-            button1.Location = new Point(621, 210);
+            button1.Location = new Point(625, 269);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 22;
-            button1.Text = "Modifier";
+            button1.Text = "Imprimer";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -110,24 +136,8 @@
             dgvCommande.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvCommande.Location = new Point(274, 98);
             dgvCommande.Name = "dgvCommande";
-            dgvCommande.Size = new Size(169, 194);
+            dgvCommande.Size = new Size(185, 169);
             dgvCommande.TabIndex = 21;
-            // 
-            // cbTable
-            // 
-            cbTable.FormattingEnabled = true;
-            cbTable.Location = new Point(112, 98);
-            cbTable.Name = "cbTable";
-            cbTable.Size = new Size(121, 23);
-            cbTable.TabIndex = 20;
-            // 
-            // cbTicket
-            // 
-            cbTicket.FormattingEnabled = true;
-            cbTicket.Location = new Point(112, 57);
-            cbTicket.Name = "cbTicket";
-            cbTicket.Size = new Size(121, 23);
-            cbTicket.TabIndex = 19;
             // 
             // label6
             // 
@@ -193,7 +203,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormFacture";
             Text = "FormFacture";
-            Load += FormFacture_Load;
+            Load += FormFacture_Load_1;
             ((System.ComponentModel.ISupportInitialize)bsFacture).EndInit();
             gbInfoFacture.ResumeLayout(false);
             gbInfoFacture.PerformLayout();
@@ -216,11 +226,12 @@
         private Label label5;
         private DateTimePicker dtpDateFacture;
         private Label label4;
-        private ComboBox cbTable;
-        private ComboBox cbTicket;
         private DataGridView dgvCommande;
         private BindingSource bsCommande;
         private Button button1;
         private BindingSource bsTable;
+        private TextBox txtTable;
+        private TextBox txtTicket;
+        private TextBox txtPrix;
     }
 }

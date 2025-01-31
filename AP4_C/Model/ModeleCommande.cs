@@ -28,8 +28,54 @@ namespace AP4_C.Model
             return uneCommande;
         }
 
-       
-        public static List<Commande> RetourneCommandesParFacture(int idFacture)
+        public static Commande RetourneTableCommande(int idTable)
+        {
+            Commande uneCommande = new Commande();
+            try
+            {
+                uneCommande = Modele.MonModel.Commandes.First(x => x.Idtable == idTable);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            return uneCommande;
+        }
+
+        public static bool AjouterCommande(int Idtable, string Commentaireclient)
+        {
+            Commande uneCommande;
+            bool vretour = true;
+            try
+            {
+
+                uneCommande = new Commande();
+                uneCommande.Idtable = Idtable;
+                uneCommande.Commentaireclient = Commentaireclient;
+
+                var table = ModeleTabler.listeTable().First(x => x.Idtable == Idtable);
+                if(table.Estdispo != null)
+                {
+
+                   table.Estdispo = false;
+                }
+                else
+                {
+                    table.Estdispo = true;
+                }
+
+                Modele.MonModel.Commandes.Add(uneCommande);
+                Modele.MonModel.SaveChanges();
+
+            }
+            catch (Exception)
+            {
+                vretour = false;
+            }
+            return vretour;
+        }
+
+        /*public static List<Commande> RetourneCommandesParFacture(int idFacture)
         {
             try
             {
@@ -40,6 +86,6 @@ namespace AP4_C.Model
                 MessageBox.Show("Erreur : " + ex.Message);
                 return new List<Commande>();
             }
-        }
+    }*/
     }
 }

@@ -44,12 +44,13 @@
             quitterToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripMenuItem();
             pnlMenu = new Panel();
+            reserverToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { DeconnexionBtn, toolStripMenuItem2, toolStripMenuItem3, gestionDesEmployésToolStripMenuItem, quitterToolStripMenuItem, toolStripMenuItem1 });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { DeconnexionBtn, reserverToolStripMenuItem, toolStripMenuItem2, toolStripMenuItem3, gestionDesEmployésToolStripMenuItem, quitterToolStripMenuItem, toolStripMenuItem1 });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(800, 24);
@@ -161,6 +162,13 @@
             pnlMenu.TabIndex = 1;
             pnlMenu.Paint += pnlMenu_Paint;
             // 
+            // reserverToolStripMenuItem
+            // 
+            reserverToolStripMenuItem.Name = "reserverToolStripMenuItem";
+            reserverToolStripMenuItem.Size = new Size(63, 20);
+            reserverToolStripMenuItem.Text = "Reserver";
+            reserverToolStripMenuItem.Click += reserverToolStripMenuItem_Click;
+            // 
             // FormMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -194,5 +202,6 @@
         private ToolStripMenuItem listeDesEmployeToolStripMenuItem;
         private ToolStripMenuItem ajoutDunEmployéToolStripMenuItem;
         private ToolStripMenuItem modificationDunEmployéToolStripMenuItem;
+        private ToolStripMenuItem reserverToolStripMenuItem;
     }
 }

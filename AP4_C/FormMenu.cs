@@ -115,5 +115,12 @@ namespace AP4_C
             SousFormulaire SF = new SousFormulaire(pnlMenu);
             SF.openChildForm(new FormAjoutModifPersonnel(EtatGestionEmploye.UpdateEmploye));
         }
+
+        private void reserverToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SousFormulaire SF = new SousFormulaire(pnlMenu);
+            SF.openChildForm(new FormReserver());
+
+        }
     }
 }

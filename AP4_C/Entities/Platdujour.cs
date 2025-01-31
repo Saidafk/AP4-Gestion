@@ -5,7 +5,7 @@ namespace AP4_C.Entities;
 
 public partial class Platdujour
 {
-    public DateTime Ddmmyyyy { get; set; }
+    public DateOnly Ddmmyyyy { get; set; }
 
     public int Idplat { get; set; }
 

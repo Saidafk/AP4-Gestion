@@ -11,17 +11,13 @@ public partial class Commande
 
     public int? Idreserv { get; set; }
 
-    public int? Idfacture { get; set; }
-
-    public int? Idtable { get; set; }
-
-    public int Idplat { get; set; }
-
     public string? Commentaireclient { get; set; }
 
-    public virtual Client? IdclientNavigation { get; set; }
+    public int Idtable { get; set; }
 
-    public virtual Facture? IdfactureNavigation { get; set; }
+    public virtual ICollection<Facture> Factures { get; set; } = new List<Facture>();
+
+    public virtual Client? IdclientNavigation { get; set; }
 
     public virtual Reservation? IdreservNavigation { get; set; }
 

@@ -10,6 +10,4 @@ public partial class Client
     public virtual ICollection<Commande> Commandes { get; set; } = new List<Commande>();
 
     public virtual User IdclientNavigation { get; set; } = null!;
-
-    public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 }

@@ -43,12 +43,12 @@ namespace AP4_C
 
         public void RemplirTable()
         {
-
-            cbTable.ValueMember = "Idtable"; // permet de stocker l'identifiant
-            cbTable.DisplayMember = "Idtable"; // affiche l'identifiant
-            bsTable.DataSource = ModeleTable.listeTable().Select(x => new { x.Idtable }).ToList();
-            cbTable.DataSource = bsTable;
-            cbTable.SelectedIndex = -1;
+            /*
+                cbTable.ValueMember = "Idtable"; // permet de stocker l'identifiant
+                cbTable.DisplayMember = "Idtable"; // affiche l'identifiant
+                bsTable.DataSource = ModeleTable.listeTable().Select(x => new { x.Idtable }).ToList();
+                cbTable.DataSource = bsTable;
+                cbTable.SelectedIndex = -1;*/
         }
 
 
@@ -71,14 +71,16 @@ namespace AP4_C
                 int idFacture = (int)cbFacture.SelectedValue;
 
                 var facture = ModeleFacture.RetourneFacture(idFacture);
+                var commande = ModeleCommande.RetourneCommande(idFacture);
+                
 
 
-                if (facture != null)
+                if (facture != null && commande != null)
                 {
-                    cbTicket.Text = facture.Idfacture.ToString();
+                    txtTicket.Text = facture.Idfacture.ToString();
                     dtpDateFacture.Value = facture.Datefacture;
-                    cbTable.Text = facture.Idtable.ToString();
-
+                    txtTable.Text = commande.Idtable.ToString();
+                    
                     affichageCommandes();
                 }
                 else
@@ -87,25 +89,36 @@ namespace AP4_C
                 }
             }
         }
-
-
         private void affichageCommandes()
         {
             try
             {
                 if (cbFacture.SelectedValue != null)
                 {
-                    int idFacture = Convert.ToInt32(cbFacture.SelectedValue);
+                    int idInstanceDePlat = Convert.ToInt32(cbFacture.SelectedValue);
 
-                    var CommandeAffiches = ModeleCommande.listeCommande()
-                        .Where(x => x.Idfacture == idFacture)
+                    var CommandeAffiches = ModeleInstancePlat.listeInstancePlat()
+                        .Where(x => x.Idcommande == idInstanceDePlat)
                         .Select(x => new
                         {
-                            NomPlat = ModelePlat.RentourneNomPlat(x.Idplat)?.Libelleplat
+                            NomPlat = ModelePlat.RentourneNomPlat(x.Idplat)?.Libelleplat,
+                            PrixPlat = ModelePlat.RentourneNomPlat(x.Idplat)?.Prixplatht,
                         })
                         .ToList();
 
                     dgvCommande.DataSource = CommandeAffiches;
+
+                    decimal totalPrix = 0;
+
+                    foreach (var plat in CommandeAffiches)
+                    {
+                        if (plat.PrixPlat.HasValue)
+                        {
+                            totalPrix = totalPrix + (decimal)plat.PrixPlat;
+                        }
+                    }
+                    txtPrix.Text = $"Total Prix: {totalPrix:C}";
+
                 }
                 else
                 {
@@ -120,14 +133,16 @@ namespace AP4_C
 
         private void FormFacture_Load(object sender, EventArgs e)
         {
-            RemplirFacture();
-            RemplirTable();
-            affichageCommandes();
-
+            
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
+            
+            
+            /*
             if (cbFacture.SelectedValue != null)
             {
                 int Idfacture = (int)cbFacture.SelectedValue;
@@ -137,13 +152,21 @@ namespace AP4_C
                 if (ModeleFacture.ModifierFacture(Idfacture, Datefacture, Idtable))
                 {
                     MessageBox.Show("Facture modifiée");
-                    RemplirFacture();
+                    //RemplirFacture();
                 }
             }
             else
             {
                 MessageBox.Show("Veuillez sélectionner une facture.");
-            }
+            }*/
+        }
+
+        private void FormFacture_Load_1(object sender, EventArgs e)
+        {
+            RemplirFacture();
+
+            affichageCommandes();
+
         }
     }
 }

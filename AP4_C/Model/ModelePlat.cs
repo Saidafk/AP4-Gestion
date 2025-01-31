@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -111,7 +112,11 @@ namespace AP4_C.Model
             return commandePlat;
         }
 
-        public static List<Plat> RentournePlatsParFacture(int idFacture)
+        
+
+
+
+        /*public static List<Plat> RentournePlatsParFacture(int idFacture)
         {
             List<Plat> plats = new List<Plat>();
             try
@@ -134,6 +139,6 @@ namespace AP4_C.Model
                 MessageBox.Show("Erreur : " + ex.Message);
             }
             return plats;
-        }
+        }*/
     }
 }

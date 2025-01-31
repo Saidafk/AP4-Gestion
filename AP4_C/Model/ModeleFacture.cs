@@ -27,27 +27,29 @@ namespace AP4_C.Model
         {
             return Modele.MonModel.Factures.ToList();
         }
-    
 
-     public static bool ModifierFacture(int Idfacture, DateTime Datefacture, int Idtable)
-        {
-            Facture uneFacture;
-            bool vretour = true;
-            try
-            {
-                uneFacture = RetourneFacture(Idfacture);
-                uneFacture.Datefacture = Datefacture;
-                uneFacture.Idtable = Idtable;
+        
 
 
-                Modele.MonModel.SaveChanges();
-            }
-            catch (Exception)
-            {
-                vretour = false;
-            }
-            return vretour;
-        }
+        /*public static bool ModifierFacture(int Idfacture, DateTime Datefacture, int Idtable)
+           {
+               Facture uneFacture;
+               bool vretour = true;
+               try
+               {
+                   uneFacture = RetourneFacture(Idfacture);
+                   uneFacture.Datefacture = Datefacture;
+                   uneFacture.Idtable = Idtable;
+
+
+                   Modele.MonModel.SaveChanges();
+               }
+               catch (Exception)
+               {
+                   vretour = false;
+               }
+               return vretour;
+           }*/
 
     }
 }

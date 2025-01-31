@@ -23,7 +23,5 @@ public partial class Reservation
 
     public virtual ICollection<Commande> Commandes { get; set; } = new List<Commande>();
 
-    public virtual Client IdclientNavigation { get; set; } = null!;
-
     public virtual Tabler IdtableNavigation { get; set; } = null!;
 }

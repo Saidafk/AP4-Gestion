@@ -7,7 +7,7 @@ public partial class Facture
 {
     public int Idfacture { get; set; }
 
-    public int Idtable { get; set; }
+    public int Idcommande { get; set; }
 
     public int Idmoyenpaiement { get; set; }
 
@@ -15,7 +15,7 @@ public partial class Facture
 
     public DateTime Datefacture { get; set; }
 
-    public virtual ICollection<Commande> Commandes { get; set; } = new List<Commande>();
+    public virtual Commande IdcommandeNavigation { get; set; } = null!;
 
     public virtual MoyenPaiement IdmoyenpaiementNavigation { get; set; } = null!;
 }
