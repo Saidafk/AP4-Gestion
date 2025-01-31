@@ -17,7 +17,7 @@ namespace AP4_C
         public FormReserver()
         {
             InitializeComponent();
-
+            btnAjouterPlat.Click += btnAjouterPlat_Click;
         }
 
         private void FormReserver_Load(object sender, EventArgs e)
@@ -44,16 +44,18 @@ namespace AP4_C
             cbTable.SelectedIndex = -1;*/
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void button1_Click(object sender, EventArgs e)
         {
+            AjouterComboBoxPlat();
             ulong Idcommande;
-            //(int)cbTypePlat.SelectedValue
             int Idtable = (int)cbTable.SelectedValue;
+            int Idplat = (int)cbPlat.SelectedValue;
             string Commentaireclient = rtbCommentaire.Text;
 
-            if (ModeleCommande.AjouterCommande(Idtable, Commentaireclient))
+            if (ModeleCommande.AjouterCommande(Idtable, Commentaireclient) && ModeleInstancePlat.AjouterInstancePlat(Idplat))
             {
                 RemplirTable();
+                
                 MessageBox.Show("Commande ajouté");
 
             }
@@ -66,6 +68,11 @@ namespace AP4_C
         private void flowLayoutPanelPlats_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnAjouterPlat_Click(object sender, EventArgs e)
+        {
+            AjouterComboBoxPlat();
         }
 
         /*private List<int> ObtenirPlatsSelectionnes()
@@ -82,21 +89,20 @@ namespace AP4_C
             return platsSelectionnes;
         }*/
 
-        /*private void AjouterComboBoxPlat()
+        public void AjouterComboBoxPlat()
         {
             ComboBox cbPlat = new ComboBox();
             cbPlat.Width = 200;
             cbPlat.DropDownStyle = ComboBoxStyle.DropDownList;
 
-
-            cbPlat.ValueMember = "Idplat";
-            cbPlat.DisplayMember = "Libelleplat";
-            bsListePlats.DataSource = (ModelePlat.listePlats()).Select(x => new { x.Idplat, x.Libelleplat });
+            cbPlat.ValueMember = "Idplat"; // permet de stocker l'identifiant
+            cbPlat.DisplayMember = "Libelleplat"; // affiche l'identifiant
+            bsListePlats.DataSource = ModelePlat.listePlats().Select(x => new { x.Idplat, x.Libelleplat }).ToList();
             cbPlat.DataSource = bsListePlats;
             cbPlat.SelectedIndex = -1;
 
             flowLayoutPanelPlats.Controls.Add(cbPlat);
-        }*/
+        }
 
         /*private void CreerCommande()
         {

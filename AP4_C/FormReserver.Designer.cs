@@ -69,6 +69,7 @@
             btnAjouterPlat.TabIndex = 1;
             btnAjouterPlat.Text = "button2";
             btnAjouterPlat.UseVisualStyleBackColor = true;
+            btnAjouterPlat.Click += btnAjouterPlat_Click;
             // 
             // BntAjouterCommande
             // 

@@ -139,9 +139,7 @@ namespace AP4_C
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-            
-            
+                   
             /*
             if (cbFacture.SelectedValue != null)
             {
@@ -164,7 +162,6 @@ namespace AP4_C
         private void FormFacture_Load_1(object sender, EventArgs e)
         {
             RemplirFacture();
-
             affichageCommandes();
 
         }
