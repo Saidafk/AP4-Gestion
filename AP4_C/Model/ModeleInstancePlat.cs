@@ -35,7 +35,7 @@ namespace AP4_C.Model
 
         }*/
 
-        public static bool AjouterInstancePlat( int Idplat)
+        public static bool AjouterInstancePlat( int Idcommande, int Idplat, string Idinstance)
         {
             InstancePlat unInstancePlat;
             bool vretour = true;
@@ -44,6 +44,8 @@ namespace AP4_C.Model
 
                 unInstancePlat = new InstancePlat();
                 unInstancePlat.Idplat = Idplat;
+                unInstancePlat.Idcommande = Idcommande;
+                unInstancePlat.Idinstance = Idinstance;
 
                 Modele.MonModel.InstancePlats.Add(unInstancePlat);
                 Modele.MonModel.SaveChanges();

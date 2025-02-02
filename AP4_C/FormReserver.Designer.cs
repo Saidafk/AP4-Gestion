@@ -40,6 +40,7 @@
             textBox1 = new TextBox();
             bsTable = new BindingSource(components);
             bsListePlats = new BindingSource(components);
+            cbPlat = new ComboBox();
             flowLayoutPanelPlats.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)bsTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bsListePlats).BeginInit();
@@ -47,6 +48,7 @@
             // 
             // flowLayoutPanelPlats
             // 
+            flowLayoutPanelPlats.Controls.Add(cbPlat);
             flowLayoutPanelPlats.Controls.Add(btnAjouterPlat);
             flowLayoutPanelPlats.Controls.Add(BntAjouterCommande);
             flowLayoutPanelPlats.Controls.Add(label3);
@@ -131,6 +133,14 @@
             textBox1.Size = new Size(100, 23);
             textBox1.TabIndex = 0;
             // 
+            // cbPlat
+            // 
+            cbPlat.FormattingEnabled = true;
+            cbPlat.Location = new Point(294, 226);
+            cbPlat.Name = "cbPlat";
+            cbPlat.Size = new Size(121, 23);
+            cbPlat.TabIndex = 1;
+            // 
             // FormReserver
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -160,5 +170,6 @@
         private BindingSource bsTable;
         private BindingSource bsListePlats;
         private Button btnAjouterPlat;
+        private ComboBox cbPlat;
     }
 }

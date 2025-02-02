@@ -20,9 +20,19 @@ namespace AP4_C
             btnAjouterPlat.Click += btnAjouterPlat_Click;
         }
 
+        public void RemplirPlat()
+        {
+            cbPlat.ValueMember = "Idplat"; // permet de stocker l'identifiant
+            cbPlat.DisplayMember = "Libelleplat"; // affiche l'identifiant
+            bsListePlats.DataSource = ModelePlat.listePlats().Select(x => new { x.Idplat, x.Libelleplat }).ToList();
+            cbPlat.DataSource = bsListePlats;
+            cbPlat.SelectedIndex = -1;
+        }
+
         private void FormReserver_Load(object sender, EventArgs e)
         {
             RemplirTable();
+            RemplirPlat();  
         }
         public void RemplirTable()
         {
@@ -46,18 +56,26 @@ namespace AP4_C
 
         public void button1_Click(object sender, EventArgs e)
         {
-            AjouterComboBoxPlat();
-            ulong Idcommande;
+            //AjouterComboBoxPlat();
+            int Idcommande;
             int Idtable = (int)cbTable.SelectedValue;
             int Idplat = (int)cbPlat.SelectedValue;
             string Commentaireclient = rtbCommentaire.Text;
+            string Idinstance = "test";
 
-            if (ModeleCommande.AjouterCommande(Idtable, Commentaireclient) && ModeleInstancePlat.AjouterInstancePlat(Idplat))
+            if (ModeleCommande.AjouterCommande(Idtable, Commentaireclient))
             {
                 RemplirTable();
-                
                 MessageBox.Show("Commande ajouté");
-
+                Idcommande = ModeleCommande.listeCommande().Last().Idcommande;
+                if (ModeleInstancePlat.AjouterInstancePlat(Idcommande, Idplat, Idinstance))
+                {
+                    MessageBox.Show("Plat ajouté");
+                }
+                else
+                {
+                    MessageBox.Show("Erreur lors de l'ajout du plat");
+                }
             }
             else
             {
