@@ -85,9 +85,9 @@ namespace AP4_C
             int Idtable = (int)cbTable.SelectedValue;
             string Commentaireclient = rtbCommentaire.Text;
             //string Idinstance = Guid.NewGuid().ToString();  // Génère un ID unique pour l'instance
-
+            
             // Création de la commande
-            if (ModeleCommande.AjouterCommande(Idtable, Commentaireclient))
+            if (ModeleCommande.AjouterCommande(Idtable, Commentaireclient) && cbTable.SelectedValue != null)
             {
                 // Récupération de l'ID de la commande nouvellement créée
                 Idcommande = ModeleCommande.listeCommande().Last().Idcommande;
@@ -102,9 +102,9 @@ namespace AP4_C
 
                         string Idinstance = Guid.NewGuid().ToString();
 
-                        MessageBox.Show("l'id commande est " + Idcommande);
-                        MessageBox.Show("l'id plat est " + IdPlat);
-                        MessageBox.Show("l'id instance est " + Idinstance);
+                        //MessageBox.Show("l'id commande est " + Idcommande);
+                        //MessageBox.Show("l'id plat est " + IdPlat);
+                        //MessageBox.Show("l'id instance est " + Idinstance);
                         // Ajouter l'instance du plat à la commande
                         if (ModeleInstancePlat.AjouterInstancePlat(Idcommande, IdPlat, Idinstance))
                         {
@@ -116,9 +116,12 @@ namespace AP4_C
                         }
                     }
                 }
-
+                
+                ModeleTabler.MettreTableNonDisponible(Idtable);
                 ReinitialiserFormulaire();
+                Modele.MonModel.SaveChanges();             
             }
+            
         }
 
 

@@ -36,7 +36,6 @@
             txtPrix = new TextBox();
             txtTable = new TextBox();
             txtTicket = new TextBox();
-            button1 = new Button();
             dgvCommande = new DataGridView();
             label6 = new Label();
             label5 = new Label();
@@ -46,6 +45,7 @@
             label2 = new Label();
             bsCommande = new BindingSource(components);
             bsTable = new BindingSource(components);
+            btnGenererPDF = new Button();
             ((System.ComponentModel.ISupportInitialize)bsFacture).BeginInit();
             gbInfoFacture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCommande).BeginInit();
@@ -74,10 +74,10 @@
             // 
             // gbInfoFacture
             // 
+            gbInfoFacture.Controls.Add(btnGenererPDF);
             gbInfoFacture.Controls.Add(txtPrix);
             gbInfoFacture.Controls.Add(txtTable);
             gbInfoFacture.Controls.Add(txtTicket);
-            gbInfoFacture.Controls.Add(button1);
             gbInfoFacture.Controls.Add(dgvCommande);
             gbInfoFacture.Controls.Add(label6);
             gbInfoFacture.Controls.Add(label5);
@@ -115,16 +115,6 @@
             txtTicket.ReadOnly = true;
             txtTicket.Size = new Size(100, 23);
             txtTicket.TabIndex = 23;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(625, 269);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 22;
-            button1.Text = "Imprimer";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // dgvCommande
             // 
@@ -191,6 +181,16 @@
             label2.TabIndex = 0;
             label2.Text = "Restaurant Camoel";
             // 
+            // btnGenererPDF
+            // 
+            btnGenererPDF.Location = new Point(643, 283);
+            btnGenererPDF.Name = "btnGenererPDF";
+            btnGenererPDF.Size = new Size(75, 23);
+            btnGenererPDF.TabIndex = 26;
+            btnGenererPDF.Text = "button1";
+            btnGenererPDF.UseVisualStyleBackColor = true;
+            btnGenererPDF.Click += btnGenererPDF_Click;
+            // 
             // FormFacture
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -228,10 +228,10 @@
         private Label label4;
         private DataGridView dgvCommande;
         private BindingSource bsCommande;
-        private Button button1;
         private BindingSource bsTable;
         private TextBox txtTable;
         private TextBox txtTicket;
         private TextBox txtPrix;
+        private Button btnGenererPDF;
     }
 }

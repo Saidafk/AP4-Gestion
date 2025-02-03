@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
+using AP4_C.Controller;
 using AP4_C.Entities;
 using AP4_C.Model;
 using Microsoft.EntityFrameworkCore;
@@ -72,7 +73,7 @@ namespace AP4_C
 
                 var facture = ModeleFacture.RetourneFacture(idFacture);
                 var commande = ModeleCommande.RetourneCommande(idFacture);
-                
+
 
 
                 if (facture != null && commande != null)
@@ -80,7 +81,7 @@ namespace AP4_C
                     txtTicket.Text = facture.Idfacture.ToString();
                     dtpDateFacture.Value = facture.Datefacture;
                     txtTable.Text = commande.Idtable.ToString();
-                    
+
                     affichageCommandes();
                 }
                 else
@@ -133,13 +134,13 @@ namespace AP4_C
 
         private void FormFacture_Load(object sender, EventArgs e)
         {
-            
-            
+
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-                   
+
             /*
             if (cbFacture.SelectedValue != null)
             {
@@ -164,6 +165,38 @@ namespace AP4_C
             RemplirFacture();
             affichageCommandes();
 
+        }
+
+        private void btnGenererPDF_Click(object sender, EventArgs e)
+        {
+            if (cbFacture.SelectedValue == null)
+            {
+                MessageBox.Show("Veuillez sélectionner une facture.");
+                return;
+            }
+
+            int idFacture = (int)cbFacture.SelectedValue;
+
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Fichiers PDF (*.pdf)|*.pdf";
+                saveFileDialog.Title = "Enregistrer la facture";
+                saveFileDialog.FileName = $"Facture_{idFacture}.pdf";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        // Appeler la méthode de génération du PDF
+                        GenererPDF.CreerPDF(saveFileDialog.FileName, idFacture);
+                        MessageBox.Show($"Facture générée avec succès : {saveFileDialog.FileName}");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Erreur lors de la génération du PDF : {ex.Message}");
+                    }
+                }
+            }          
         }
     }
 }
