@@ -32,27 +32,6 @@ namespace AP4_C
             cbFacture.SelectedIndex = -1;
         }
 
-        /*public void RemplirTicket()
-        {
-
-            cbTicket.ValueMember = "Idfacture"; // permet de stocker l'identifiant
-            cbTicket.DisplayMember = "Idfacture"; // affiche l'identifiant
-            bsFacture.DataSource = ModeleFacture.listeFacture().Select(x => new { x.Idfacture }).ToList();
-            cbTicket.DataSource = bsFacture;
-            cbTicket.SelectedIndex = -1;
-        }*/
-
-        public void RemplirTable()
-        {
-            /*
-                cbTable.ValueMember = "Idtable"; // permet de stocker l'identifiant
-                cbTable.DisplayMember = "Idtable"; // affiche l'identifiant
-                bsTable.DataSource = ModeleTable.listeTable().Select(x => new { x.Idtable }).ToList();
-                cbTable.DataSource = bsTable;
-                cbTable.SelectedIndex = -1;*/
-        }
-
-
         private void cbFacture_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbFacture.SelectedIndex != -1 && cbFacture.SelectedValue != null)
@@ -118,6 +97,9 @@ namespace AP4_C
                             totalPrix = totalPrix + (decimal)plat.PrixPlat;
                         }
                     }
+
+                    //tbPrixTVA.Text = $"Total Prix TTC: {totalPrix * 1.2m:C}";
+                    tbPrixTVA.Text = $"Total TVA (20%): {(totalPrix * 0.2m):C}";
                     txtPrix.Text = $"Total Prix: {totalPrix:C}";
 
                 }
@@ -138,28 +120,7 @@ namespace AP4_C
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-            /*
-            if (cbFacture.SelectedValue != null)
-            {
-                int Idfacture = (int)cbFacture.SelectedValue;
-                int Idtable = int.Parse(cbTable.Text);
-                DateTime Datefacture = dtpDateFacture.Value;
-
-                if (ModeleFacture.ModifierFacture(Idfacture, Datefacture, Idtable))
-                {
-                    MessageBox.Show("Facture modifiée");
-                    //RemplirFacture();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Veuillez sélectionner une facture.");
-            }*/
-        }
-
+    
         private void FormFacture_Load_1(object sender, EventArgs e)
         {
             RemplirFacture();

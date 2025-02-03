@@ -33,6 +33,8 @@
             bsFacture = new BindingSource(components);
             cbFacture = new ComboBox();
             gbInfoFacture = new GroupBox();
+            tbPrixTVA = new TextBox();
+            btnGenererPDF = new Button();
             txtPrix = new TextBox();
             txtTable = new TextBox();
             txtTicket = new TextBox();
@@ -45,7 +47,6 @@
             label2 = new Label();
             bsCommande = new BindingSource(components);
             bsTable = new BindingSource(components);
-            btnGenererPDF = new Button();
             ((System.ComponentModel.ISupportInitialize)bsFacture).BeginInit();
             gbInfoFacture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCommande).BeginInit();
@@ -74,6 +75,7 @@
             // 
             // gbInfoFacture
             // 
+            gbInfoFacture.Controls.Add(tbPrixTVA);
             gbInfoFacture.Controls.Add(btnGenererPDF);
             gbInfoFacture.Controls.Add(txtPrix);
             gbInfoFacture.Controls.Add(txtTable);
@@ -92,12 +94,29 @@
             gbInfoFacture.TabStop = false;
             gbInfoFacture.Text = "Facture";
             // 
+            // tbPrixTVA
+            // 
+            tbPrixTVA.Location = new Point(530, 176);
+            tbPrixTVA.Name = "tbPrixTVA";
+            tbPrixTVA.Size = new Size(162, 23);
+            tbPrixTVA.TabIndex = 5;
+            // 
+            // btnGenererPDF
+            // 
+            btnGenererPDF.Location = new Point(643, 283);
+            btnGenererPDF.Name = "btnGenererPDF";
+            btnGenererPDF.Size = new Size(75, 23);
+            btnGenererPDF.TabIndex = 26;
+            btnGenererPDF.Text = "button1";
+            btnGenererPDF.UseVisualStyleBackColor = true;
+            btnGenererPDF.Click += btnGenererPDF_Click;
+            // 
             // txtPrix
             // 
             txtPrix.Location = new Point(530, 214);
             txtPrix.Name = "txtPrix";
             txtPrix.ReadOnly = true;
-            txtPrix.Size = new Size(100, 23);
+            txtPrix.Size = new Size(162, 23);
             txtPrix.TabIndex = 25;
             // 
             // txtTable
@@ -181,16 +200,6 @@
             label2.TabIndex = 0;
             label2.Text = "Restaurant Camoel";
             // 
-            // btnGenererPDF
-            // 
-            btnGenererPDF.Location = new Point(643, 283);
-            btnGenererPDF.Name = "btnGenererPDF";
-            btnGenererPDF.Size = new Size(75, 23);
-            btnGenererPDF.TabIndex = 26;
-            btnGenererPDF.Text = "button1";
-            btnGenererPDF.UseVisualStyleBackColor = true;
-            btnGenererPDF.Click += btnGenererPDF_Click;
-            // 
             // FormFacture
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -233,5 +242,6 @@
         private TextBox txtTicket;
         private TextBox txtPrix;
         private Button btnGenererPDF;
+        private TextBox tbPrixTVA;
     }
 }

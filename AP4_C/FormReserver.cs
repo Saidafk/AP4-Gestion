@@ -84,10 +84,9 @@ namespace AP4_C
             int Idcommande;
             int Idtable = (int)cbTable.SelectedValue;
             string Commentaireclient = rtbCommentaire.Text;
-            //string Idinstance = Guid.NewGuid().ToString();  // Génère un ID unique pour l'instance
-            
+
             // Création de la commande
-            if (ModeleCommande.AjouterCommande(Idtable, Commentaireclient) && cbTable.SelectedValue != null)
+            if (ModeleCommande.AjouterCommande(Idtable, Commentaireclient))
             {
                 // Récupération de l'ID de la commande nouvellement créée
                 Idcommande = ModeleCommande.listeCommande().Last().Idcommande;
@@ -96,32 +95,59 @@ namespace AP4_C
                 // Ajout des plats à la commande
                 foreach (DataGridViewRow row in dgvChoixPlat.Rows)
                 {
+                    // Vérifier si le plat est sélectionné
                     if (row.Cells[2].Value != null && bool.TryParse(row.Cells[2].Value.ToString(), out bool isChecked) && isChecked)
                     {
                         int IdPlat = int.Parse(row.Cells[0].Value.ToString());
+                        string nomPlat = row.Cells[1].Value.ToString();
 
-                        string Idinstance = Guid.NewGuid().ToString();
+                        // Lire la quantité (colonne 3)
+                        int quantite;
 
-                        //MessageBox.Show("l'id commande est " + Idcommande);
-                        //MessageBox.Show("l'id plat est " + IdPlat);
-                        //MessageBox.Show("l'id instance est " + Idinstance);
-                        // Ajouter l'instance du plat à la commande
-                        if (ModeleInstancePlat.AjouterInstancePlat(Idcommande, IdPlat, Idinstance))
+                        // Si la quantité est vide, utiliser la quantité par défaut (1)
+                        if (row.Cells[3].Value == null || string.IsNullOrWhiteSpace(row.Cells[3].Value.ToString()))
                         {
-                            MessageBox.Show($"Plat {row.Cells[1].Value} ajouté à la commande.");
+                            quantite = 1;
                         }
-                        else
+                        // Si la quantité est invalide (texte ou nombre négatif), afficher un message d'erreur et passer au plat suivant
+                        else if (!int.TryParse(row.Cells[3].Value.ToString(), out quantite) || quantite <= 0)
                         {
-                            MessageBox.Show($"Erreur lors de l'ajout du plat {row.Cells[1].Value}.");
+                            MessageBox.Show($"Erreur : La quantité pour le plat '{nomPlat}' est invalide. Veuillez entrer un nombre positif.", "Erreur de quantité", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            continue; // Passer au plat suivant
+                        }
+
+                        // Ajouter autant d'instances du plat que la quantité spécifiée
+                        for (int i = 0; i < quantite; i++)
+                        {
+                            string Idinstance = Guid.NewGuid().ToString(); // Génère un ID unique pour chaque instance
+
+                            // Ajouter l'instance du plat à la commande
+                            if (ModeleInstancePlat.AjouterInstancePlat(Idcommande, IdPlat, Idinstance))
+                            {
+                                MessageBox.Show($"Plat '{nomPlat}' (instance {i + 1}) ajouté à la commande.");
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Erreur lors de l'ajout du plat '{nomPlat}' (instance {i + 1}).");
+                            }
                         }
                     }
+                    ReinitialiserFormulaire();
                 }
-                
+
+                // Marquer la table comme non disponible
                 ModeleTabler.MettreTableNonDisponible(Idtable);
+
+                // Réinitialiser le formulaire
                 ReinitialiserFormulaire();
-                Modele.MonModel.SaveChanges();             
+
+                // Sauvegarder les changements en base de données
+                Modele.MonModel.SaveChanges();
             }
-            
+            else
+            {
+                MessageBox.Show("Erreur lors de la création de la commande.");
+            }
         }
 
 

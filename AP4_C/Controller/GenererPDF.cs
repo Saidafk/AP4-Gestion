@@ -80,7 +80,11 @@ namespace AP4_C.Controller
             // Ajouter le tableau à la page
             page.Paragraphs.Add(table);
 
-            // Ajouter le total
+            // Ajouter le total TVA et le total
+            page.Paragraphs.Add(new TextFragment($"Total TVA (20%) : {(totalPrix * 0.2m):C}")
+            {
+                HorizontalAlignment = Aspose.Pdf.HorizontalAlignment.Right
+            });
             page.Paragraphs.Add(new TextFragment($"Total : {totalPrix:C}")
             {
                 HorizontalAlignment = Aspose.Pdf.HorizontalAlignment.Right
