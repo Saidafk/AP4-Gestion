@@ -1,4 +1,5 @@
 ﻿using AP4_C.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,34 +29,53 @@ namespace AP4_C.Model
             }
         }
 
-        /*public static InstancePlat PrixCommande(int idInstanceDePlat)
+        public static bool AjouterInstancePlat(int Idcommande, int Idplat, string Idinstance)
         {
-            int prix = 0;
-
-
-        }*/
-
-        public static bool AjouterInstancePlat( int Idcommande, int Idplat, string Idinstance)
-        {
-            InstancePlat unInstancePlat;
-            bool vretour = true;
             try
             {
+                // Validation des paramètres plus explicite
+                if (Idcommande <= 0)
+                    throw new ArgumentException("L'ID de commande est invalide.", nameof(Idcommande));
 
-                unInstancePlat = new InstancePlat();
-                unInstancePlat.Idplat = Idplat;
-                unInstancePlat.Idcommande = Idcommande;
-                unInstancePlat.Idinstance = Idinstance;
+                if (Idplat <= 0)
+                    throw new ArgumentException("L'ID de plat est invalide.", nameof(Idplat));
 
+                if (string.IsNullOrWhiteSpace(Idinstance))
+                    throw new ArgumentException("L'ID d'instance est invalide.", nameof(Idinstance));
+
+                // Création et ajout de l'instance du plat
+                var unInstancePlat = new InstancePlat
+                {
+                    Idplat = Idplat,
+                    Idcommande = Idcommande,
+                    Idinstance = Idinstance
+                };
+
+                // Ajout et sauvegarde
                 Modele.MonModel.InstancePlats.Add(unInstancePlat);
                 Modele.MonModel.SaveChanges();
 
+                return true;
             }
-            catch (Exception)
+            catch (ArgumentException ex)
             {
-                vretour = false;
+                // Logging potentiel
+                System.Diagnostics.Debug.WriteLine($"Erreur de validation : {ex.Message}");
+                return false;
             }
-            return vretour;
+            catch (DbUpdateException ex)
+            {
+                // Logging potentiel
+                System.Diagnostics.Debug.WriteLine($"Erreur de base de données : {ex.Message}");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                // Logging potentiel
+                System.Diagnostics.Debug.WriteLine($"Erreur inattendue : {ex.Message}");
+                return false;
+            }
         }
+
     }
 }

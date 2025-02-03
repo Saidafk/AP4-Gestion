@@ -2,12 +2,7 @@
 using AP4_C.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AP4_C
@@ -17,140 +12,127 @@ namespace AP4_C
         public FormReserver()
         {
             InitializeComponent();
-            btnAjouterPlat.Click += btnAjouterPlat_Click;
+            btnValiderCommande.Click += btnValiderCommande_Click;
         }
 
-        public void RemplirPlat()
+        public void RemplirDataGridViewPlats()
         {
-            cbPlat.ValueMember = "Idplat"; // permet de stocker l'identifiant
-            cbPlat.DisplayMember = "Libelleplat"; // affiche l'identifiant
-            bsListePlats.DataSource = ModelePlat.listePlats().Select(x => new { x.Idplat, x.Libelleplat }).ToList();
-            cbPlat.DataSource = bsListePlats;
-            cbPlat.SelectedIndex = -1;
+            // Récupère la liste des plats avec leur ID et libellé
+            var plats = ModelePlat.listePlats().Select(x => new { x.Idplat, x.Libelleplat }).ToList();
+
+            // Nettoie les colonnes existantes
+            dgvChoixPlat.Columns.Clear();
+            dgvChoixPlat.AutoGenerateColumns = false;
+
+            // Colonne ID (cachée)
+            DataGridViewTextBoxColumn colIdPlat = new DataGridViewTextBoxColumn();
+            colIdPlat.HeaderText = "ID";
+            colIdPlat.DataPropertyName = "Idplat";
+            colIdPlat.Visible = false;
+            dgvChoixPlat.Columns.Add(colIdPlat);
+
+            // Colonne Nom du Plat
+            DataGridViewTextBoxColumn colNomPlat = new DataGridViewTextBoxColumn();
+            colNomPlat.HeaderText = "Nom du Plat";
+            colNomPlat.DataPropertyName = "Libelleplat";
+            dgvChoixPlat.Columns.Add(colNomPlat);
+
+            // Colonne Sélection (Checkbox)
+            DataGridViewCheckBoxColumn colSelection = new DataGridViewCheckBoxColumn();
+            colSelection.HeaderText = "Sélectionner";
+            dgvChoixPlat.Columns.Add(colSelection);
+
+            // Colonne Quantité
+            DataGridViewTextBoxColumn colQuantite = new DataGridViewTextBoxColumn();
+            colQuantite.HeaderText = "Quantité";
+            dgvChoixPlat.Columns.Add(colQuantite);
+
+            dgvChoixPlat.DataSource = plats;
         }
+
 
         private void FormReserver_Load(object sender, EventArgs e)
         {
             RemplirTable();
-            RemplirPlat();  
+            RemplirDataGridViewPlats();
         }
+
         public void RemplirTable()
         {
-
             var tablesDisponibles = ModeleTable.listeTable()
-            .Where(t => t.Estdispo == true)
-            .Select(t => new { t.Idtable })
-            .ToList();
+                .Where(t => t.Estdispo == true)
+                .Select(t => new { t.Idtable })
+                .ToList();
 
             cbTable.DataSource = tablesDisponibles;
             cbTable.ValueMember = "Idtable";
             cbTable.DisplayMember = "Nomtable";
             cbTable.SelectedIndex = -1;
-
-            /*cbTable.ValueMember = "Idtable"; // permet de stocker l'identifiant
-            cbTable.DisplayMember = "Idtable"; // affiche l'identifiant
-            bsTable.DataSource = ModeleTable.listeTable().Select(x => new { x.Idtable }).ToList();
-            cbTable.DataSource = bsTable;
-            cbTable.SelectedIndex = -1;*/
         }
 
-        public void button1_Click(object sender, EventArgs e)
+
+        // Événement de validation de la commande
+        private void btnValiderCommande_Click(object sender, EventArgs e)
         {
-            //AjouterComboBoxPlat();
+            // Validation de la sélection de table
+            if (cbTable.SelectedValue == null)
+            {
+                MessageBox.Show("Veuillez sélectionner une table.");
+                return;
+            }
+
             int Idcommande;
             int Idtable = (int)cbTable.SelectedValue;
-            int Idplat = (int)cbPlat.SelectedValue;
             string Commentaireclient = rtbCommentaire.Text;
-            string Idinstance = "test";
+            //string Idinstance = Guid.NewGuid().ToString();  // Génère un ID unique pour l'instance
 
+            // Création de la commande
             if (ModeleCommande.AjouterCommande(Idtable, Commentaireclient))
             {
-                RemplirTable();
-                MessageBox.Show("Commande ajouté");
+                // Récupération de l'ID de la commande nouvellement créée
                 Idcommande = ModeleCommande.listeCommande().Last().Idcommande;
-                if (ModeleInstancePlat.AjouterInstancePlat(Idcommande, Idplat, Idinstance))
+                MessageBox.Show("Commande ajoutée");
+
+                // Ajout des plats à la commande
+                foreach (DataGridViewRow row in dgvChoixPlat.Rows)
                 {
-                    MessageBox.Show("Plat ajouté");
+                    if (row.Cells[2].Value != null && bool.TryParse(row.Cells[2].Value.ToString(), out bool isChecked) && isChecked)
+                    {
+                        int IdPlat = int.Parse(row.Cells[0].Value.ToString());
+
+                        string Idinstance = Guid.NewGuid().ToString();
+
+                        MessageBox.Show("l'id commande est " + Idcommande);
+                        MessageBox.Show("l'id plat est " + IdPlat);
+                        MessageBox.Show("l'id instance est " + Idinstance);
+                        // Ajouter l'instance du plat à la commande
+                        if (ModeleInstancePlat.AjouterInstancePlat(Idcommande, IdPlat, Idinstance))
+                        {
+                            MessageBox.Show($"Plat {row.Cells[1].Value} ajouté à la commande.");
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Erreur lors de l'ajout du plat {row.Cells[1].Value}.");
+                        }
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Erreur lors de l'ajout du plat");
-                }
+
+                ReinitialiserFormulaire();
             }
-            else
-            {
-                MessageBox.Show("Erreur lors de l'ajout de la commande");
-            }
+        }
+
+
+        // Méthode pour réinitialiser le formulaire après une commande
+        private void ReinitialiserFormulaire()
+        {
+            cbTable.SelectedIndex = -1;
+            rtbCommentaire.Clear();
+            RemplirDataGridViewPlats();
         }
 
         private void flowLayoutPanelPlats_Paint(object sender, PaintEventArgs e)
         {
 
         }
-
-        private void btnAjouterPlat_Click(object sender, EventArgs e)
-        {
-            AjouterComboBoxPlat();
-        }
-
-        /*private List<int> ObtenirPlatsSelectionnes()
-        {
-            List<int> platsSelectionnes = new List<int>();
-
-            foreach (Control control in flowLayoutPanelPlats.Controls)
-            {
-                if (control is ComboBox cbPlat && cbPlat.SelectedValue != null)
-                {
-                    platsSelectionnes.Add((int)cbPlat.SelectedValue);
-                }
-            }
-            return platsSelectionnes;
-        }*/
-
-        public void AjouterComboBoxPlat()
-        {
-            ComboBox cbPlat = new ComboBox();
-            cbPlat.Width = 200;
-            cbPlat.DropDownStyle = ComboBoxStyle.DropDownList;
-
-            cbPlat.ValueMember = "Idplat"; // permet de stocker l'identifiant
-            cbPlat.DisplayMember = "Libelleplat"; // affiche l'identifiant
-            bsListePlats.DataSource = ModelePlat.listePlats().Select(x => new { x.Idplat, x.Libelleplat }).ToList();
-            cbPlat.DataSource = bsListePlats;
-            cbPlat.SelectedIndex = -1;
-
-            flowLayoutPanelPlats.Controls.Add(cbPlat);
-        }
-
-        /*private void CreerCommande()
-        {
-            List<int> platsSelectionnes = ObtenirPlatsSelectionnes();
-
-            if (platsSelectionnes.Count > 0)
-            {
-                Commande commande = new Commande();
-                InstancePlat instancePlat = new InstancePlat();
-
-                foreach (int platId in platsSelectionnes)
-                {
-                    Plat plat = ModelePlat.RetournePlat(platId);
-                    if (plat != null)
-                    {
-                        string Libelleplat = plat.Libelleplat;
-
-                    }
-                }
-
-                SystemeReservation systemeReservation = new SystemeReservation();
-                systemeReservation.CreerReservation(commande);
-
-                MessageBox.Show("Commande créée avec succès !");
-            }
-            else
-            {
-                MessageBox.Show("Veuillez sélectionner au moins un plat.");
-            }*/
     }
 }
-
-
