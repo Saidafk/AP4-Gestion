@@ -30,6 +30,7 @@
         {
             menuStrip1 = new MenuStrip();
             DeconnexionBtn = new ToolStripMenuItem();
+            reserverToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem2 = new ToolStripMenuItem();
             toolStripMenuItem3 = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
@@ -44,12 +45,12 @@
             quitterToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripMenuItem();
             pnlMenu = new Panel();
-            reserverToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
+            menuStrip1.BackColor = Color.FromArgb(128, 255, 255);
             menuStrip1.Items.AddRange(new ToolStripItem[] { DeconnexionBtn, reserverToolStripMenuItem, toolStripMenuItem2, toolStripMenuItem3, gestionDesEmployésToolStripMenuItem, quitterToolStripMenuItem, toolStripMenuItem1 });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
@@ -62,6 +63,13 @@
             // 
             DeconnexionBtn.Name = "DeconnexionBtn";
             DeconnexionBtn.Size = new Size(12, 20);
+            // 
+            // reserverToolStripMenuItem
+            // 
+            reserverToolStripMenuItem.Name = "reserverToolStripMenuItem";
+            reserverToolStripMenuItem.Size = new Size(63, 20);
+            reserverToolStripMenuItem.Text = "Reserver";
+            reserverToolStripMenuItem.Click += reserverToolStripMenuItem_Click;
             // 
             // toolStripMenuItem2
             // 
@@ -161,13 +169,6 @@
             pnlMenu.Size = new Size(800, 428);
             pnlMenu.TabIndex = 1;
             pnlMenu.Paint += pnlMenu_Paint;
-            // 
-            // reserverToolStripMenuItem
-            // 
-            reserverToolStripMenuItem.Name = "reserverToolStripMenuItem";
-            reserverToolStripMenuItem.Size = new Size(63, 20);
-            reserverToolStripMenuItem.Text = "Reserver";
-            reserverToolStripMenuItem.Click += reserverToolStripMenuItem_Click;
             // 
             // FormMenu
             // 

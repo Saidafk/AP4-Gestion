@@ -107,7 +107,7 @@
             btnGenererPDF.Name = "btnGenererPDF";
             btnGenererPDF.Size = new Size(75, 23);
             btnGenererPDF.TabIndex = 26;
-            btnGenererPDF.Text = "button1";
+            btnGenererPDF.Text = "Imprimer";
             btnGenererPDF.UseVisualStyleBackColor = true;
             btnGenererPDF.Click += btnGenererPDF_Click;
             // 

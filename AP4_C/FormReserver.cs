@@ -59,7 +59,7 @@ namespace AP4_C
 
         public void RemplirTable()
         {
-            var tablesDisponibles = ModeleTable.listeTable()
+            var tablesDisponibles = ModeleTabler.listeTable()
                 .Where(t => t.Estdispo == true)
                 .Select(t => new { t.Idtable })
                 .ToList();

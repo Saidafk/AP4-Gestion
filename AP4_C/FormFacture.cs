@@ -137,6 +137,7 @@ namespace AP4_C
             }
 
             int idFacture = (int)cbFacture.SelectedValue;
+            int idTable = int.Parse(txtTable.Text);
 
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
@@ -151,6 +152,7 @@ namespace AP4_C
                         // Appeler la méthode de génération du PDF
                         GenererPDF.CreerPDF(saveFileDialog.FileName, idFacture);
                         MessageBox.Show($"Facture générée avec succès : {saveFileDialog.FileName}");
+                        ModeleTabler.MettreTableDisponible(idTable);
                     }
                     catch (Exception ex)
                     {

@@ -25,5 +25,21 @@ namespace AP4_C.Model
             }
         }
 
+        public static void MettreTableDisponible(int Idtable)
+        {
+            var table = listeTable().FirstOrDefault(t => t.Idtable == Idtable);
+            if (table != null)
+            {
+                table.Estdispo = true;
+                //Model.ModeleTabler.SaveChanges();
+            }
+
+        }
+
+        /*public static List<Tabler> listeTable()
+        {
+            return Modele.MonModel.Tablers.ToList();
+        }
+        */
     }
 }
