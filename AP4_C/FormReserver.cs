@@ -9,10 +9,11 @@ namespace AP4_C
 {
     public partial class FormReserver : Form
     {
+
+        private bool isCommandeButtonPressed = false;
         public FormReserver()
         {
-            InitializeComponent();
-            btnValiderCommande.Click += btnValiderCommande_Click;
+            InitializeComponent();            
         }
 
         public void RemplirDataGridViewPlats()
@@ -84,16 +85,32 @@ namespace AP4_C
         private void btnValiderCommande_Click(object sender, EventArgs e)
         {
             int Idcommande;
-            int Idtable = (int)cbTable.SelectedValue;
             string Commentaireclient = rtbCommentaire.Text;
+            //int idMoyenPaiement = (int)cbMoyenP.SelectedValue;
+
+            int idMoyenPaiement = cbMoyenP.SelectedValue != null ? (int)cbMoyenP.SelectedValue : -1;
+            if (idMoyenPaiement == -1)
+            {
+                MessageBox.Show("Veuillez sélectionner un moyen de paiement.");
+                return;
+            }
+
+
+            int Idtable = cbTable.SelectedValue != null ? (int)cbTable.SelectedValue : -1;
+            if (Idtable == -1)
+            {
+                MessageBox.Show("Veuillez sélectionner une table.");
+                return;
+            }
 
             if (ModeleCommande.AjouterCommande(Idtable, Commentaireclient))
             {
                 Idcommande = ModeleCommande.listeCommande().Last().Idcommande;
-                //MessageBox.Show("Commande ajoutée");
-
-                foreach (DataGridViewRow row in dgvChoixPlat.Rows)
+                bool tousLesPlatsAjoutes = true;
+                
+                for (int i = 0; i < dgvChoixPlat.Rows.Count; i++)
                 {
+                    DataGridViewRow row = dgvChoixPlat.Rows[i];
                     if (row.Cells[2].Value != null && bool.TryParse(row.Cells[2].Value.ToString(), out bool isChecked) && isChecked)
                     {
                         int IdPlat = int.Parse(row.Cells[0].Value.ToString());
@@ -106,41 +123,50 @@ namespace AP4_C
                         }
                         else if (!int.TryParse(row.Cells[3].Value.ToString(), out quantite) || quantite <= 0)
                         {
-                            MessageBox.Show($"Erreur : La quantité pour le plat '{nomPlat}' est invalide. Veuillez entrer un nombre positif.", "Erreur de quantité", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show($"Erreur : La quantité pour le plat '{nomPlat}' est invalide.");
                             continue;
                         }
 
-                        for (int i = 0; i < quantite; i++)
+                        // Ajout des instances sans messages individuels
+                        for (int j = 0; j < quantite; j++)
                         {
                             string Idinstance = Guid.NewGuid().ToString();
-
-                            if (ModeleInstancePlat.AjouterInstancePlat(Idcommande, IdPlat, Idinstance))
+                            if (!ModeleInstancePlat.AjouterInstancePlat(Idcommande, IdPlat, Idinstance))
                             {
-                                MessageBox.Show($"Plat '{nomPlat}' (instance {i + 1}) ajouté à la commande.");
-                            }
-                            else
-                            {
-                                MessageBox.Show($"Erreur lors de l'ajout du plat '{nomPlat}' (instance {i + 1}).");
+                                tousLesPlatsAjoutes = false;
+                                MessageBox.Show($"Erreur lors de l'ajout du plat '{nomPlat}'.");
+                                break;
                             }
                         }
                     }
                 }
-
-                //ReinitialiserFormulaire();
+                //MessageBox.Show(DateTime.Now);
+                DateTime dateFacture = DateTime.Now;
+                ModeleFacture.NouvelleFacture(Idcommande, idMoyenPaiement, 20, dateFacture);
                 ModeleTabler.MettreTableNonDisponible(Idtable);
-                MessageBox.Show("Commande passé");
+                RemplirTable();
+
+                if (tousLesPlatsAjoutes)
+                {
+                    MessageBox.Show("Commande passée avec succès!");
+                    ReinitialiserFormulaire();
+                }
             }
             else
             {
                 MessageBox.Show("Erreur lors de la création de la commande.");
             }
+            isCommandeButtonPressed = false;
         }
+
+
 
 
         // Méthode pour réinitialiser le formulaire après une commande
         private void ReinitialiserFormulaire()
         {
             cbTable.SelectedIndex = -1;
+            cbMoyenP.SelectedIndex = -1;
             rtbCommentaire.Clear();
             RemplirDataGridViewPlats();
         }

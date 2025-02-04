@@ -1,5 +1,7 @@
-﻿using AP4_C.Entities;
+﻿using AP4_C.Controller;
+using AP4_C.Entities;
 using AP4_C.Model;
+using Aspose.Pdf.Operators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,6 +31,7 @@ namespace AP4_C
 
         }
 
+
         private void FormAjoutModifPersonnel_Load(object sender, EventArgs e)
         {
 
@@ -36,42 +39,43 @@ namespace AP4_C
             {
                 labelemploye.Text = "Ajout d'un nouvel employé";
                 buttonemploye.Text = "AJOUTER";
+                btnMDP.Text = "Generer un mot de passe";
 
                 tbNom.Visible = true;
                 tbPrenom.Visible = true;
                 cbEmploye.Visible = false;
-
+                btnMDP.Visible = true;
 
             }
             else if (etatemploye == EtatGestionEmploye.UpdateEmploye)
             {
                 labelemploye.Text = "Modification d'un employé";
                 buttonemploye.Text = "MODIFIER";
+                btnMDP.Text = "Re generer un mot de passe";
+                //labelMDP.Text = "Re generer un mot de passe"; 
+
+                ckbCuisinier.Visible = false;
+                ckbServeur.Visible = false;
+                lbCuisinier.Visible = false;
+                lbServeur.Visible = false;  
                 gbinfoEmployer.Visible = false;
                 cbEmploye.Visible = true;
-
-
             }
-
             RemplirlesEmploye();
-
         }
 
         public void RemplirlesEmploye()
         {
-
             cbEmploye.ValueMember = "Id";
             cbEmploye.DisplayMember = "NomComplet";
-            EmployeBS.DataSource = (ModelEmploye.listeEmployes()).Select(x => new { x.Id, NomComplet = x.Nom+" "+x.Prenom });
+            EmployeBS.DataSource = (ModelEmploye.listeEmployes()).Select(x => new { x.Id, NomComplet = x.Nom + " " + x.Prenom });
             cbEmploye.DataSource = EmployeBS;
             cbEmploye.SelectedIndex = -1;
-
         }
 
         private void cbPersonnel_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            if (etatemploye==EtatGestionEmploye.UpdateEmploye)
+            if (etatemploye == EtatGestionEmploye.UpdateEmploye)
             {
                 if (cbEmploye.SelectedIndex != -1 && cbEmploye.SelectedValue != null)
                 {
@@ -102,7 +106,7 @@ namespace AP4_C
                     }
                     else
                     {
-                        MessageBox.Show("Erreur lors de la récupération des données du plat.");
+                        MessageBox.Show("Erreur lors de la récupération des données du personnel.");
                     }
                 }
             }
@@ -110,14 +114,13 @@ namespace AP4_C
 
         private void buttonemploye_Click(object sender, EventArgs e)
         {
-
             ulong Idper;
             string NomPersonnel = tbNom.Text;
             string PrenomPersonnel = tbPrenom.Text;
             string EmailPersonnel = tbEmail.Text;
-
-
-
+            string motDePasseHache = txtMDP.Text;
+            bool estCuisinier = ckbCuisinier.Checked;
+            bool estServeur = ckbServeur.Checked;
 
             if (etatemploye == EtatGestionEmploye.CreateEmploye)
             {
@@ -127,24 +130,42 @@ namespace AP4_C
                     return;
                 }
 
+                MessageBox.Show("serveur : " + estServeur);
+                MessageBox.Show("cuisinier : " + estCuisinier);
+
                 if (ModelUser.AjouterNouveauPersonnel(NomPersonnel, PrenomPersonnel, EmailPersonnel))
                 {
                     MessageBox.Show("Personnel ajouté");
                     RemplirlesEmploye();
+                    ResetForm();
+                }
+                Idper = ModelUser.listeUsers().Last().Id;
+                MessageBox.Show("id personnel : " + Idper);
 
+                if (ckbCuisinier.Checked == true && ckbServeur.Checked == true)
+                {
+                    MessageBox.Show("Il ne peut pas être les deux à la fois");
+                    return;
+                }
+                if (ckbServeur.Checked)
+                {
+                    estServeur = true;
+                }
+                if (ckbCuisinier.Checked)
+                {
+                    ModeleCuisinier.NouveauCuisinier(Idper);
+                    MessageBox.Show("Cuisinier ajouté");
                 }
                 else
                 {
                     MessageBox.Show("Erreur lors de l'ajout du personnel");
                 }
             }
-
             else if (etatemploye == EtatGestionEmploye.UpdateEmploye)
             {
                 if (cbEmploye.SelectedValue != null)
                 {
                     Idper = (ulong)cbEmploye.SelectedValue;
-
                 }
                 else
                 {
@@ -154,16 +175,31 @@ namespace AP4_C
 
                 if (ModelUser.ModifierUser(Idper, NomPersonnel, PrenomPersonnel, EmailPersonnel))
                 {
-                    MessageBox.Show("Plat modifié");
+                    MessageBox.Show("Personnel modifié");
                     RemplirlesEmploye();
-
+                    ResetForm();
                 }
             }
         }
 
+        private void ResetForm()
+        {
+            tbNom.Text = "";
+            tbPrenom.Text = "";
+            tbEmail.Text = "";
+            ckbCuisinier.Checked = false;
+            ckbServeur.Checked = false;
+        }
         private void panelAjoutModif_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnMDP_Click(object sender, EventArgs e)
+        {
+            
+            string motDePasse = GenererUnMDP.GenerateRandomPassword();
+            txtMDP.Text = motDePasse;
         }
     }
 }

@@ -122,7 +122,7 @@ namespace AP4_C
                         nomPlatTxt.Text = plat.Libelleplat;
                         prixTxt.Text = plat.Prixplatht.ToString();
                         tbDescription.Text = plat.Description;
-                        //cbVeggie.SelectedItem = plat.Veggie;
+                        checkBoxVeggie.Checked = plat.Veggie;
                         cbTypePlat.SelectedValue = plat.Idtypeplat;
 
                     }

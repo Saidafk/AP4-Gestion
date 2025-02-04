@@ -21,7 +21,7 @@ namespace AP4_C.Model
             if (table != null)
             {
                 table.Estdispo = false;
-                Modele.MonModel.SaveChanges();
+                //Modele.MonModel.SaveChanges();
                 // Si tu utilises une base de données, tu devras peut-être enregistrer ce changement
                 // par exemple : DbContext.SaveChanges();
             }

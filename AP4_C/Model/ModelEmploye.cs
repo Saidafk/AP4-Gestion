@@ -52,6 +52,16 @@ namespace AP4_C.Model
             return lesEmployes;
         }
 
+        public static List<Cuisinier> listeCuisiniers()
+        {
+            return Modele.MonModel.Cuisiniers.ToList();
+        }
+
+        public static List<Serveur> listeServeurs()
+        {
+            return Modele.MonModel.Serveurs.ToList();
+        }
+
     }
 
 

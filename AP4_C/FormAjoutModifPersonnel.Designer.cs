@@ -32,6 +32,12 @@
             panelAjoutModif = new Panel();
             labelemploye = new Label();
             gbinfoEmployer = new GroupBox();
+            lbServeur = new Label();
+            lbCuisinier = new Label();
+            ckbServeur = new CheckBox();
+            ckbCuisinier = new CheckBox();
+            btnMDP = new Button();
+            txtMDP = new TextBox();
             label2 = new Label();
             label1 = new Label();
             Nom = new Label();
@@ -69,6 +75,12 @@
             // 
             // gbinfoEmployer
             // 
+            gbinfoEmployer.Controls.Add(lbServeur);
+            gbinfoEmployer.Controls.Add(lbCuisinier);
+            gbinfoEmployer.Controls.Add(ckbServeur);
+            gbinfoEmployer.Controls.Add(ckbCuisinier);
+            gbinfoEmployer.Controls.Add(btnMDP);
+            gbinfoEmployer.Controls.Add(txtMDP);
             gbinfoEmployer.Controls.Add(label2);
             gbinfoEmployer.Controls.Add(label1);
             gbinfoEmployer.Controls.Add(Nom);
@@ -76,12 +88,66 @@
             gbinfoEmployer.Controls.Add(tbPrenom);
             gbinfoEmployer.Controls.Add(tbNom);
             gbinfoEmployer.Controls.Add(buttonemploye);
-            gbinfoEmployer.Location = new Point(62, 92);
+            gbinfoEmployer.Location = new Point(26, 92);
             gbinfoEmployer.Name = "gbinfoEmployer";
-            gbinfoEmployer.Size = new Size(636, 264);
+            gbinfoEmployer.Size = new Size(734, 315);
             gbinfoEmployer.TabIndex = 1;
             gbinfoEmployer.TabStop = false;
             gbinfoEmployer.Text = "Gestion Employe";
+            // 
+            // lbServeur
+            // 
+            lbServeur.AutoSize = true;
+            lbServeur.Location = new Point(72, 255);
+            lbServeur.Name = "lbServeur";
+            lbServeur.Size = new Size(46, 15);
+            lbServeur.TabIndex = 12;
+            lbServeur.Text = "Serveur";
+            // 
+            // lbCuisinier
+            // 
+            lbCuisinier.AutoSize = true;
+            lbCuisinier.Location = new Point(72, 223);
+            lbCuisinier.Name = "lbCuisinier";
+            lbCuisinier.Size = new Size(53, 15);
+            lbCuisinier.TabIndex = 11;
+            lbCuisinier.Text = "Cuisinier";
+            // 
+            // ckbServeur
+            // 
+            ckbServeur.AutoSize = true;
+            ckbServeur.Location = new Point(132, 255);
+            ckbServeur.Name = "ckbServeur";
+            ckbServeur.Size = new Size(15, 14);
+            ckbServeur.TabIndex = 10;
+            ckbServeur.UseVisualStyleBackColor = true;
+            // 
+            // ckbCuisinier
+            // 
+            ckbCuisinier.AutoSize = true;
+            ckbCuisinier.Location = new Point(132, 223);
+            ckbCuisinier.Name = "ckbCuisinier";
+            ckbCuisinier.Size = new Size(15, 14);
+            ckbCuisinier.TabIndex = 1;
+            ckbCuisinier.UseVisualStyleBackColor = true;
+            // 
+            // btnMDP
+            // 
+            btnMDP.Location = new Point(6, 157);
+            btnMDP.Name = "btnMDP";
+            btnMDP.Size = new Size(276, 23);
+            btnMDP.TabIndex = 9;
+            btnMDP.Text = "button1";
+            btnMDP.UseVisualStyleBackColor = true;
+            btnMDP.Click += btnMDP_Click;
+            // 
+            // txtMDP
+            // 
+            txtMDP.Location = new Point(305, 157);
+            txtMDP.Name = "txtMDP";
+            txtMDP.ReadOnly = true;
+            txtMDP.Size = new Size(287, 23);
+            txtMDP.TabIndex = 1;
             // 
             // label2
             // 
@@ -133,7 +199,7 @@
             // 
             // buttonemploye
             // 
-            buttonemploye.Location = new Point(488, 173);
+            buttonemploye.Location = new Point(593, 223);
             buttonemploye.Name = "buttonemploye";
             buttonemploye.Size = new Size(121, 73);
             buttonemploye.TabIndex = 0;
@@ -181,5 +247,11 @@
         private Label label2;
         private Label label1;
         private Label Nom;
+        private TextBox txtMDP;
+        private Button btnMDP;
+        private Label lbServeur;
+        private Label lbCuisinier;
+        private CheckBox ckbServeur;
+        private CheckBox ckbCuisinier;
     }
 }

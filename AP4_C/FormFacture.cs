@@ -36,9 +36,8 @@ namespace AP4_C
         {
             if (cbFacture.SelectedIndex != -1 && cbFacture.SelectedValue != null)
             {
-
                 int idF = Convert.ToInt32(cbFacture.SelectedValue);
-                Facture F = ModeleFacture.RetourneFacture(idF);
+                AP4_C.Entities.Facture F = ModeleFacture.RetourneFacture(idF);
                 gbInfoFacture.Visible = true;
             }
             else
@@ -51,22 +50,31 @@ namespace AP4_C
                 int idFacture = (int)cbFacture.SelectedValue;
 
                 var facture = ModeleFacture.RetourneFacture(idFacture);
-                var commande = ModeleCommande.RetourneCommande(idFacture);
-
-
-
-                if (facture != null && commande != null)
+                if (facture == null)
                 {
-                    txtTicket.Text = facture.Idfacture.ToString();
-                    dtpDateFacture.Value = facture.Datefacture;
-                    txtTable.Text = commande.Idtable.ToString();
+                    MessageBox.Show("Aucune facture trouvée pour l'ID sélectionné.");
+                    return;
+                }
 
-                    affichageCommandes();
+                var commande = ModeleCommande.RetourneCommande(facture.Idcommande);
+                if (commande == null)
+                {
+                    MessageBox.Show("Aucune commande trouvée pour l'ID de la facture.");
+                    return;
+                }
+
+                txtTicket.Text = facture.Idfacture.ToString();
+                if (facture.Datefacture >= dtpDateFacture.MinDate && facture.Datefacture <= dtpDateFacture.MaxDate)
+                {
+                    dtpDateFacture.Value = facture.Datefacture;
                 }
                 else
                 {
-                    MessageBox.Show("Erreur lors de la récupération de la facture.");
+                    MessageBox.Show("La date de la facture est invalide.");
                 }
+                txtTable.Text = commande.Idtable.ToString();
+
+                affichageCommandes();
             }
         }
         private void affichageCommandes()
@@ -75,10 +83,36 @@ namespace AP4_C
             {
                 if (cbFacture.SelectedValue != null)
                 {
-                    int idInstanceDePlat = Convert.ToInt32(cbFacture.SelectedValue);
+                    // Récupérer l'ID de la facture sélectionnée
+                    int idFacture = Convert.ToInt32(cbFacture.SelectedValue);
 
-                    var CommandeAffiches = ModeleInstancePlat.listeInstancePlat()
-                        .Where(x => x.Idcommande == idInstanceDePlat)
+                    // Récupérer la facture associée
+                    var facture = ModeleFacture.listeFacture()
+                        .FirstOrDefault(x => x.Idfacture == idFacture);
+
+                    if (facture == null)
+                    {
+                        MessageBox.Show("Aucune facture trouvée pour l'ID sélectionné.");
+                        return;
+                    }
+
+                    // Récupérer l'ID de la commande associée à la facture
+                    int idCommande = facture.Idcommande;
+
+                    // Récupérer les instances de plat associées à la commande
+                    var instancesDePlat = ModeleInstancePlat.listeInstancePlat()
+                        .Where(x => x.Idcommande == idCommande)
+                        .ToList();
+
+                    if (!instancesDePlat.Any())
+                    {
+                        MessageBox.Show("Aucune instance de plat trouvée pour cette commande.");
+                        dgvCommande.DataSource = null;
+                        return;
+                    }
+
+                    // Récupérer les plats associés à ces instances
+                    var CommandeAffiches = instancesDePlat
                         .Select(x => new
                         {
                             NomPlat = ModelePlat.RentourneNomPlat(x.Idplat)?.Libelleplat,
@@ -86,26 +120,19 @@ namespace AP4_C
                         })
                         .ToList();
 
+                    // Afficher les plats dans le DataGridView
                     dgvCommande.DataSource = CommandeAffiches;
 
-                    decimal totalPrix = 0;
+                    // Calculer le total des prix
+                    decimal totalPrix = CommandeAffiches.Sum(plat => (decimal)(plat.PrixPlat ?? 0));
 
-                    foreach (var plat in CommandeAffiches)
-                    {
-                        if (plat.PrixPlat.HasValue)
-                        {
-                            totalPrix = totalPrix + (decimal)plat.PrixPlat;
-                        }
-                    }
-
-                    //tbPrixTVA.Text = $"Total Prix TTC: {totalPrix * 1.2m:C}";
+                    // Afficher le total TVA et le total prix
                     tbPrixTVA.Text = $"Total TVA (20%): {(totalPrix * 0.2m):C}";
                     txtPrix.Text = $"Total Prix: {totalPrix:C}";
-
                 }
                 else
                 {
-                    dgvCommande.DataSource = null; // or clear the datagridview
+                    dgvCommande.DataSource = null; // Effacer le DataGridView si aucune facture n'est sélectionnée
                 }
             }
             catch (Exception ex)
@@ -119,8 +146,6 @@ namespace AP4_C
 
 
         }
-
-    
         private void FormFacture_Load_1(object sender, EventArgs e)
         {
             RemplirFacture();

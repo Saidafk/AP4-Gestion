@@ -8,12 +8,17 @@ using AP4_C.Entities;
 using Microsoft.VisualBasic.Logging;
 using Microsoft.VisualBasic.ApplicationServices;
 using static AP4_C.Model.ModelePersonnel;
-
+using static AP4_C.Controller.GenererUnMDP;
+using AP4_C.Controller;
 
 namespace AP4_C.Model
 {
     public class ModelUser
     {
+        public static List<AP4_C.Entities.User> listeUsers()
+        {
+            return Modele.MonModel.Users.ToList();
+        }
         public static bool presenceUser(string login)
         {
             bool present = false;
@@ -93,21 +98,53 @@ namespace AP4_C.Model
         public static bool AjouterNouveauPersonnel(string NomPersonnel, string PrenomPersonnel, string EmailPersonnel)
         {
             AP4_C.Entities.User unUser;
+            ulong Idper = 0;
             bool vretour = true;
             try
             {
-                
-                    unUser = new AP4_C.Entities.User();
-                    unUser.Nom = NomPersonnel;
-                    unUser.Prenom = PrenomPersonnel;
-                    unUser.Email = EmailPersonnel;
+                // Générer un mot de passe aléatoire
+                string motDePasse = GenererUnMDP.GenerateRandomPassword();
+                string motDePasseHache = BCrypt.Net.BCrypt.HashPassword(motDePasse);
 
-                    Modele.MonModel.Users.Add(unUser);
-                    Modele.MonModel.SaveChanges();
+                // Créer un nouvel utilisateur
+                unUser = new AP4_C.Entities.User
+                {
+                    Nom = NomPersonnel,
+                    Prenom = PrenomPersonnel,
+                    Email = EmailPersonnel,
+                    Mdp = motDePasseHache
+                };
+
+                // Ajouter l'utilisateur à la base de données
+                Modele.MonModel.Users.Add(unUser);
+                Modele.MonModel.SaveChanges();
+
                 
+
+
+
+                // Sauvegarder les modifications
+                Modele.MonModel.SaveChanges();
+
+                // Envoyer un e-mail de bienvenue
+                string sujet = "Bienvenue sur notre plateforme";
+                string corps = $@"
+                <h1>Bienvenue, {NomPersonnel} {PrenomPersonnel} !</h1>
+                <p>Votre compte a été créé avec succès.</p>
+                <p>Voici vos informations de connexion :</p>
+                <ul>
+                    <li><strong>E-mail :</strong> {EmailPersonnel}</li>
+                    <li><strong>Mot de passe :</strong> {motDePasse}</li>
+                </ul>
+                ";
+
+                // Envoyer l'email
+                Email.EnvoyerEmail(EmailPersonnel, sujet, corps);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                // Afficher le message d'erreur complet
+                MessageBox.Show($"Erreur lors de l'ajout du personnel : {ex.Message}");
                 vretour = false;
             }
             return vretour;
@@ -121,10 +158,14 @@ namespace AP4_C.Model
             {
                 if (estPersonnel(EmailPersonnel))
                 {
+                    string motDePasse = GenererUnMDP.GenerateRandomPassword();
+                    string motDePasseHache = BCrypt.Net.BCrypt.HashPassword(motDePasse);
+
                     unUser = new AP4_C.Entities.User();
                     unUser.Nom = NomPersonnel;
                     unUser.Prenom = PrenomPersonnel;
                     unUser.Email = EmailPersonnel;
+                    unUser.Mdp = motDePasseHache;
 
                     Modele.MonModel.SaveChanges();
 

@@ -28,8 +28,29 @@ namespace AP4_C.Model
             return Modele.MonModel.Factures.ToList();
         }
 
-        
 
+        public static bool NouvelleFacture(int Idcommande, int Idmoyenpaiement, int TVA, DateTime dateFacture)
+        {
+            Facture uneFacture;
+            bool vretour = true;
+            try
+            {
+                uneFacture = new Facture();
+                uneFacture.Idcommande = Idcommande;
+                uneFacture.Idmoyenpaiement = Idmoyenpaiement;
+                uneFacture.Tva = 20;
+                uneFacture.Datefacture = dateFacture;
+
+
+                Modele.MonModel.Factures.Add(uneFacture);
+                Modele.MonModel.SaveChanges();
+            }
+            catch (Exception)
+            {
+                vretour = false;
+            }
+            return vretour;
+        }
 
         /*public static bool ModifierFacture(int Idfacture, DateTime Datefacture, int Idtable)
            {

@@ -113,15 +113,10 @@ namespace AP4_C.Model
         }
 
 
-        public static Plat RecupQte(int Idplat, int Qte)
+        public static int RetourneQuantite(int Idplat)
         {
-            var commandePlat = Modele.MonModel.Plats.FirstOrDefault(x => x.Idplat == Idplat);
-            if (commandePlat != null)
-            {
-                commandePlat.Qte = Qte;
-            }
-
-            return commandePlat;
+            var plat = Modele.MonModel.Plats.FirstOrDefault(x => x.Idplat == Idplat);
+            return plat != null ? plat.Qte : 0;
         }
 
 
