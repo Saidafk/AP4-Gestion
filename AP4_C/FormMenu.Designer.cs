@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMenu));
             menuStrip1 = new MenuStrip();
             DeconnexionBtn = new ToolStripMenuItem();
+            toolStripMenuItem0 = new ToolStripMenuItem();
             reserverToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem2 = new ToolStripMenuItem();
             toolStripMenuItem3 = new ToolStripMenuItem();
@@ -50,8 +52,8 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.BackColor = Color.FromArgb(128, 255, 255);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { DeconnexionBtn, reserverToolStripMenuItem, toolStripMenuItem2, toolStripMenuItem3, gestionDesEmployésToolStripMenuItem, quitterToolStripMenuItem, toolStripMenuItem1 });
+            menuStrip1.BackColor = Color.FromArgb(130, 181, 239);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { DeconnexionBtn, toolStripMenuItem0, reserverToolStripMenuItem, toolStripMenuItem2, toolStripMenuItem3, gestionDesEmployésToolStripMenuItem, quitterToolStripMenuItem, toolStripMenuItem1 });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(800, 24);
@@ -63,6 +65,13 @@
             // 
             DeconnexionBtn.Name = "DeconnexionBtn";
             DeconnexionBtn.Size = new Size(12, 20);
+            // 
+            // toolStripMenuItem0
+            // 
+            toolStripMenuItem0.Name = "toolStripMenuItem0";
+            toolStripMenuItem0.Size = new Size(58, 20);
+            toolStripMenuItem0.Text = "Accueil";
+            toolStripMenuItem0.Click += toolStripMenuItem0_Click;
             // 
             // reserverToolStripMenuItem
             // 
@@ -164,9 +173,9 @@
             // 
             // pnlMenu
             // 
-            pnlMenu.Location = new Point(0, 27);
+            pnlMenu.Location = new Point(0, 24);
             pnlMenu.Name = "pnlMenu";
-            pnlMenu.Size = new Size(800, 428);
+            pnlMenu.Size = new Size(800, 426);
             pnlMenu.TabIndex = 1;
             pnlMenu.Paint += pnlMenu_Paint;
             // 
@@ -177,8 +186,9 @@
             ClientSize = new Size(800, 450);
             Controls.Add(pnlMenu);
             Controls.Add(menuStrip1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormMenu";
-            Text = "Menu";
+            Text = "la Detente de Camoel";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
@@ -204,5 +214,6 @@
         private ToolStripMenuItem ajoutDunEmployéToolStripMenuItem;
         private ToolStripMenuItem modificationDunEmployéToolStripMenuItem;
         private ToolStripMenuItem reserverToolStripMenuItem;
+        private ToolStripMenuItem toolStripMenuItem0;
     }
 }

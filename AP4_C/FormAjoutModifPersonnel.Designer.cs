@@ -52,20 +52,20 @@
             panelAjoutModif.Controls.Add(labelemploye);
             panelAjoutModif.Controls.Add(gbinfoEmployer);
             panelAjoutModif.Controls.Add(cbEmploye);
-            panelAjoutModif.Location = new Point(3, 12);
+            panelAjoutModif.Location = new Point(1, 0);
             panelAjoutModif.Name = "panelAjoutModif";
-            panelAjoutModif.Size = new Size(800, 428);
+            panelAjoutModif.Size = new Size(799, 451);
             panelAjoutModif.TabIndex = 0;
             panelAjoutModif.Paint += panelAjoutModif_Paint;
             // 
             // labelemploye
             // 
             labelemploye.AutoSize = true;
-            labelemploye.Location = new Point(342, 11);
+            labelemploye.Location = new Point(98, 31);
             labelemploye.Name = "labelemploye";
-            labelemploye.Size = new Size(78, 15);
+            labelemploye.Size = new Size(53, 15);
             labelemploye.TabIndex = 2;
-            labelemploye.Text = "labelemploye";
+            labelemploye.Text = "Employe";
             // 
             // gbinfoEmployer
             // 
@@ -86,7 +86,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(393, 55);
+            label2.Location = new Point(305, 50);
             label2.Name = "label2";
             label2.Size = new Size(36, 15);
             label2.TabIndex = 8;
@@ -95,7 +95,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(203, 55);
+            label1.Location = new Point(165, 50);
             label1.Name = "label1";
             label1.Size = new Size(49, 15);
             label1.TabIndex = 7;
@@ -104,7 +104,7 @@
             // Nom
             // 
             Nom.AutoSize = true;
-            Nom.Location = new Point(36, 55);
+            Nom.Location = new Point(36, 50);
             Nom.Name = "Nom";
             Nom.Size = new Size(34, 15);
             Nom.TabIndex = 6;
@@ -112,21 +112,21 @@
             // 
             // tbEmail
             // 
-            tbEmail.Location = new Point(435, 52);
+            tbEmail.Location = new Point(305, 68);
             tbEmail.Name = "tbEmail";
             tbEmail.Size = new Size(195, 23);
             tbEmail.TabIndex = 5;
             // 
             // tbPrenom
             // 
-            tbPrenom.Location = new Point(258, 52);
+            tbPrenom.Location = new Point(165, 68);
             tbPrenom.Name = "tbPrenom";
             tbPrenom.Size = new Size(100, 23);
             tbPrenom.TabIndex = 4;
             // 
             // tbNom
             // 
-            tbNom.Location = new Point(85, 52);
+            tbNom.Location = new Point(36, 68);
             tbNom.Name = "tbNom";
             tbNom.Size = new Size(100, 23);
             tbNom.TabIndex = 3;
@@ -144,7 +144,7 @@
             // 
             cbEmploye.DropDownStyle = ComboBoxStyle.DropDownList;
             cbEmploye.FormattingEnabled = true;
-            cbEmploye.Location = new Point(324, 42);
+            cbEmploye.Location = new Point(98, 49);
             cbEmploye.Name = "cbEmploye";
             cbEmploye.Size = new Size(121, 23);
             cbEmploye.TabIndex = 0;

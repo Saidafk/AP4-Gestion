@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using  AP4_C.Controller;
 using AP4_C.Entities;
+using static AP4_C.Model.ModelUser;
+using AP4_C.Model;
 
 namespace AP4_C
 {
@@ -20,6 +22,11 @@ namespace AP4_C
         {
             InitializeComponent();
             this.idAuth = idAuth;
+            SousFormulaire SF = new SousFormulaire(pnlMenu);
+            User user = ModelUser.RecupererUserParID(1);
+            FormAccueil formAccueil = new FormAccueil(pnlMenu);
+            SF.openChildForm(formAccueil);
+
         }
         public User GetIdAuth()
         {
@@ -121,6 +128,14 @@ namespace AP4_C
             SousFormulaire SF = new SousFormulaire(pnlMenu);
             SF.openChildForm(new FormReserver());
 
+        }
+
+        private void toolStripMenuItem0_Click(object sender, EventArgs e)
+        {
+            SousFormulaire SF = new SousFormulaire(pnlMenu);
+            User user = ModelUser.RecupererUserParID(1);
+            FormAccueil formAccueil = new FormAccueil(pnlMenu);
+            SF.openChildForm(formAccueil);
         }
     }
 }

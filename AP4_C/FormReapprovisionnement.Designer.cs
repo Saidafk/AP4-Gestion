@@ -45,7 +45,7 @@
             // 
             // pnlReap
             // 
-            pnlReap.BackColor = Color.FromArgb(255, 255, 128);
+            pnlReap.BackColor = Color.FromArgb(255, 255, 232);
             pnlReap.Controls.Add(gbInfo);
             pnlReap.Controls.Add(label1);
             pnlReap.Controls.Add(cbPlat);
