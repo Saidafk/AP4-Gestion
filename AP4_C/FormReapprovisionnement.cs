@@ -81,14 +81,22 @@ namespace AP4_C
 
         private void btnAjouter_Click(object sender, EventArgs e)
 
-        {
-            ulong idper = idAuth.Id;
-            int idplat = Convert.ToInt32(cbPlat.SelectedValue);
-            int Qtereap = Convert.ToInt32(tbQte.Text);
-            ModeleReap.AjouterReap(idper, idplat, Qtereap);
-            ModelePlat.AjouterPlat(idplat, Qtereap);
 
-            resetForm();
+        {
+            if (int.Parse(tbQte.Text) > 1000)
+            {
+                MessageBox.Show("On ne peux pas commander plus de 1000 plats à la fois");
+                //resetForm();
+            }
+            else {
+                ulong idper = idAuth.Id;
+                int idplat = Convert.ToInt32(cbPlat.SelectedValue);
+                int Qtereap = Convert.ToInt32(tbQte.Text);
+                ModeleReap.AjouterReap(idper, idplat, Qtereap);
+                ModelePlat.AjouterPlat(idplat, Qtereap);
+
+                resetForm();
+            }
         }
 
         private void pnlReap_Paint(object sender, PaintEventArgs e)
@@ -97,6 +105,11 @@ namespace AP4_C
         }
 
         private void gbInfo_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbQte_TextChanged(object sender, EventArgs e)
         {
 
         }

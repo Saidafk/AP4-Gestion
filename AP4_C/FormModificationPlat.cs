@@ -235,5 +235,10 @@ namespace AP4_C
         {
             Annuler_Click();
         }
+
+        private void nomPlatTxt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

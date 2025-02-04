@@ -50,7 +50,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.BackColor = Color.FromArgb(128, 255, 255);
+            menuStrip1.BackColor = Color.White;
             menuStrip1.Items.AddRange(new ToolStripItem[] { DeconnexionBtn, reserverToolStripMenuItem, toolStripMenuItem2, toolStripMenuItem3, gestionDesEmployésToolStripMenuItem, quitterToolStripMenuItem, toolStripMenuItem1 });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";

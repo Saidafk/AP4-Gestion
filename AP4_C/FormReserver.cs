@@ -55,6 +55,7 @@ namespace AP4_C
         {
             RemplirTable();
             RemplirDataGridViewPlats();
+            RemplirMoyenP();
         }
 
         public void RemplirTable()
@@ -70,58 +71,49 @@ namespace AP4_C
             cbTable.SelectedIndex = -1;
         }
 
+        public void RemplirMoyenP()
+        {
+            cbMoyenP.ValueMember = "Idmoyenpaiement";
+            cbMoyenP.DisplayMember = "Libellemoyenpaiement";
+            bsMoyenP.DataSource = (ModeleMoyenP.listeMoyenP()).Select(x => new { x.Idmoyenpaiement, x.Libellemoyenpaiement });
+            cbMoyenP.DataSource = bsMoyenP;
+            cbMoyenP.SelectedIndex = -1;
+        }
 
         // Événement de validation de la commande
         private void btnValiderCommande_Click(object sender, EventArgs e)
         {
-            // Validation de la sélection de table
-            if (cbTable.SelectedValue == null)
-            {
-                MessageBox.Show("Veuillez sélectionner une table.");
-                return;
-            }
-
             int Idcommande;
             int Idtable = (int)cbTable.SelectedValue;
             string Commentaireclient = rtbCommentaire.Text;
 
-            // Création de la commande
             if (ModeleCommande.AjouterCommande(Idtable, Commentaireclient))
             {
-                // Récupération de l'ID de la commande nouvellement créée
                 Idcommande = ModeleCommande.listeCommande().Last().Idcommande;
-                MessageBox.Show("Commande ajoutée");
+                //MessageBox.Show("Commande ajoutée");
 
-                // Ajout des plats à la commande
                 foreach (DataGridViewRow row in dgvChoixPlat.Rows)
                 {
-                    // Vérifier si le plat est sélectionné
                     if (row.Cells[2].Value != null && bool.TryParse(row.Cells[2].Value.ToString(), out bool isChecked) && isChecked)
                     {
                         int IdPlat = int.Parse(row.Cells[0].Value.ToString());
                         string nomPlat = row.Cells[1].Value.ToString();
-
-                        // Lire la quantité (colonne 3)
                         int quantite;
 
-                        // Si la quantité est vide, utiliser la quantité par défaut (1)
                         if (row.Cells[3].Value == null || string.IsNullOrWhiteSpace(row.Cells[3].Value.ToString()))
                         {
                             quantite = 1;
                         }
-                        // Si la quantité est invalide (texte ou nombre négatif), afficher un message d'erreur et passer au plat suivant
                         else if (!int.TryParse(row.Cells[3].Value.ToString(), out quantite) || quantite <= 0)
                         {
                             MessageBox.Show($"Erreur : La quantité pour le plat '{nomPlat}' est invalide. Veuillez entrer un nombre positif.", "Erreur de quantité", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            continue; // Passer au plat suivant
+                            continue;
                         }
 
-                        // Ajouter autant d'instances du plat que la quantité spécifiée
                         for (int i = 0; i < quantite; i++)
                         {
-                            string Idinstance = Guid.NewGuid().ToString(); // Génère un ID unique pour chaque instance
+                            string Idinstance = Guid.NewGuid().ToString();
 
-                            // Ajouter l'instance du plat à la commande
                             if (ModeleInstancePlat.AjouterInstancePlat(Idcommande, IdPlat, Idinstance))
                             {
                                 MessageBox.Show($"Plat '{nomPlat}' (instance {i + 1}) ajouté à la commande.");
@@ -132,17 +124,11 @@ namespace AP4_C
                             }
                         }
                     }
-                    ReinitialiserFormulaire();
                 }
 
-                // Marquer la table comme non disponible
+                //ReinitialiserFormulaire();
                 ModeleTabler.MettreTableNonDisponible(Idtable);
-
-                // Réinitialiser le formulaire
-                ReinitialiserFormulaire();
-
-                // Sauvegarder les changements en base de données
-                Modele.MonModel.SaveChanges();
+                MessageBox.Show("Commande passé");
             }
             else
             {
