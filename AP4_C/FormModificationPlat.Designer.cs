@@ -146,7 +146,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(193, 58);
             label3.Name = "label3";
-            label3.Size = new Size(26, 15);
+            label3.Size = new Size(27, 15);
             label3.TabIndex = 8;
             label3.Text = "prix";
             // 
@@ -181,6 +181,7 @@
             nomPlatTxt.Name = "nomPlatTxt";
             nomPlatTxt.Size = new Size(100, 23);
             nomPlatTxt.TabIndex = 4;
+            nomPlatTxt.TextChanged += nomPlatTxt_TextChanged;
             // 
             // button1
             // 

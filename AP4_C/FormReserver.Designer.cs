@@ -30,6 +30,8 @@
         {
             components = new System.ComponentModel.Container();
             flowLayoutPanelPlats = new Panel();
+            cbMoyenP = new ComboBox();
+            label4 = new Label();
             dgvChoixPlat = new DataGridView();
             btnValiderCommande = new Button();
             label3 = new Label();
@@ -39,14 +41,18 @@
             label1 = new Label();
             bsTable = new BindingSource(components);
             bsListePlats = new BindingSource(components);
+            bsMoyenP = new BindingSource(components);
             flowLayoutPanelPlats.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvChoixPlat).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bsTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bsListePlats).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bsMoyenP).BeginInit();
             SuspendLayout();
             // 
             // flowLayoutPanelPlats
             // 
+            flowLayoutPanelPlats.Controls.Add(cbMoyenP);
+            flowLayoutPanelPlats.Controls.Add(label4);
             flowLayoutPanelPlats.Controls.Add(dgvChoixPlat);
             flowLayoutPanelPlats.Controls.Add(btnValiderCommande);
             flowLayoutPanelPlats.Controls.Add(label3);
@@ -59,6 +65,23 @@
             flowLayoutPanelPlats.Size = new Size(800, 428);
             flowLayoutPanelPlats.TabIndex = 0;
             flowLayoutPanelPlats.Paint += flowLayoutPanelPlats_Paint;
+            // 
+            // cbMoyenP
+            // 
+            cbMoyenP.FormattingEnabled = true;
+            cbMoyenP.Location = new Point(11, 132);
+            cbMoyenP.Name = "cbMoyenP";
+            cbMoyenP.Size = new Size(121, 23);
+            cbMoyenP.TabIndex = 8;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(19, 109);
+            label4.Name = "label4";
+            label4.Size = new Size(113, 15);
+            label4.TabIndex = 1;
+            label4.Text = "Moyen de paiement";
             // 
             // dgvChoixPlat
             // 
@@ -117,9 +140,9 @@
             label1.AutoSize = true;
             label1.Location = new Point(302, 11);
             label1.Name = "label1";
-            label1.Size = new Size(138, 15);
+            label1.Size = new Size(135, 15);
             label1.TabIndex = 1;
-            label1.Text = "Reserver une commande";
+            label1.Text = "Prendre une commande";
             // 
             // FormReserver
             // 
@@ -135,6 +158,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvChoixPlat).EndInit();
             ((System.ComponentModel.ISupportInitialize)bsTable).EndInit();
             ((System.ComponentModel.ISupportInitialize)bsListePlats).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bsMoyenP).EndInit();
             ResumeLayout(false);
         }
 
@@ -150,5 +174,8 @@
         private BindingSource bsListePlats;
         private Button btnValiderCommande;
         private DataGridView dgvChoixPlat;
+        private Label label4;
+        private ComboBox cbMoyenP;
+        private BindingSource bsMoyenP;
     }
 }

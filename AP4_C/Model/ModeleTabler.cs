@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AP4_C.Model;
 
 namespace AP4_C.Model
 {
@@ -20,6 +21,7 @@ namespace AP4_C.Model
             if (table != null)
             {
                 table.Estdispo = false;
+                Modele.MonModel.SaveChanges();
                 // Si tu utilises une base de données, tu devras peut-être enregistrer ce changement
                 // par exemple : DbContext.SaveChanges();
             }
@@ -31,6 +33,7 @@ namespace AP4_C.Model
             if (table != null)
             {
                 table.Estdispo = true;
+                Modele.MonModel.SaveChanges();
                 //Model.ModeleTabler.SaveChanges();
             }
 

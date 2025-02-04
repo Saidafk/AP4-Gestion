@@ -38,6 +38,8 @@
             cbPlat = new ComboBox();
             flowLayoutPanel1 = new FlowLayoutPanel();
             bsPlat = new BindingSource(components);
+            label3 = new Label();
+            textBox1 = new TextBox();
             pnlReap.SuspendLayout();
             gbInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)bsPlat).BeginInit();
@@ -57,6 +59,8 @@
             // 
             // gbInfo
             // 
+            gbInfo.Controls.Add(textBox1);
+            gbInfo.Controls.Add(label3);
             gbInfo.Controls.Add(btnAjouter);
             gbInfo.Controls.Add(label2);
             gbInfo.Controls.Add(tbQte);
@@ -92,6 +96,7 @@
             tbQte.Name = "tbQte";
             tbQte.Size = new Size(100, 23);
             tbQte.TabIndex = 0;
+            tbQte.TextChanged += tbQte_TextChanged;
             // 
             // label1
             // 
@@ -123,6 +128,22 @@
             // 
             bsPlat.CurrentChanged += bsPlat_CurrentChanged;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(66, 47);
+            label3.Name = "label3";
+            label3.Size = new Size(197, 15);
+            label3.TabIndex = 3;
+            label3.Text = "Quantité déjà présente dans le stock";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(280, 39);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(100, 23);
+            textBox1.TabIndex = 4;
+            // 
             // FormReapprovisionnement
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -153,5 +174,7 @@
         private TextBox tbQte;
         private Label label2;
         private Button btnAjouter;
+        private TextBox textBox1;
+        private Label label3;
     }
 }

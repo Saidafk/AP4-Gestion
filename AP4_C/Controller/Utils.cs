@@ -32,6 +32,14 @@ namespace AP4_C.Controller
             formEnfant.Show();
         }
 
+        public void AjouterFacture()
+        {
+            // ajt l'id commande 
+            // l'id moyen de paiement 
+            // tva à 20%
+
+        }
+
 
 
     }
