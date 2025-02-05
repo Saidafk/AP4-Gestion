@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,21 +57,40 @@ namespace AP4_C.Model
             bool vretour = true;
             try
             {
-                unPlat = new Plat();
-                unPlat.Libelleplat = Libelleplat;
-                unPlat.Qte = 0;
-                unPlat.Description = Description;
-                unPlat.Prixplatht = Prixplatht;
-                unPlat.Veggie = Veggie;
-                unPlat.Lienimg = Lienimg;
-                unPlat.Idtypeplat = Idtypeplat;
-                unPlat.Idrestau = 1;
+                // Vérifier si un plat avec le même nom existe déjà
+                if (Modele.MonModel.Plats.Any(x => x.Libelleplat == Libelleplat))
+                {
+                    throw new DuplicatePlatException("Un plat avec ce nom existe déjà.");
+                }
+
+                unPlat = new Plat
+                {
+                    Libelleplat = Libelleplat,
+                    Qte = 0,
+                    Description = Description,
+                    Prixplatht = Prixplatht,
+                    Veggie = Veggie,
+                    Lienimg = Lienimg,
+                    Idtypeplat = Idtypeplat,
+                    Idrestau = 1
+                };
 
                 Modele.MonModel.Plats.Add(unPlat);
                 Modele.MonModel.SaveChanges();
             }
-            catch (Exception)
+            catch (DuplicatePlatException ex)
             {
+                MessageBox.Show(ex.Message);
+                vretour = false;
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show("Erreur de base de données : " + ex.Message);
+                vretour = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur inattendue : " + ex.Message);
                 vretour = false;
             }
             return vretour;
@@ -119,7 +138,10 @@ namespace AP4_C.Model
             return plat != null ? plat.Qte : 0;
         }
 
-        public static bool MettreAJourQte(int idPlat, int qte)
+
+        
+        public static bool SupprimerPlat(int idPlat)
+
         {
             bool vretour = true;
             try
@@ -127,8 +149,18 @@ namespace AP4_C.Model
                 Plat unPlat = Modele.MonModel.Plats.FirstOrDefault(x => x.Idplat == idPlat);
                 if (unPlat != null)
                 {
-                    unPlat.Qte = qte;
-                    Modele.MonModel.SaveChanges();
+
+                    DialogResult result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer ce plat ?", "Confirmation de suppression", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.Yes)
+                    {
+                        Modele.MonModel.Plats.Remove(unPlat);
+                        Modele.MonModel.SaveChanges();
+                    }
+                    else
+                    {
+                        vretour = false;
+                    }
+
                 }
                 else
                 {
@@ -142,6 +174,7 @@ namespace AP4_C.Model
             }
             return vretour;
         }
+
         public static bool MettreAJourQuantitePlat(int idPlat, int quantiteASupprimer)
         {
 
@@ -170,6 +203,7 @@ namespace AP4_C.Model
             
         }
 
+
         /*public static List<Plat> RentournePlatsParFacture(int idFacture)
         {
             List<Plat> plats = new List<Plat>();
@@ -194,5 +228,11 @@ namespace AP4_C.Model
             }
             return plats;
         }*/
+    }
+    public class DuplicatePlatException : Exception
+    {
+        public DuplicatePlatException(string message) : base(message)
+        {
+        }
     }
 }
