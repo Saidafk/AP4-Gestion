@@ -17,7 +17,8 @@ namespace AP4_C
     public enum EtatGestion
     {
         Create,
-        Update
+        Update,
+        Delete // Ajout de la définition pour 'Delete'
     }
 
     public partial class FormModificationPlat : Form
@@ -57,6 +58,17 @@ namespace AP4_C
                 nomPlatTxt.Visible = true;
                 prixTxt.Visible = true;
                 cbTypePlat.Visible = true;
+                //cbVeggie.Visible = true;
+                cbPlat.Visible = true;
+                //cbVeggie.Items.Add(true);
+                //cbVeggie.Items.Add(false);
+            }else if (etat == EtatGestion.Delete)
+            {
+                label1.Text = "Suppression d'un plat";
+                button1.Text = "SUPPRIMER";
+                ANNULER.Text = "ANNULER";
+                gbInfo.Visible = true;
+                nomPlatTxt.Visible = true;
                 //cbVeggie.Visible = true;
                 cbPlat.Visible = true;
                 //cbVeggie.Items.Add(true);
@@ -131,6 +143,25 @@ namespace AP4_C
                         MessageBox.Show("Erreur lors de la récupération des données du plat.");
                     }
                 }
+            }else if(etat == EtatGestion.Delete)
+            {
+                if (cbPlat.SelectedValue != null)
+                {
+                    int idPlat = (int)cbPlat.SelectedValue;
+                    var plat = ModelePlat.RetournePlat(idPlat);
+                    if (plat != null)
+                    {
+                        nomPlatTxt.Text = plat.Libelleplat;
+                        prixTxt.Text = plat.Prixplatht.ToString();
+                        tbDescription.Text = plat.Description;
+                        checkBoxVeggie.Checked = plat.Veggie;
+                        cbTypePlat.SelectedValue = plat.Idtypeplat;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erreur lors de la récupération des données du plat.");
+                    }
+                }
             }
         }
 
@@ -192,10 +223,6 @@ namespace AP4_C
                     RemplirlesPlats();
                     Annuler_Click();
                 }
-                else
-                {
-                    MessageBox.Show("Erreur lors de l'ajout du plat");
-                }
             }
 
             else if (etat == EtatGestion.Update)
@@ -215,6 +242,24 @@ namespace AP4_C
                 if (ModelePlat.ModifierPlat(idPlat, Libelleplat, Idtypeplat, Qte, Prixplatht, Veggie, Lienimg, Idrestau))
                 {
                     MessageBox.Show("Plat modifié");
+                    RemplirlesPlats();
+                    Annuler_Click();
+                }
+            }else if(etat == EtatGestion.Delete)
+            {
+                if (cbPlat.SelectedValue != null)
+                {
+                    idPlat = (int)cbPlat.SelectedValue;
+                    //idPlat = Convert.ToInt32(cbPlat.SelectedValue);
+                }
+                else
+                {
+                    MessageBox.Show("Veuillez sélectionner un plat à supprimer.");
+                    return;
+                }
+                if (ModelePlat.SupprimerPlat(idPlat))
+                {
+                    MessageBox.Show("Plat supprimé");
                     RemplirlesPlats();
                     Annuler_Click();
                 }
