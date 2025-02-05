@@ -120,12 +120,10 @@ namespace AP4_C.Model
                 Modele.MonModel.Users.Add(unUser);
                 Modele.MonModel.SaveChanges();
 
-                
-
-
-
                 // Sauvegarder les modifications
                 Modele.MonModel.SaveChanges();
+
+
 
                 // Envoyer un e-mail de bienvenue
                 string sujet = "Bienvenue sur notre plateforme";
@@ -141,6 +139,7 @@ namespace AP4_C.Model
 
                 // Envoyer l'email
                 Email.EnvoyerEmail(EmailPersonnel, sujet, corps);
+
             }
             catch (Exception ex)
             {

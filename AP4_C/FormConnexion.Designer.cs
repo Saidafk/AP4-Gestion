@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormConnexion));
             pictureBox1 = new PictureBox();
             label1 = new Label();
             label2 = new Label();
@@ -51,7 +52,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.DodgerBlue;
+            label1.ForeColor = Color.FromArgb(130, 181, 239);
             label1.Location = new Point(257, 186);
             label1.Name = "label1";
             label1.RightToLeft = RightToLeft.No;
@@ -63,7 +64,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = Color.DodgerBlue;
+            label2.ForeColor = Color.FromArgb(130, 181, 239);
             label2.Location = new Point(257, 269);
             label2.Name = "label2";
             label2.RightToLeft = RightToLeft.No;
@@ -77,7 +78,6 @@
             userTxt.Name = "userTxt";
             userTxt.Size = new Size(230, 23);
             userTxt.TabIndex = 3;
-            
             // 
             // passwordTxt
             // 
@@ -90,16 +90,17 @@
             // 
             // connect
             // 
-            connect.BackColor = Color.DodgerBlue;
-            connect.Location = new Point(388, 376);
+            connect.BackColor = Color.FromArgb(130, 181, 239);
+            connect.Font = new Font("Arial", 12F);
+            connect.Location = new Point(393, 377);
             connect.Name = "connect";
-            connect.Size = new Size(99, 47);
+            connect.Size = new Size(94, 61);
             connect.TabIndex = 5;
             connect.Text = "Connecter";
             connect.UseVisualStyleBackColor = false;
             connect.Click += connect_Click;
             // 
-            // Form1
+            // FormConnexion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -110,9 +111,9 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(pictureBox1);
-            Name = "Form1";
-            Text = "Connexion";
-            
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Name = "FormConnexion";
+            Text = "la Detente de Camoel";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

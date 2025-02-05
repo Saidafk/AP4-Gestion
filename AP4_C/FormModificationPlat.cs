@@ -285,5 +285,10 @@ namespace AP4_C
         {
 
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
