@@ -58,7 +58,7 @@ namespace AP4_C
                 ckbCuisinier.Visible = false;
                 ckbServeur.Visible = false;
                 lbCuisinier.Visible = false;
-                lbServeur.Visible = false;  
+                lbServeur.Visible = false;
                 gbinfoEmployer.Visible = false;
                 cbEmploye.Visible = true;
             }
@@ -237,9 +237,14 @@ namespace AP4_C
 
         private void btnMDP_Click(object sender, EventArgs e)
         {
-            
+
             string motDePasse = GenererUnMDP.GenerateRandomPassword();
             txtMDP.Text = motDePasse;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -35,21 +35,24 @@ namespace AP4_C
                 .ToList();
         }
 
-        private void affichagePlat()
+        private void affichagePlat(string? filtreNom = null)
         {
             try
             {
-                var platsAffiches = Modele.MonModel.Plats
-                .Select(x => new
-                {
-                    Id = x.Idplat,
-                    Type = x.IdtypeplatNavigation.Typeplat1, 
-                    Libelle = x.Libelleplat,
-                    Description = x.Description,
-                    Quantité = x.Qte,
-                    Prix = x.Prixplatht,
-                    Végétarien = x.Veggie
-                })
+                
+                var platsAffiches = ModelePlat.listePlats()
+                    // pb affichage type plat
+                .Where(x => string.IsNullOrEmpty(filtreNom) || x.Libelleplat.Contains(filtreNom, StringComparison.OrdinalIgnoreCase))
+                    .Select(x => new
+                    {
+                        Id = x.Idplat,
+                        //Type = x.IdtypeplatNavigation.Typeplat1,
+                        Libelle = x.Libelleplat,
+                        Description = x.Description,
+                        Quantité = x.Qte,
+                        Prix = x.Prixplatht,
+                        Végétarien = x.Veggie
+                    })
                 .ToList();
 
                 PlatDgv.DataSource = platsAffiches;
@@ -60,6 +63,13 @@ namespace AP4_C
             }
         }
 
+        public void Filtre()
+        {
+
+            string filtreNom = tbNomPlat.Text.Trim();
+            affichagePlat(filtreNom);
+        }
+
         private void PlatDgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -68,6 +78,11 @@ namespace AP4_C
         private void pnlGestionProduit_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void tbNomPlat_TextChanged(object sender, EventArgs e)
+        {
+            Filtre();
         }
     }
 }

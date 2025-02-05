@@ -11,11 +11,11 @@ namespace AP4_C
             Model.Modele.init();
             ApplicationConfiguration.Initialize();
 
-            User user = RecupererUserParID(1);
+           //User user = RecupererUserParID(1);
             FormConnexion formConnexion = new FormConnexion();
             //Application.Run(formConnexion);  
-            Application.Run(new FormMenu(user));
-            
+            //Application.Run(new FormMenu(user));
+            Application.Run(new FormConnexion());
         }
     }
 }

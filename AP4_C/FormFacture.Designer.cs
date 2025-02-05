@@ -59,9 +59,10 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.Font = new Font("Arial", 12F, FontStyle.Bold);
             label1.Location = new Point(12, 23);
             label1.Name = "label1";
-            label1.Size = new Size(111, 15);
+            label1.Size = new Size(158, 19);
             label1.TabIndex = 0;
             label1.Text = "numéro de facture :";
             // 
@@ -69,7 +70,7 @@
             // 
             cbFacture.DropDownStyle = ComboBoxStyle.DropDownList;
             cbFacture.FormattingEnabled = true;
-            cbFacture.Location = new Point(129, 20);
+            cbFacture.Location = new Point(176, 23);
             cbFacture.Name = "cbFacture";
             cbFacture.Size = new Size(121, 23);
             cbFacture.TabIndex = 3;
@@ -101,15 +102,16 @@
             // label7
             // 
             label7.AutoSize = true;
+            label7.Font = new Font("Arial", 12F);
             label7.Location = new Point(6, 134);
             label7.Name = "label7";
-            label7.Size = new Size(113, 15);
+            label7.Size = new Size(153, 18);
             label7.TabIndex = 27;
-            label7.Text = "Moyen de paiement";
+            label7.Text = "Moyen de paiement :";
             // 
             // txtMoyenP
             // 
-            txtMoyenP.Location = new Point(121, 134);
+            txtMoyenP.Location = new Point(165, 134);
             txtMoyenP.Name = "txtMoyenP";
             txtMoyenP.ReadOnly = true;
             txtMoyenP.Size = new Size(119, 23);
@@ -119,14 +121,15 @@
             // 
             tbPrixTVA.Location = new Point(530, 176);
             tbPrixTVA.Name = "tbPrixTVA";
+            tbPrixTVA.ReadOnly = true;
             tbPrixTVA.Size = new Size(162, 23);
             tbPrixTVA.TabIndex = 5;
             // 
             // btnGenererPDF
             // 
-            btnGenererPDF.Location = new Point(643, 283);
+            btnGenererPDF.Location = new Point(624, 263);
             btnGenererPDF.Name = "btnGenererPDF";
-            btnGenererPDF.Size = new Size(75, 23);
+            btnGenererPDF.Size = new Size(94, 61);
             btnGenererPDF.TabIndex = 26;
             btnGenererPDF.Text = "Imprimer";
             btnGenererPDF.UseVisualStyleBackColor = true;
@@ -142,7 +145,7 @@
             // 
             // txtTable
             // 
-            txtTable.Location = new Point(121, 95);
+            txtTable.Location = new Point(137, 98);
             txtTable.Name = "txtTable";
             txtTable.ReadOnly = true;
             txtTable.Size = new Size(119, 23);
@@ -150,7 +153,7 @@
             // 
             // txtTicket
             // 
-            txtTicket.Location = new Point(121, 57);
+            txtTicket.Location = new Point(137, 57);
             txtTicket.Name = "txtTicket";
             txtTicket.ReadOnly = true;
             txtTicket.Size = new Size(119, 23);
@@ -162,9 +165,9 @@
             dgvCommande.AllowUserToOrderColumns = true;
             dgvCommande.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvCommande.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvCommande.BackgroundColor = SystemColors.InactiveCaption;
+            dgvCommande.BackgroundColor = Color.FromArgb(130, 181, 239);
             dgvCommande.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dgvCommande.Location = new Point(274, 98);
+            dgvCommande.Location = new Point(290, 98);
             dgvCommande.Name = "dgvCommande";
             dgvCommande.Size = new Size(185, 169);
             dgvCommande.TabIndex = 21;
@@ -172,24 +175,26 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(324, 65);
+            label6.Font = new Font("Arial", 12F);
+            label6.Location = new Point(324, 62);
             label6.Name = "label6";
-            label6.Size = new Size(91, 15);
+            label6.Size = new Size(117, 18);
             label6.TabIndex = 8;
             label6.Text = "Plat commandé";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(494, 28);
+            label5.Font = new Font("Arial", 12F);
+            label5.Location = new Point(485, 16);
             label5.Name = "label5";
-            label5.Size = new Size(30, 15);
+            label5.Size = new Size(39, 18);
             label5.TabIndex = 6;
             label5.Text = "date";
             // 
             // dtpDateFacture
             // 
-            dtpDateFacture.Location = new Point(530, 22);
+            dtpDateFacture.Location = new Point(530, 13);
             dtpDateFacture.Name = "dtpDateFacture";
             dtpDateFacture.Size = new Size(200, 23);
             dtpDateFacture.TabIndex = 5;
@@ -197,27 +202,30 @@
             // label4
             // 
             label4.AutoSize = true;
+            label4.Font = new Font("Arial", 12F);
             label4.Location = new Point(6, 98);
             label4.Name = "label4";
-            label4.Size = new Size(96, 15);
+            label4.Size = new Size(131, 18);
             label4.TabIndex = 3;
-            label4.Text = "Numéro de table";
+            label4.Text = "Numéro de table :";
             // 
             // label3
             // 
             label3.AutoSize = true;
+            label3.Font = new Font("Arial", 12F);
             label3.Location = new Point(6, 60);
             label3.Name = "label3";
-            label3.Size = new Size(100, 15);
+            label3.Size = new Size(133, 18);
             label3.TabIndex = 2;
-            label3.Text = "Numéro du ticket";
+            label3.Text = "Numéro du ticket :";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(308, 19);
+            label2.Font = new Font("Arial", 12F, FontStyle.Bold);
+            label2.Location = new Point(290, 16);
             label2.Name = "label2";
-            label2.Size = new Size(107, 15);
+            label2.Size = new Size(155, 19);
             label2.TabIndex = 0;
             label2.Text = "Restaurant Camoel";
             // 

@@ -82,9 +82,10 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(66, 47);
+            label3.Font = new Font("Arial", 12F);
+            label3.Location = new Point(14, 39);
             label3.Name = "label3";
-            label3.Size = new Size(197, 15);
+            label3.Size = new Size(260, 18);
             label3.TabIndex = 3;
             label3.Text = "Quantité déjà présente dans le stock";
             // 
@@ -92,7 +93,7 @@
             // 
             btnAjouter.Location = new Point(405, 121);
             btnAjouter.Name = "btnAjouter";
-            btnAjouter.Size = new Size(101, 43);
+            btnAjouter.Size = new Size(94, 61);
             btnAjouter.TabIndex = 2;
             btnAjouter.Text = "Ajouter";
             btnAjouter.UseVisualStyleBackColor = true;
@@ -101,9 +102,10 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(133, 82);
+            label2.Font = new Font("Arial", 12F);
+            label2.Location = new Point(70, 79);
             label2.Name = "label2";
-            label2.Size = new Size(130, 15);
+            label2.Size = new Size(166, 18);
             label2.TabIndex = 1;
             label2.Text = "Quantité a commander";
             // 
@@ -118,9 +120,10 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(37, 24);
+            label1.Font = new Font("Arial", 12F, FontStyle.Bold);
+            label1.Location = new Point(12, 21);
             label1.Name = "label1";
-            label1.Size = new Size(221, 15);
+            label1.Size = new Size(318, 19);
             label1.TabIndex = 3;
             label1.Text = "Veuillez choisir le produit à commander :";
             // 
@@ -128,7 +131,7 @@
             // 
             cbPlat.DropDownStyle = ComboBoxStyle.DropDownList;
             cbPlat.FormattingEnabled = true;
-            cbPlat.Location = new Point(275, 21);
+            cbPlat.Location = new Point(330, 21);
             cbPlat.Name = "cbPlat";
             cbPlat.Size = new Size(229, 23);
             cbPlat.TabIndex = 2;

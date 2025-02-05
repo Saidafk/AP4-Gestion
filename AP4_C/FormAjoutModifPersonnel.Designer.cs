@@ -54,7 +54,7 @@
             // 
             // panelAjoutModif
             // 
-            panelAjoutModif.BackColor = SystemColors.ActiveCaption;
+            panelAjoutModif.BackColor = Color.FromArgb(130, 181, 239);
             panelAjoutModif.Controls.Add(labelemploye);
             panelAjoutModif.Controls.Add(gbinfoEmployer);
             panelAjoutModif.Controls.Add(cbEmploye);
@@ -67,9 +67,10 @@
             // labelemploye
             // 
             labelemploye.AutoSize = true;
-            labelemploye.Location = new Point(98, 31);
+            labelemploye.Font = new Font("Arial", 12F, FontStyle.Bold);
+            labelemploye.Location = new Point(53, 29);
             labelemploye.Name = "labelemploye";
-            labelemploye.Size = new Size(53, 15);
+            labelemploye.Size = new Size(76, 19);
             labelemploye.TabIndex = 2;
             labelemploye.Text = "Employe";
             // 
@@ -98,18 +99,20 @@
             // lbServeur
             // 
             lbServeur.AutoSize = true;
-            lbServeur.Location = new Point(72, 255);
+            lbServeur.Font = new Font("Arial", 12F);
+            lbServeur.Location = new Point(56, 251);
             lbServeur.Name = "lbServeur";
-            lbServeur.Size = new Size(46, 15);
+            lbServeur.Size = new Size(62, 18);
             lbServeur.TabIndex = 12;
             lbServeur.Text = "Serveur";
             // 
             // lbCuisinier
             // 
             lbCuisinier.AutoSize = true;
-            lbCuisinier.Location = new Point(72, 223);
+            lbCuisinier.Font = new Font("Arial", 12F);
+            lbCuisinier.Location = new Point(53, 219);
             lbCuisinier.Name = "lbCuisinier";
-            lbCuisinier.Size = new Size(53, 15);
+            lbCuisinier.Size = new Size(70, 18);
             lbCuisinier.TabIndex = 11;
             lbCuisinier.Text = "Cuisinier";
             // 
@@ -152,56 +155,60 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(305, 50);
+            label2.Font = new Font("Arial", 12F);
+            label2.Location = new Point(426, 68);
             label2.Name = "label2";
-            label2.Size = new Size(36, 15);
+            label2.Size = new Size(48, 18);
             label2.TabIndex = 8;
             label2.Text = "Email";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(165, 50);
+            label1.Font = new Font("Arial", 12F);
+            label1.Location = new Point(203, 65);
             label1.Name = "label1";
-            label1.Size = new Size(49, 15);
+            label1.Size = new Size(63, 18);
             label1.TabIndex = 7;
             label1.Text = "Prénom";
+            label1.Click += label1_Click;
             // 
             // Nom
             // 
             Nom.AutoSize = true;
-            Nom.Location = new Point(36, 50);
+            Nom.Font = new Font("Arial", 12F);
+            Nom.Location = new Point(6, 65);
             Nom.Name = "Nom";
-            Nom.Size = new Size(34, 15);
+            Nom.Size = new Size(41, 18);
             Nom.TabIndex = 6;
             Nom.Text = "Nom";
             // 
             // tbEmail
             // 
-            tbEmail.Location = new Point(305, 68);
+            tbEmail.Location = new Point(480, 65);
             tbEmail.Name = "tbEmail";
             tbEmail.Size = new Size(195, 23);
             tbEmail.TabIndex = 5;
             // 
             // tbPrenom
             // 
-            tbPrenom.Location = new Point(165, 68);
+            tbPrenom.Location = new Point(272, 65);
             tbPrenom.Name = "tbPrenom";
             tbPrenom.Size = new Size(100, 23);
             tbPrenom.TabIndex = 4;
             // 
             // tbNom
             // 
-            tbNom.Location = new Point(36, 68);
+            tbNom.Location = new Point(53, 65);
             tbNom.Name = "tbNom";
-            tbNom.Size = new Size(100, 23);
+            tbNom.Size = new Size(126, 23);
             tbNom.TabIndex = 3;
             // 
             // buttonemploye
             // 
-            buttonemploye.Location = new Point(593, 223);
+            buttonemploye.Location = new Point(599, 243);
             buttonemploye.Name = "buttonemploye";
-            buttonemploye.Size = new Size(121, 73);
+            buttonemploye.Size = new Size(115, 53);
             buttonemploye.TabIndex = 0;
             buttonemploye.UseVisualStyleBackColor = true;
             buttonemploye.Click += buttonemploye_Click;
@@ -210,7 +217,7 @@
             // 
             cbEmploye.DropDownStyle = ComboBoxStyle.DropDownList;
             cbEmploye.FormattingEnabled = true;
-            cbEmploye.Location = new Point(98, 49);
+            cbEmploye.Location = new Point(261, 29);
             cbEmploye.Name = "cbEmploye";
             cbEmploye.Size = new Size(121, 23);
             cbEmploye.TabIndex = 0;

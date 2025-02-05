@@ -19,6 +19,8 @@ namespace AP4_C
         public FormGestionEmploye()
         {
             InitializeComponent();
+            label2.Visible = false;
+            cmbFiltreRole.Visible = false;
         }
 
         private void pnlGestionEmploye_Paint(object sender, PaintEventArgs e)
