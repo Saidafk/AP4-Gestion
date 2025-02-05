@@ -30,6 +30,8 @@ public partial class Ap4CamoelContext : DbContext
 
     public virtual DbSet<Cuisinier> Cuisiniers { get; set; }
 
+    public virtual DbSet<Dechet> Dechets { get; set; }
+
     public virtual DbSet<Employe> Employes { get; set; }
 
     public virtual DbSet<Etatplat> Etatplats { get; set; }
@@ -174,6 +176,8 @@ public partial class Ap4CamoelContext : DbContext
 
             entity.ToTable("commande");
 
+            entity.HasIndex(e => e.Idtable, "IDTABLE");
+
             entity.HasIndex(e => e.Idclient, "I_FK_COMMANDE_CLIENT");
 
             entity.HasIndex(e => e.Idreserv, "I_FK_COMMANDE_RESERVATION");
@@ -193,6 +197,11 @@ public partial class Ap4CamoelContext : DbContext
             entity.HasOne(d => d.IdreservNavigation).WithMany(p => p.Commandes)
                 .HasForeignKey(d => d.Idreserv)
                 .HasConstraintName("commande_ibfk_2");
+
+            entity.HasOne(d => d.IdtableNavigation).WithMany(p => p.Commandes)
+                .HasForeignKey(d => d.Idtable)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("commande_ibfk_5");
         });
 
         modelBuilder.Entity<Cuisinier>(entity =>
@@ -209,6 +218,18 @@ public partial class Ap4CamoelContext : DbContext
                 .HasForeignKey<Cuisinier>(d => d.Idper)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("cuisinier_ibfk_1");
+        });
+
+        modelBuilder.Entity<Dechet>(entity =>
+        {
+            entity.HasKey(e => e.DateRecensement).HasName("PRIMARY");
+
+            entity.ToTable("dechets");
+
+            entity.Property(e => e.DateRecensement).HasColumnName("dateRecensement");
+            entity.Property(e => e.Quantite)
+                .HasPrecision(10, 2)
+                .HasColumnName("quantite");
         });
 
         modelBuilder.Entity<Employe>(entity =>
@@ -353,7 +374,7 @@ public partial class Ap4CamoelContext : DbContext
             entity.HasOne(d => d.IdcommandeNavigation).WithMany(p => p.InstancePlats)
                 .HasForeignKey(d => d.Idcommande)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("instance_plat_ibfk_2");
+                .HasConstraintName("instance_plat_ibfk_4");
 
             entity.HasOne(d => d.IdetatNavigation).WithMany(p => p.InstancePlats)
                 .HasForeignKey(d => d.Idetat)
@@ -576,7 +597,7 @@ public partial class Ap4CamoelContext : DbContext
                 .HasMaxLength(128)
                 .HasColumnName("LIBELLEPLAT");
             entity.Property(e => e.Lienimg)
-                .HasMaxLength(128)
+                .HasMaxLength(255)
                 .HasColumnName("LIENIMG");
             entity.Property(e => e.Prixplatht)
                 .HasColumnType("double(6,2)")
@@ -629,7 +650,9 @@ public partial class Ap4CamoelContext : DbContext
 
             entity.HasIndex(e => e.Idplat, "I_FK_PLATDUJOUR_PLAT");
 
-            entity.Property(e => e.Ddmmyyyy).HasColumnName("DDMMYYYY");
+            entity.Property(e => e.Ddmmyyyy)
+                .HasColumnType("datetime")
+                .HasColumnName("DDMMYYYY");
             entity.Property(e => e.Idplat).HasColumnName("IDPLAT");
             entity.Property(e => e.Idper).HasColumnName("IDPER");
 

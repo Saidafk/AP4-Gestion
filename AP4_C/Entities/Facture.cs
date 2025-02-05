@@ -13,7 +13,7 @@ public partial class Facture
 
     public int Tva { get; set; }
 
-    public DateTime Datefacture { get; set; }
+    public DateTime? Datefacture { get; set; }
 
     public virtual Commande IdcommandeNavigation { get; set; } = null!;
 

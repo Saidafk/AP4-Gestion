@@ -38,13 +38,15 @@ namespace AP4_C.Model
 
         public static List<User> listeEmployes()
         {
-            
+
             List<User> lesUsers = Modele.MonModel.Users.ToList();
-            
+
             List<User> lesEmployes = new List<User>();
 
-            foreach (User user in lesUsers) {
-                if (presenceEmploye(user.Id)) {
+            foreach (User user in lesUsers)
+            {
+                if (presenceEmploye(user.Id))
+                {
                     lesEmployes.Add(RecupererUserParID(user.Id));
 
                 }
@@ -62,9 +64,48 @@ namespace AP4_C.Model
             return Modele.MonModel.Serveurs.ToList();
         }
 
+        public static bool SupprEmploye(ulong id)
+        {
+            bool suppr = false;
+            try
+            {
+                Employe unEmploye = Modele.MonModel.Employes.First(x => x.Idper == id);
+                Modele.MonModel.Employes.Remove(unEmploye);
+                Modele.MonModel.SaveChanges();
+                suppr = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            return suppr;
+
+
+
+        }
+        public static bool ajoutEmp(ulong id)
+        {
+            Employe unEmp;
+            bool vretour = true;
+            try
+            {
+                unEmp = new Employe();
+                unEmp.Idper = id;
+
+
+
+                Modele.MonModel.Employes.Add(unEmp);
+                Modele.MonModel.SaveChanges();
+            }
+            catch (Exception)
+            {
+                vretour = false;
+            }
+            return vretour;
+        }
     }
 
-
+    
 }
 
 

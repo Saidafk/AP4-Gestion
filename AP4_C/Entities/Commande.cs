@@ -21,5 +21,7 @@ public partial class Commande
 
     public virtual Reservation? IdreservNavigation { get; set; }
 
+    public virtual Tabler IdtableNavigation { get; set; } = null!;
+
     public virtual ICollection<InstancePlat> InstancePlats { get; set; } = new List<InstancePlat>();
 }

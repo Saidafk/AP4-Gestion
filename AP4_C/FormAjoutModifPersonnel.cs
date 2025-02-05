@@ -136,29 +136,38 @@ namespace AP4_C
                 if (ModelUser.AjouterNouveauPersonnel(NomPersonnel, PrenomPersonnel, EmailPersonnel))
                 {
                     MessageBox.Show("Personnel ajouté");
+                    
                     RemplirlesEmploye();
                     ResetForm();
+                    
+
                 }
                 Idper = ModelUser.listeUsers().Last().Id;
                 MessageBox.Show("id personnel : " + Idper);
+                ModelePersonnel.ajoutPers(Idper);
+                ModelEmploye.ajoutEmp(Idper);
 
-                if (ckbCuisinier.Checked == true && ckbServeur.Checked == true)
+                if (estCuisinier == true && estServeur == true)
                 {
                     MessageBox.Show("Il ne peut pas être les deux à la fois");
                     return;
                 }
-                if (ckbServeur.Checked)
+                else if (estServeur)
                 {
-                    estServeur = true;
+                    ModeleServeur.NouveauServeur(Idper);
+                    MessageBox.Show("Serveur ajouté");
+                    return;
                 }
-                if (ckbCuisinier.Checked)
+                else if (estCuisinier)
                 {
                     ModeleCuisinier.NouveauCuisinier(Idper);
                     MessageBox.Show("Cuisinier ajouté");
+                    return;
                 }
                 else
                 {
                     MessageBox.Show("Erreur lors de l'ajout du personnel");
+                    return;
                 }
             }
             else if (etatemploye == EtatGestionEmploye.UpdateEmploye)
