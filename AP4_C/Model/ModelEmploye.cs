@@ -72,6 +72,9 @@ namespace AP4_C.Model
                 Employe unEmploye = Modele.MonModel.Employes.First(x => x.Idper == id);
                 Modele.MonModel.Employes.Remove(unEmploye);
                 Modele.MonModel.SaveChanges();
+
+                
+                
                 suppr = true;
             }
             catch (Exception ex)

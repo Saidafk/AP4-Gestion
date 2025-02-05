@@ -122,6 +122,8 @@ namespace AP4_C
             string motDePasseHache = txtMDP.Text;
             bool estCuisinier = ckbCuisinier.Checked;
             bool estServeur = ckbServeur.Checked;
+            string mdphache = BCrypt.Net.BCrypt.HashPassword(motDePasseHache);
+
 
             if (etatemploye == EtatGestionEmploye.CreateEmploye)
             {
@@ -144,7 +146,8 @@ namespace AP4_C
                 MessageBox.Show("serveur : " + estServeur);
                 MessageBox.Show("cuisinier : " + estCuisinier);
 
-                if (ModelUser.AjouterNouveauPersonnel(NomPersonnel, PrenomPersonnel, EmailPersonnel))
+
+                if (ModelUser.AjouterNouveauPersonnel(NomPersonnel, PrenomPersonnel, EmailPersonnel, mdphache, motDePasseHache))
                 {
                     MessageBox.Show("Personnel ajouté");
                     
@@ -192,8 +195,8 @@ namespace AP4_C
                     MessageBox.Show("Veuillez sélectionner un personnel à modifier.");
                     return;
                 }
-
-                if (ModelUser.ModifierUser(Idper, NomPersonnel, PrenomPersonnel, EmailPersonnel))
+                
+                if (ModelUser.ModifierUser(Idper, NomPersonnel, PrenomPersonnel, EmailPersonnel, mdphache))
                 {
                     MessageBox.Show("Personnel modifié");
                     RemplirlesEmploye();

@@ -97,6 +97,7 @@
             // 
             EmployeDgv.BackgroundColor = SystemColors.ControlLightLight;
             EmployeDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            EmployeDgv.ContextMenuStrip = contextMenuStrip1;
             EmployeDgv.Location = new Point(62, 78);
             EmployeDgv.Name = "EmployeDgv";
             EmployeDgv.Size = new Size(657, 327);
@@ -111,12 +112,12 @@
             // 
             contextMenuStrip1.Items.AddRange(new ToolStripItem[] { supprimerToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(181, 48);
+            contextMenuStrip1.Size = new Size(130, 26);
             // 
             // supprimerToolStripMenuItem
             // 
             supprimerToolStripMenuItem.Name = "supprimerToolStripMenuItem";
-            supprimerToolStripMenuItem.Size = new Size(180, 22);
+            supprimerToolStripMenuItem.Size = new Size(129, 22);
             supprimerToolStripMenuItem.Text = "Supprimer";
             supprimerToolStripMenuItem.Click += supprimerToolStripMenuItem_Click;
             // 
