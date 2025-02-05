@@ -47,6 +47,8 @@
             label2 = new Label();
             bsCommande = new BindingSource(components);
             bsTable = new BindingSource(components);
+            txtMoyenP = new TextBox();
+            label7 = new Label();
             ((System.ComponentModel.ISupportInitialize)bsFacture).BeginInit();
             gbInfoFacture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCommande).BeginInit();
@@ -75,6 +77,8 @@
             // 
             // gbInfoFacture
             // 
+            gbInfoFacture.Controls.Add(label7);
+            gbInfoFacture.Controls.Add(txtMoyenP);
             gbInfoFacture.Controls.Add(tbPrixTVA);
             gbInfoFacture.Controls.Add(btnGenererPDF);
             gbInfoFacture.Controls.Add(txtPrix);
@@ -200,6 +204,23 @@
             label2.TabIndex = 0;
             label2.Text = "Restaurant Camoel";
             // 
+            // txtMoyenP
+            // 
+            txtMoyenP.Location = new Point(121, 143);
+            txtMoyenP.Name = "txtMoyenP";
+            txtMoyenP.ReadOnly = true;
+            txtMoyenP.Size = new Size(100, 23);
+            txtMoyenP.TabIndex = 5;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(6, 146);
+            label7.Name = "label7";
+            label7.Size = new Size(113, 15);
+            label7.TabIndex = 27;
+            label7.Text = "Moyen de paiement";
+            // 
             // FormFacture
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -243,5 +264,7 @@
         private TextBox txtPrix;
         private Button btnGenererPDF;
         private TextBox tbPrixTVA;
+        private Label label7;
+        private TextBox txtMoyenP;
     }
 }

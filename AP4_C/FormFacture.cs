@@ -22,6 +22,21 @@ namespace AP4_C
             InitializeComponent();
         }
 
+
+        private void ResetForm()
+        {
+            cbFacture.SelectedIndex = -1;
+            txtTicket.Text = string.Empty;
+            dtpDateFacture.Value = DateTime.Now;
+            txtTable.Text = string.Empty;
+            txtMoyenP.Text = string.Empty;
+            dgvCommande.DataSource = null;
+            tbPrixTVA.Text = string.Empty;
+            txtPrix.Text = string.Empty;
+            gbInfoFacture.Visible = false;
+        }
+
+
         public void RemplirFacture()
         {
 
@@ -73,6 +88,16 @@ namespace AP4_C
                     MessageBox.Show("La date de la facture est invalide.");
                 }
                 txtTable.Text = commande.Idtable.ToString();
+
+                var moyenPaiement = ModeleMoyenP.RetourneMoyenPaiement(facture.Idmoyenpaiement);
+                if (moyenPaiement != null)
+                {
+                    txtMoyenP.Text = moyenPaiement.Libellemoyenpaiement;
+                }
+                else
+                {
+                    txtMoyenP.Text = "Moyen de paiement inconnu";
+                }
 
                 affichageCommandes();
             }
@@ -171,6 +196,8 @@ namespace AP4_C
                         GenererPDF.CreerPDF(saveFileDialog.FileName, idFacture);
                         MessageBox.Show($"Facture générée avec succès : {saveFileDialog.FileName}");
                         ModeleTabler.MettreTableDisponible(idTable);
+
+                        ResetForm();
 
                     }
                     catch (Exception ex)
