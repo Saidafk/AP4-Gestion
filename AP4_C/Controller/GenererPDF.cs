@@ -14,11 +14,15 @@ namespace AP4_C.Controller
         public static void CreerPDF(string filePath, int idFacture)
         {
             var facture = ModeleFacture.RetourneFacture(idFacture);
-            var commande = ModeleCommande.RetourneCommande(idFacture);
-
-            if (facture == null || commande == null)
+            if (facture == null)
             {
                 throw new Exception("Erreur lors de la récupération des données de la facture.");
+            }
+
+            var commande = ModeleCommande.RetourneCommande(facture.Idcommande);
+            if (commande == null)
+            {
+                throw new Exception("Erreur lors de la récupération des données de la commande.");
             }
 
             // Créer un nouveau document PDF
@@ -36,7 +40,11 @@ namespace AP4_C.Controller
 
             // Ajouter les informations de la facture
             page.Paragraphs.Add(new TextFragment($"Numéro de facture : {facture.Idfacture}"));
-            page.Paragraphs.Add(new TextFragment($"Date de facture : {facture.Datefacture.ToShortDateString()}"));
+            page.Paragraphs.Add(new TextFragment($"Date de facture : {facture.Datefacture?.ToShortDateString() ?? "N/A"}"));
+
+
+            page.Paragraphs.Add(new TextFragment($"Moyen de paiement : {facture.IdmoyenpaiementNavigation?.Libellemoyenpaiement ?? "N/A"}"));
+
             page.Paragraphs.Add(new TextFragment($"Table : {commande.Idtable}"));
 
             // Ajouter un tableau pour les plats commandés
@@ -55,7 +63,7 @@ namespace AP4_C.Controller
 
             // Récupérer les plats commandés
             var platsCommandes = ModeleInstancePlat.listeInstancePlat()
-                .Where(x => x.Idcommande == idFacture)
+                .Where(x => x.Idcommande == commande.Idcommande)
                 .Select(x => new
                 {
                     NomPlat = ModelePlat.RentourneNomPlat(x.Idplat)?.Libelleplat,

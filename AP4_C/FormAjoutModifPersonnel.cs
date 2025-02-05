@@ -1,4 +1,5 @@
 ﻿using AP4_C.Controller;
+using static AP4_C.Controller.Controller;
 using AP4_C.Entities;
 using AP4_C.Model;
 using Aspose.Pdf.Operators;
@@ -8,6 +9,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Mail;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,7 +59,7 @@ namespace AP4_C
                 ckbCuisinier.Visible = false;
                 ckbServeur.Visible = false;
                 lbCuisinier.Visible = false;
-                lbServeur.Visible = false;  
+                lbServeur.Visible = false;
                 gbinfoEmployer.Visible = false;
                 cbEmploye.Visible = true;
             }
@@ -112,6 +114,32 @@ namespace AP4_C
             }
         }
 
+        public static void EnvoyerEmailNouveauMembre(string destinataire, string sujet, string corps)
+        {
+
+            string to = destinataire;
+            string from = "Camoel@gmail.com";
+            MailMessage message = new MailMessage(from, to);
+            message.Subject = "";
+            message.Body = "";
+            SmtpClient client = new SmtpClient();
+
+            client.Host = "mail.dombtsig.local";
+            client.Port = 1025;
+
+            client.UseDefaultCredentials = true;
+            try
+            {
+                client.Send(message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in CreateTestMessage2(): {0}",
+                    ex.ToString());
+
+            }
+        }
+
         private void buttonemploye_Click(object sender, EventArgs e)
         {
             ulong Idper;
@@ -121,6 +149,8 @@ namespace AP4_C
             string motDePasseHache = txtMDP.Text;
             bool estCuisinier = ckbCuisinier.Checked;
             bool estServeur = ckbServeur.Checked;
+            string mdphache = BCrypt.Net.BCrypt.HashPassword(motDePasseHache);
+
 
             if (etatemploye == EtatGestionEmploye.CreateEmploye)
             {
@@ -129,55 +159,91 @@ namespace AP4_C
                     MessageBox.Show("Veuillez remplir tous les champs obligatoires");
                     return;
                 }
-
-                MessageBox.Show("serveur : " + estServeur);
-                MessageBox.Show("cuisinier : " + estCuisinier);
-
-                if (ModelUser.AjouterNouveauPersonnel(NomPersonnel, PrenomPersonnel, EmailPersonnel))
+                if (!Controller.Controller.ValidMail(EmailPersonnel))
                 {
-                    MessageBox.Show("Personnel ajouté");
-                    RemplirlesEmploye();
-                    ResetForm();
+                    MessageBox.Show("Veuillez saisir une adresse e-mail valide.");
+                    return;
                 }
-                Idper = ModelUser.listeUsers().Last().Id;
-                MessageBox.Show("id personnel : " + Idper);
+                if (ModelUser.RecupererUser(EmailPersonnel)!=null)
+                {
+                    MessageBox.Show("Cet e-mail est déjà utilisé par un autre employé.");
+                    return;
+                }
 
-                if (ckbCuisinier.Checked == true && ckbServeur.Checked == true)
+                
+
+
+                if (ModelUser.AjouterNouveauPersonnel(NomPersonnel, PrenomPersonnel, EmailPersonnel, mdphache, motDePasseHache))
+                {
+                    if (!Email.ValidMail(EmailPersonnel))
+                    {
+                        MessageBox.Show("Adresse e-mail invalide");
+                        return;
+                    }
+
+                    string email = EmailPersonnel;
+                    string sujet = "Bienvenue dans l'équipe";
+                    string corps = $"Bonjour {PrenomPersonnel} {NomPersonnel},\n\nBienvenue dans l'équipe !\n\nVoici vos identifiants de connexion :\nUtilisateur: {EmailPersonnel}\nMot de passe : {motDePasseHache}\n\nCordialement,\nL'équipe RH";
+
+                    MessageBox.Show("Personnel ajouté");
+                    
+                    RemplirlesEmploye();
+
+                    Email.EnvoyerEmailNouveauMembre(email, sujet, corps);
+                    ResetForm();
+                    
+
+                }
+
+                Idper = ModelUser.listeUsers().Last().Id;
+                
+                ModelePersonnel.ajoutPers(Idper);
+                ModelEmploye.ajoutEmp(Idper);
+
+                if (estCuisinier == true && estServeur == true)
+
                 {
                     MessageBox.Show("Il ne peut pas être les deux à la fois");
                     return;
                 }
-                if (ckbServeur.Checked)
+                else if (estServeur)
                 {
-                    estServeur = true;
+                    ModeleServeur.NouveauServeur(Idper);
+                    MessageBox.Show("Serveur ajouté");
+                    return;
                 }
-                if (ckbCuisinier.Checked)
+                else if (estCuisinier)
                 {
                     ModeleCuisinier.NouveauCuisinier(Idper);
                     MessageBox.Show("Cuisinier ajouté");
+                    return;
                 }
                 else
                 {
                     MessageBox.Show("Erreur lors de l'ajout du personnel");
-                }
-            }
-            else if (etatemploye == EtatGestionEmploye.UpdateEmploye)
-            {
-                if (cbEmploye.SelectedValue != null)
-                {
-                    Idper = (ulong)cbEmploye.SelectedValue;
-                }
-                else
-                {
-                    MessageBox.Show("Veuillez sélectionner un personnel à modifier.");
                     return;
                 }
-
-                if (ModelUser.ModifierUser(Idper, NomPersonnel, PrenomPersonnel, EmailPersonnel))
+            
+                else if (etatemploye == EtatGestionEmploye.UpdateEmploye)
                 {
-                    MessageBox.Show("Personnel modifié");
-                    RemplirlesEmploye();
-                    ResetForm();
+
+                    if (cbEmploye.SelectedValue != null)
+                    {
+                        Idper = (ulong)cbEmploye.SelectedValue;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Veuillez sélectionner un personnel à modifier.");
+                        return;
+                    }
+
+                    if (ModelUser.ModifierUser(Idper, NomPersonnel, PrenomPersonnel, EmailPersonnel, mdphache))
+                    {
+                        MessageBox.Show("Personnel modifié");
+                        RemplirlesEmploye();
+                        ResetForm();
+                    }
+
                 }
             }
         }
@@ -197,9 +263,14 @@ namespace AP4_C
 
         private void btnMDP_Click(object sender, EventArgs e)
         {
-            
+
             string motDePasse = GenererUnMDP.GenerateRandomPassword();
             txtMDP.Text = motDePasse;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

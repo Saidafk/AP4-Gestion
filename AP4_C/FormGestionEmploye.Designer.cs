@@ -36,14 +36,17 @@
             txtFiltreEmp = new TextBox();
             EmployeDgv = new DataGridView();
             EmployeBs = new BindingSource(components);
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            supprimerToolStripMenuItem = new ToolStripMenuItem();
             pnlGestionEmploye.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)EmployeDgv).BeginInit();
             ((System.ComponentModel.ISupportInitialize)EmployeBs).BeginInit();
+            contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // pnlGestionEmploye
             // 
-            pnlGestionEmploye.BackColor = Color.White;
+            pnlGestionEmploye.BackColor = Color.FromArgb(130, 181, 239);
             pnlGestionEmploye.Controls.Add(label2);
             pnlGestionEmploye.Controls.Add(cmbFiltreRole);
             pnlGestionEmploye.Controls.Add(label1);
@@ -76,29 +79,50 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(62, 29);
+            label1.Font = new Font("Arial", 12F, FontStyle.Bold);
+            label1.Location = new Point(52, 34);
             label1.Name = "label1";
-            label1.Size = new Size(105, 15);
+            label1.Size = new Size(145, 19);
             label1.TabIndex = 2;
             label1.Text = "Nom de l'employe";
             // 
             // txtFiltreEmp
             // 
-            txtFiltreEmp.Location = new Point(173, 26);
+            txtFiltreEmp.Location = new Point(203, 34);
             txtFiltreEmp.Name = "txtFiltreEmp";
-            txtFiltreEmp.Size = new Size(100, 23);
+            txtFiltreEmp.Size = new Size(123, 23);
             txtFiltreEmp.TabIndex = 1;
             txtFiltreEmp.TextChanged += txtFiltreEmp_TextChanged;
             // 
             // EmployeDgv
             // 
-            EmployeDgv.BackgroundColor = SystemColors.ControlLightLight;
+            EmployeDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            EmployeDgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            EmployeDgv.BackgroundColor = Color.FromArgb(130, 181, 239);
             EmployeDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            EmployeDgv.ContextMenuStrip = contextMenuStrip1;
             EmployeDgv.Location = new Point(62, 78);
             EmployeDgv.Name = "EmployeDgv";
             EmployeDgv.Size = new Size(657, 327);
             EmployeDgv.TabIndex = 0;
             EmployeDgv.CellContentClick += EmployeDgv_CellContentClick;
+            // 
+            // EmployeBs
+            // 
+            EmployeBs.CurrentChanged += EmployeBs_CurrentChanged;
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { supprimerToolStripMenuItem });
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(130, 26);
+            // 
+            // supprimerToolStripMenuItem
+            // 
+            supprimerToolStripMenuItem.Name = "supprimerToolStripMenuItem";
+            supprimerToolStripMenuItem.Size = new Size(129, 22);
+            supprimerToolStripMenuItem.Text = "Supprimer";
+            supprimerToolStripMenuItem.Click += supprimerToolStripMenuItem_Click;
             // 
             // FormGestionEmploye
             // 
@@ -114,6 +138,7 @@
             pnlGestionEmploye.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)EmployeDgv).EndInit();
             ((System.ComponentModel.ISupportInitialize)EmployeBs).EndInit();
+            contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -126,5 +151,7 @@
         private TextBox txtFiltreEmp;
         private Label label2;
         private ComboBox cmbFiltreRole;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem supprimerToolStripMenuItem;
     }
 }

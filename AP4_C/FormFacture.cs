@@ -22,6 +22,21 @@ namespace AP4_C
             InitializeComponent();
         }
 
+
+        private void ResetForm()
+        {
+            cbFacture.SelectedIndex = -1;
+            txtTicket.Text = string.Empty;
+            dtpDateFacture.Value = DateTime.Now;
+            txtTable.Text = string.Empty;
+            txtMoyenP.Text = string.Empty;
+            dgvCommande.DataSource = null;
+            tbPrixTVA.Text = string.Empty;
+            txtPrix.Text = string.Empty;
+            gbInfoFacture.Visible = false;
+        }
+
+
         public void RemplirFacture()
         {
 
@@ -64,15 +79,27 @@ namespace AP4_C
                 }
 
                 txtTicket.Text = facture.Idfacture.ToString();
-                if (facture.Datefacture >= dtpDateFacture.MinDate && facture.Datefacture <= dtpDateFacture.MaxDate)
+                if (facture.Datefacture.HasValue && facture.Datefacture >= dtpDateFacture.MinDate && facture.Datefacture <= dtpDateFacture.MaxDate)
                 {
-                    dtpDateFacture.Value = facture.Datefacture;
+
+                    dtpDateFacture.Value = facture.Datefacture ?? DateTime.Now;
+
                 }
                 else
                 {
                     MessageBox.Show("La date de la facture est invalide.");
                 }
                 txtTable.Text = commande.Idtable.ToString();
+
+                var moyenPaiement = ModeleMoyenP.RetourneMoyenPaiement(facture.Idmoyenpaiement);
+                if (moyenPaiement != null)
+                {
+                    txtMoyenP.Text = moyenPaiement.Libellemoyenpaiement;
+                }
+                else
+                {
+                    txtMoyenP.Text = "Moyen de paiement inconnu";
+                }
 
                 affichageCommandes();
             }
@@ -83,10 +110,8 @@ namespace AP4_C
             {
                 if (cbFacture.SelectedValue != null)
                 {
-                    // Récupérer l'ID de la facture sélectionnée
                     int idFacture = Convert.ToInt32(cbFacture.SelectedValue);
 
-                    // Récupérer la facture associée
                     var facture = ModeleFacture.listeFacture()
                         .FirstOrDefault(x => x.Idfacture == idFacture);
 
@@ -96,10 +121,8 @@ namespace AP4_C
                         return;
                     }
 
-                    // Récupérer l'ID de la commande associée à la facture
                     int idCommande = facture.Idcommande;
 
-                    // Récupérer les instances de plat associées à la commande
                     var instancesDePlat = ModeleInstancePlat.listeInstancePlat()
                         .Where(x => x.Idcommande == idCommande)
                         .ToList();
@@ -111,7 +134,6 @@ namespace AP4_C
                         return;
                     }
 
-                    // Récupérer les plats associés à ces instances
                     var CommandeAffiches = instancesDePlat
                         .Select(x => new
                         {
@@ -120,19 +142,18 @@ namespace AP4_C
                         })
                         .ToList();
 
-                    // Afficher les plats dans le DataGridView
+                    
                     dgvCommande.DataSource = CommandeAffiches;
 
-                    // Calculer le total des prix
                     decimal totalPrix = CommandeAffiches.Sum(plat => (decimal)(plat.PrixPlat ?? 0));
 
-                    // Afficher le total TVA et le total prix
+                    
                     tbPrixTVA.Text = $"Total TVA (20%): {(totalPrix * 0.2m):C}";
                     txtPrix.Text = $"Total Prix: {totalPrix:C}";
                 }
                 else
                 {
-                    dgvCommande.DataSource = null; // Effacer le DataGridView si aucune facture n'est sélectionnée
+                    dgvCommande.DataSource = null; 
                 }
             }
             catch (Exception ex)
@@ -174,10 +195,12 @@ namespace AP4_C
                 {
                     try
                     {
-                        // Appeler la méthode de génération du PDF
                         GenererPDF.CreerPDF(saveFileDialog.FileName, idFacture);
                         MessageBox.Show($"Facture générée avec succès : {saveFileDialog.FileName}");
                         ModeleTabler.MettreTableDisponible(idTable);
+
+                        ResetForm();
+
                     }
                     catch (Exception ex)
                     {

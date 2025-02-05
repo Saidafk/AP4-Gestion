@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
@@ -138,8 +138,10 @@ namespace AP4_C.Model
             return plat != null ? plat.Qte : 0;
         }
 
+
         
-public static bool SupprimerPlat(int idPlat)
+        public static bool SupprimerPlat(int idPlat)
+
         {
             bool vretour = true;
             try
@@ -147,6 +149,7 @@ public static bool SupprimerPlat(int idPlat)
                 Plat unPlat = Modele.MonModel.Plats.FirstOrDefault(x => x.Idplat == idPlat);
                 if (unPlat != null)
                 {
+
                     DialogResult result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer ce plat ?", "Confirmation de suppression", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (result == DialogResult.Yes)
                     {
@@ -157,6 +160,7 @@ public static bool SupprimerPlat(int idPlat)
                     {
                         vretour = false;
                     }
+
                 }
                 else
                 {
@@ -170,6 +174,35 @@ public static bool SupprimerPlat(int idPlat)
             }
             return vretour;
         }
+
+        public static bool MettreAJourQuantitePlat(int idPlat, int quantiteASupprimer)
+        {
+
+            {
+                var plat = Modele.MonModel.Plats.FirstOrDefault(p => p.Idplat == idPlat);
+                if (plat == null)
+                {
+                    return false; // Plat non trouvé
+                }
+
+                if (plat.Qte < quantiteASupprimer)
+                {
+                    return false; // Quantité à supprimer supérieure à la quantité disponible
+                }
+
+                plat.Qte -= quantiteASupprimer;
+                Modele.MonModel.SaveChanges();
+                return true;
+            }
+        }
+
+        public static int RetourneQuantitePlat(int idPlat)
+        {                        
+             var plat = Modele.MonModel.Plats.FirstOrDefault(p => p.Idplat == idPlat);
+             return plat?.Qte ?? 0;
+            
+        }
+
 
         /*public static List<Plat> RentournePlatsParFacture(int idFacture)
         {

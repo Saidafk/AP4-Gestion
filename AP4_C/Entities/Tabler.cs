@@ -13,6 +13,8 @@ public partial class Tabler
 
     public bool Estdispo { get; set; }
 
+    public virtual ICollection<Commande> Commandes { get; set; } = new List<Commande>();
+
     public virtual ICollection<Gere> Geres { get; set; } = new List<Gere>();
 
     public virtual Restaurant IdrestauNavigation { get; set; } = null!;

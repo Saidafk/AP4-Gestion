@@ -15,6 +15,19 @@ namespace AP4_C.Model
             return Modele.MonModel.MoyenPaiements.ToList();
         }
 
+        public static MoyenPaiement RetourneMoyenPaiement(int idMoyenP)
+        {
+            MoyenPaiement unMoyenP = new MoyenPaiement();
+            try
+            {
+                unMoyenP = Modele.MonModel.MoyenPaiements.First(x => x.Idmoyenpaiement == idMoyenP);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            return unMoyenP;
+        }
 
     }
 }
