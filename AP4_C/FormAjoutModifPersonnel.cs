@@ -143,8 +143,7 @@ namespace AP4_C
                     return;
                 }
 
-                MessageBox.Show("serveur : " + estServeur);
-                MessageBox.Show("cuisinier : " + estCuisinier);
+                
 
 
                 if (ModelUser.AjouterNouveauPersonnel(NomPersonnel, PrenomPersonnel, EmailPersonnel, mdphache, motDePasseHache))
@@ -157,7 +156,7 @@ namespace AP4_C
 
                 }
                 Idper = ModelUser.listeUsers().Last().Id;
-                MessageBox.Show("id personnel : " + Idper);
+                
                 ModelePersonnel.ajoutPers(Idper);
                 ModelEmploye.ajoutEmp(Idper);
 
