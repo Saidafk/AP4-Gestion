@@ -1,4 +1,5 @@
 ﻿using AP4_C.Controller;
+using static AP4_C.Controller.Controller;
 using AP4_C.Entities;
 using AP4_C.Model;
 using Aspose.Pdf.Operators;
@@ -127,6 +128,16 @@ namespace AP4_C
                 if (string.IsNullOrEmpty(NomPersonnel) || string.IsNullOrEmpty(PrenomPersonnel) || string.IsNullOrEmpty(EmailPersonnel))
                 {
                     MessageBox.Show("Veuillez remplir tous les champs obligatoires");
+                    return;
+                }
+                if (!Controller.Controller.ValidMail(EmailPersonnel))
+                {
+                    MessageBox.Show("Veuillez saisir une adresse e-mail valide.");
+                    return;
+                }
+                if (ModelUser.RecupererUser(EmailPersonnel)!=null)
+                {
+                    MessageBox.Show("Cet e-mail est déjà utilisé par un autre employé.");
                     return;
                 }
 
