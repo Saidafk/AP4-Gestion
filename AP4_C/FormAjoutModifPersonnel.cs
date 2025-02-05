@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Mail;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
@@ -112,6 +113,32 @@ namespace AP4_C
             }
         }
 
+        public static void EnvoyerEmailNouveauMembre(string destinataire, string sujet, string corps)
+        {
+
+            string to = destinataire;
+            string from = "Camoel@gmail.com";
+            MailMessage message = new MailMessage(from, to);
+            message.Subject = "";
+            message.Body = "";
+            SmtpClient client = new SmtpClient();
+
+            client.Host = "mail.dombtsig.local";
+            client.Port = 1025;
+
+            client.UseDefaultCredentials = true;
+            try
+            {
+                client.Send(message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in CreateTestMessage2(): {0}",
+                    ex.ToString());
+
+            }
+        }
+
         private void buttonemploye_Click(object sender, EventArgs e)
         {
             ulong Idper;
@@ -130,19 +157,31 @@ namespace AP4_C
                     return;
                 }
 
-                MessageBox.Show("serveur : " + estServeur);
-                MessageBox.Show("cuisinier : " + estCuisinier);
+                //MessageBox.Show("serveur : " + estServeur);
+                //MessageBox.Show("cuisinier : " + estCuisinier);
 
                 if (ModelUser.AjouterNouveauPersonnel(NomPersonnel, PrenomPersonnel, EmailPersonnel))
                 {
+                    if (!Email.ValidMail(EmailPersonnel))
+                    {
+                        MessageBox.Show("Adresse e-mail invalide");
+                        return;
+                    }
+
+                    string email = EmailPersonnel;
+                    string sujet = "Bienvenue dans l'équipe";
+                    string corps = $"Bonjour {PrenomPersonnel} {NomPersonnel},\n\nBienvenue dans l'équipe !\n\nVoici vos identifiants de connexion :\nUtilisateur: {EmailPersonnel}\nMot de passe : {motDePasseHache}\n\nCordialement,\nL'équipe RH";
+
                     MessageBox.Show("Personnel ajouté");
                     RemplirlesEmploye();
+
+                    Email.EnvoyerEmailNouveauMembre(email, sujet, corps);
                     ResetForm();
                 }
-                Idper = ModelUser.listeUsers().Last().Id;
-                MessageBox.Show("id personnel : " + Idper);
+                //Idper = ModelUser.listeUsers().Last().Id;
+                //MessageBox.Show("id personnel : " + Idper);
 
-                if (ckbCuisinier.Checked == true && ckbServeur.Checked == true)
+                /*if (ckbCuisinier.Checked == true && ckbServeur.Checked == true)
                 {
                     MessageBox.Show("Il ne peut pas être les deux à la fois");
                     return;
@@ -160,24 +199,25 @@ namespace AP4_C
                 {
                     MessageBox.Show("Erreur lors de l'ajout du personnel");
                 }
-            }
-            else if (etatemploye == EtatGestionEmploye.UpdateEmploye)
-            {
-                if (cbEmploye.SelectedValue != null)
+            */
+                else if (etatemploye == EtatGestionEmploye.UpdateEmploye)
                 {
-                    Idper = (ulong)cbEmploye.SelectedValue;
-                }
-                else
-                {
-                    MessageBox.Show("Veuillez sélectionner un personnel à modifier.");
-                    return;
-                }
+                    if (cbEmploye.SelectedValue != null)
+                    {
+                        Idper = (ulong)cbEmploye.SelectedValue;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Veuillez sélectionner un personnel à modifier.");
+                        return;
+                    }
 
-                if (ModelUser.ModifierUser(Idper, NomPersonnel, PrenomPersonnel, EmailPersonnel))
-                {
-                    MessageBox.Show("Personnel modifié");
-                    RemplirlesEmploye();
-                    ResetForm();
+                    if (ModelUser.ModifierUser(Idper, NomPersonnel, PrenomPersonnel, EmailPersonnel))
+                    {
+                        MessageBox.Show("Personnel modifié");
+                        RemplirlesEmploye();
+                        ResetForm();
+                    }
                 }
             }
         }
