@@ -47,7 +47,7 @@
             // 
             // pnlReap
             // 
-            pnlReap.BackColor = Color.FromArgb(255, 255, 232);
+            pnlReap.BackColor = Color.FromArgb(130, 181, 239);
             pnlReap.Controls.Add(gbInfo);
             pnlReap.Controls.Add(label1);
             pnlReap.Controls.Add(cbPlat);
@@ -90,9 +90,9 @@
             // 
             // btnAjouter
             // 
-            btnAjouter.Location = new Point(406, 136);
+            btnAjouter.Location = new Point(405, 121);
             btnAjouter.Name = "btnAjouter";
-            btnAjouter.Size = new Size(75, 23);
+            btnAjouter.Size = new Size(101, 43);
             btnAjouter.TabIndex = 2;
             btnAjouter.Text = "Ajouter";
             btnAjouter.UseVisualStyleBackColor = true;
@@ -128,7 +128,7 @@
             // 
             cbPlat.DropDownStyle = ComboBoxStyle.DropDownList;
             cbPlat.FormattingEnabled = true;
-            cbPlat.Location = new Point(319, 24);
+            cbPlat.Location = new Point(275, 21);
             cbPlat.Name = "cbPlat";
             cbPlat.Size = new Size(229, 23);
             cbPlat.TabIndex = 2;

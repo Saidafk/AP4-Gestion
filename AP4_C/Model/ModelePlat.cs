@@ -162,6 +162,14 @@ namespace AP4_C.Model
                 return true;
             }
         }
+
+        public static int RetourneQuantitePlat(int idPlat)
+        {                        
+             var plat = Modele.MonModel.Plats.FirstOrDefault(p => p.Idplat == idPlat);
+             return plat?.Qte ?? 0;
+            
+        }
+
         /*public static List<Plat> RentournePlatsParFacture(int idFacture)
         {
             List<Plat> plats = new List<Plat>();

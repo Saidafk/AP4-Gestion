@@ -51,6 +51,7 @@
             // 
             // flowLayoutPanelPlats
             // 
+            flowLayoutPanelPlats.BackColor = Color.FromArgb(130, 181, 239);
             flowLayoutPanelPlats.Controls.Add(cbMoyenP);
             flowLayoutPanelPlats.Controls.Add(label4);
             flowLayoutPanelPlats.Controls.Add(dgvChoixPlat);
@@ -85,6 +86,7 @@
             // 
             // dgvChoixPlat
             // 
+            dgvChoixPlat.BackgroundColor = Color.FromArgb(130, 181, 239);
             dgvChoixPlat.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvChoixPlat.Location = new Point(162, 132);
             dgvChoixPlat.Name = "dgvChoixPlat";
@@ -93,11 +95,11 @@
             // 
             // btnValiderCommande
             // 
-            btnValiderCommande.Location = new Point(700, 374);
+            btnValiderCommande.Location = new Point(663, 358);
             btnValiderCommande.Name = "btnValiderCommande";
-            btnValiderCommande.Size = new Size(75, 23);
+            btnValiderCommande.Size = new Size(112, 39);
             btnValiderCommande.TabIndex = 6;
-            btnValiderCommande.Text = "button1";
+            btnValiderCommande.Text = "Commander";
             btnValiderCommande.UseVisualStyleBackColor = true;
             btnValiderCommande.Click += btnValiderCommande_Click;
             // 

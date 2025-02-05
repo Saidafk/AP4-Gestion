@@ -33,6 +33,8 @@
             bsFacture = new BindingSource(components);
             cbFacture = new ComboBox();
             gbInfoFacture = new GroupBox();
+            label7 = new Label();
+            txtMoyenP = new TextBox();
             tbPrixTVA = new TextBox();
             btnGenererPDF = new Button();
             txtPrix = new TextBox();
@@ -47,8 +49,6 @@
             label2 = new Label();
             bsCommande = new BindingSource(components);
             bsTable = new BindingSource(components);
-            txtMoyenP = new TextBox();
-            label7 = new Label();
             ((System.ComponentModel.ISupportInitialize)bsFacture).BeginInit();
             gbInfoFacture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCommande).BeginInit();
@@ -69,7 +69,7 @@
             // 
             cbFacture.DropDownStyle = ComboBoxStyle.DropDownList;
             cbFacture.FormattingEnabled = true;
-            cbFacture.Location = new Point(157, 20);
+            cbFacture.Location = new Point(129, 20);
             cbFacture.Name = "cbFacture";
             cbFacture.Size = new Size(121, 23);
             cbFacture.TabIndex = 3;
@@ -97,6 +97,23 @@
             gbInfoFacture.TabIndex = 4;
             gbInfoFacture.TabStop = false;
             gbInfoFacture.Text = "Facture";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(6, 134);
+            label7.Name = "label7";
+            label7.Size = new Size(113, 15);
+            label7.TabIndex = 27;
+            label7.Text = "Moyen de paiement";
+            // 
+            // txtMoyenP
+            // 
+            txtMoyenP.Location = new Point(121, 134);
+            txtMoyenP.Name = "txtMoyenP";
+            txtMoyenP.ReadOnly = true;
+            txtMoyenP.Size = new Size(119, 23);
+            txtMoyenP.TabIndex = 5;
             // 
             // tbPrixTVA
             // 
@@ -128,7 +145,7 @@
             txtTable.Location = new Point(121, 95);
             txtTable.Name = "txtTable";
             txtTable.ReadOnly = true;
-            txtTable.Size = new Size(100, 23);
+            txtTable.Size = new Size(119, 23);
             txtTable.TabIndex = 24;
             // 
             // txtTicket
@@ -136,7 +153,7 @@
             txtTicket.Location = new Point(121, 57);
             txtTicket.Name = "txtTicket";
             txtTicket.ReadOnly = true;
-            txtTicket.Size = new Size(100, 23);
+            txtTicket.Size = new Size(119, 23);
             txtTicket.TabIndex = 23;
             // 
             // dgvCommande
@@ -164,7 +181,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(480, 28);
+            label5.Location = new Point(494, 28);
             label5.Name = "label5";
             label5.Size = new Size(30, 15);
             label5.TabIndex = 6;
@@ -204,28 +221,11 @@
             label2.TabIndex = 0;
             label2.Text = "Restaurant Camoel";
             // 
-            // txtMoyenP
-            // 
-            txtMoyenP.Location = new Point(121, 143);
-            txtMoyenP.Name = "txtMoyenP";
-            txtMoyenP.ReadOnly = true;
-            txtMoyenP.Size = new Size(100, 23);
-            txtMoyenP.TabIndex = 5;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(6, 146);
-            label7.Name = "label7";
-            label7.Size = new Size(113, 15);
-            label7.TabIndex = 27;
-            label7.Text = "Moyen de paiement";
-            // 
             // FormFacture
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.InactiveCaption;
+            BackColor = Color.FromArgb(130, 181, 239);
             ClientSize = new Size(800, 428);
             Controls.Add(gbInfoFacture);
             Controls.Add(cbFacture);

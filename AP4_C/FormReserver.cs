@@ -125,6 +125,14 @@ namespace AP4_C
                             continue;
                         }
 
+                        int quantiteDisponible = ModelePlat.RetourneQuantitePlat(IdPlat);
+                        if (quantite > quantiteDisponible)
+                        {
+                            MessageBox.Show($"Erreur : La quantité demandée pour le plat '{nomPlat}' ({quantite}) est supérieure à la quantité disponible ({quantiteDisponible}).");
+                            tousLesPlatsAjoutes = false;
+                            continue;
+                        }
+
                         // Ajout des instances sans messages individuels
                         for (int j = 0; j < quantite; j++)
                         {
