@@ -119,27 +119,10 @@ namespace AP4_C.Model
                 Modele.MonModel.Users.Add(unUser);
                 Modele.MonModel.SaveChanges();
 
-                
-
-
-
                 // Sauvegarder les modifications
                 Modele.MonModel.SaveChanges();
 
-                // Envoyer un e-mail de bienvenue
-                string sujet = "Bienvenue sur notre plateforme";
-                string corps = $@"
-                <h1>Bienvenue, {NomPersonnel} {PrenomPersonnel} !</h1>
-                <p>Votre compte a été créé avec succès.</p>
-                <p>Voici vos informations de connexion :</p>
-                <ul>
-                    <li><strong>E-mail :</strong> {EmailPersonnel}</li>
-                    <li><strong>Mot de passe :</strong> {motDePasse}</li>
-                </ul>
-                ";
 
-                // Envoyer l'email
-                Email.EnvoyerEmail(EmailPersonnel, sujet, corps);
             }
             catch (Exception ex)
             {

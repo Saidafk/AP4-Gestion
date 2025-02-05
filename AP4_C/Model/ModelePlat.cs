@@ -119,7 +119,49 @@ namespace AP4_C.Model
             return plat != null ? plat.Qte : 0;
         }
 
+        public static bool MettreAJourQte(int idPlat, int qte)
+        {
+            bool vretour = true;
+            try
+            {
+                Plat unPlat = Modele.MonModel.Plats.FirstOrDefault(x => x.Idplat == idPlat);
+                if (unPlat != null)
+                {
+                    unPlat.Qte = qte;
+                    Modele.MonModel.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("Le plat sélectionné n'existe pas.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur : " + ex.Message);
+                vretour = false;
+            }
+            return vretour;
+        }
+        public static bool MettreAJourQuantitePlat(int idPlat, int quantiteASupprimer)
+        {
 
+            {
+                var plat = Modele.MonModel.Plats.FirstOrDefault(p => p.Idplat == idPlat);
+                if (plat == null)
+                {
+                    return false; // Plat non trouvé
+                }
+
+                if (plat.Qte < quantiteASupprimer)
+                {
+                    return false; // Quantité à supprimer supérieure à la quantité disponible
+                }
+
+                plat.Qte -= quantiteASupprimer;
+                Modele.MonModel.SaveChanges();
+                return true;
+            }
+        }
         /*public static List<Plat> RentournePlatsParFacture(int idFacture)
         {
             List<Plat> plats = new List<Plat>();

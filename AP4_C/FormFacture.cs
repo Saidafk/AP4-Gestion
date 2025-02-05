@@ -66,7 +66,7 @@ namespace AP4_C
                 txtTicket.Text = facture.Idfacture.ToString();
                 if (facture.Datefacture >= dtpDateFacture.MinDate && facture.Datefacture <= dtpDateFacture.MaxDate)
                 {
-                    dtpDateFacture.Value = facture.Datefacture;
+                    dtpDateFacture.Value = facture.Datefacture ?? DateTime.Now;
                 }
                 else
                 {
@@ -83,10 +83,8 @@ namespace AP4_C
             {
                 if (cbFacture.SelectedValue != null)
                 {
-                    // Récupérer l'ID de la facture sélectionnée
                     int idFacture = Convert.ToInt32(cbFacture.SelectedValue);
 
-                    // Récupérer la facture associée
                     var facture = ModeleFacture.listeFacture()
                         .FirstOrDefault(x => x.Idfacture == idFacture);
 
@@ -96,10 +94,8 @@ namespace AP4_C
                         return;
                     }
 
-                    // Récupérer l'ID de la commande associée à la facture
                     int idCommande = facture.Idcommande;
 
-                    // Récupérer les instances de plat associées à la commande
                     var instancesDePlat = ModeleInstancePlat.listeInstancePlat()
                         .Where(x => x.Idcommande == idCommande)
                         .ToList();
@@ -111,7 +107,6 @@ namespace AP4_C
                         return;
                     }
 
-                    // Récupérer les plats associés à ces instances
                     var CommandeAffiches = instancesDePlat
                         .Select(x => new
                         {
@@ -120,19 +115,18 @@ namespace AP4_C
                         })
                         .ToList();
 
-                    // Afficher les plats dans le DataGridView
+                    
                     dgvCommande.DataSource = CommandeAffiches;
 
-                    // Calculer le total des prix
                     decimal totalPrix = CommandeAffiches.Sum(plat => (decimal)(plat.PrixPlat ?? 0));
 
-                    // Afficher le total TVA et le total prix
+                    
                     tbPrixTVA.Text = $"Total TVA (20%): {(totalPrix * 0.2m):C}";
                     txtPrix.Text = $"Total Prix: {totalPrix:C}";
                 }
                 else
                 {
-                    dgvCommande.DataSource = null; // Effacer le DataGridView si aucune facture n'est sélectionnée
+                    dgvCommande.DataSource = null; 
                 }
             }
             catch (Exception ex)
@@ -174,10 +168,10 @@ namespace AP4_C
                 {
                     try
                     {
-                        // Appeler la méthode de génération du PDF
                         GenererPDF.CreerPDF(saveFileDialog.FileName, idFacture);
                         MessageBox.Show($"Facture générée avec succès : {saveFileDialog.FileName}");
                         ModeleTabler.MettreTableDisponible(idTable);
+
                     }
                     catch (Exception ex)
                     {
