@@ -91,8 +91,8 @@
             // 
             toolStripMenuItem3.DropDownItems.AddRange(new ToolStripItem[] { toolStripSeparator1, toolStripMenuItem4, toolStripMenuItem5, modificationDesPlatsToolStripMenuItem, modificationDunPlatToolStripMenuItem });
             toolStripMenuItem3.Name = "toolStripMenuItem3";
-            toolStripMenuItem3.Size = new Size(48, 20);
-            toolStripMenuItem3.Text = "Stock";
+            toolStripMenuItem3.Size = new Size(127, 20);
+            toolStripMenuItem3.Text = "Gestion des produits";
             toolStripMenuItem3.Click += toolStripMenuItem3_Click;
             // 
             // toolStripSeparator1
@@ -167,7 +167,7 @@
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(89, 20);
+            toolStripMenuItem1.Size = new Size(88, 20);
             toolStripMenuItem1.Text = "Deconnexion";
             toolStripMenuItem1.Click += toolStripMenuItem1_Click;
             // 

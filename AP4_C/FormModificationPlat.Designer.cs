@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormModificationPlat));
             panel1 = new Panel();
             gbInfo = new GroupBox();
             ANNULER = new Button();
@@ -56,7 +57,7 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.IndianRed;
+            panel1.BackColor = Color.FromArgb(130, 181, 239);
             panel1.Controls.Add(gbInfo);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(cbPlat);
@@ -99,16 +100,17 @@
             // label5
             // 
             label5.AutoSize = true;
+            label5.Font = new Font("Arial", 12F);
             label5.Location = new Point(47, 137);
             label5.Name = "label5";
-            label5.Size = new Size(42, 15);
+            label5.Size = new Size(58, 18);
             label5.TabIndex = 15;
             label5.Text = "Veggie";
             // 
             // checkBoxVeggie
             // 
             checkBoxVeggie.AutoSize = true;
-            checkBoxVeggie.Location = new Point(26, 138);
+            checkBoxVeggie.Location = new Point(26, 137);
             checkBoxVeggie.Name = "checkBoxVeggie";
             checkBoxVeggie.Size = new Size(15, 14);
             checkBoxVeggie.TabIndex = 14;
@@ -117,9 +119,10 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(206, 138);
+            label6.Font = new Font("Arial", 12F);
+            label6.Location = new Point(184, 149);
             label6.Name = "label6";
-            label6.Size = new Size(67, 15);
+            label6.Size = new Size(88, 18);
             label6.TabIndex = 13;
             label6.Text = "Description";
             // 
@@ -135,33 +138,37 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(380, 58);
+            label4.Font = new Font("Arial", 12F);
+            label4.Location = new Point(361, 55);
             label4.Name = "label4";
-            label4.Size = new Size(53, 15);
+            label4.Size = new Size(66, 18);
             label4.TabIndex = 9;
             label4.Text = "type plat";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(193, 58);
+            label3.Font = new Font("Arial", 12F);
+            label3.Location = new Point(192, 55);
             label3.Name = "label3";
-            label3.Size = new Size(27, 15);
+            label3.Size = new Size(33, 18);
             label3.TabIndex = 8;
             label3.Text = "prix";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(14, 60);
+            label2.Font = new Font("Arial", 12F);
+            label2.Location = new Point(3, 55);
             label2.Name = "label2";
-            label2.Size = new Size(32, 15);
+            label2.Size = new Size(38, 18);
             label2.TabIndex = 7;
             label2.Text = "nom";
+            label2.Click += label2_Click;
             // 
             // prixTxt
             // 
-            prixTxt.Location = new Point(243, 51);
+            prixTxt.Location = new Point(231, 51);
             prixTxt.Name = "prixTxt";
             prixTxt.Size = new Size(100, 23);
             prixTxt.TabIndex = 6;
@@ -170,7 +177,7 @@
             // 
             cbTypePlat.DropDownStyle = ComboBoxStyle.DropDownList;
             cbTypePlat.FormattingEnabled = true;
-            cbTypePlat.Location = new Point(433, 51);
+            cbTypePlat.Location = new Point(433, 50);
             cbTypePlat.Name = "cbTypePlat";
             cbTypePlat.Size = new Size(230, 23);
             cbTypePlat.TabIndex = 5;
@@ -195,9 +202,10 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(357, 9);
+            label1.Font = new Font("Arial", 12F);
+            label1.Location = new Point(355, 9);
             label1.Name = "label1";
-            label1.Size = new Size(38, 15);
+            label1.Size = new Size(50, 18);
             label1.TabIndex = 2;
             label1.Text = "label1";
             // 
@@ -217,8 +225,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(panel1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormModificationPlat";
-            Text = "ModificationPlat";
+            Text = "la Detente de Camoel";
             Load += ModificationPlat_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
