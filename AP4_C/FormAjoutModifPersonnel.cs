@@ -1,4 +1,5 @@
 ﻿using AP4_C.Controller;
+using static AP4_C.Controller.Controller;
 using AP4_C.Entities;
 using AP4_C.Model;
 using Aspose.Pdf.Operators;
@@ -121,6 +122,8 @@ namespace AP4_C
             string motDePasseHache = txtMDP.Text;
             bool estCuisinier = ckbCuisinier.Checked;
             bool estServeur = ckbServeur.Checked;
+            string mdphache = BCrypt.Net.BCrypt.HashPassword(motDePasseHache);
+
 
             if (etatemploye == EtatGestionEmploye.CreateEmploye)
             {
@@ -129,36 +132,56 @@ namespace AP4_C
                     MessageBox.Show("Veuillez remplir tous les champs obligatoires");
                     return;
                 }
+                if (!Controller.Controller.ValidMail(EmailPersonnel))
+                {
+                    MessageBox.Show("Veuillez saisir une adresse e-mail valide.");
+                    return;
+                }
+                if (ModelUser.RecupererUser(EmailPersonnel)!=null)
+                {
+                    MessageBox.Show("Cet e-mail est déjà utilisé par un autre employé.");
+                    return;
+                }
 
                 MessageBox.Show("serveur : " + estServeur);
                 MessageBox.Show("cuisinier : " + estCuisinier);
 
-                if (ModelUser.AjouterNouveauPersonnel(NomPersonnel, PrenomPersonnel, EmailPersonnel))
+
+                if (ModelUser.AjouterNouveauPersonnel(NomPersonnel, PrenomPersonnel, EmailPersonnel, mdphache, motDePasseHache))
                 {
                     MessageBox.Show("Personnel ajouté");
+                    
                     RemplirlesEmploye();
                     ResetForm();
+                    
+
                 }
                 Idper = ModelUser.listeUsers().Last().Id;
                 MessageBox.Show("id personnel : " + Idper);
+                ModelePersonnel.ajoutPers(Idper);
+                ModelEmploye.ajoutEmp(Idper);
 
-                if (ckbCuisinier.Checked == true && ckbServeur.Checked == true)
+                if (estCuisinier == true && estServeur == true)
                 {
                     MessageBox.Show("Il ne peut pas être les deux à la fois");
                     return;
                 }
-                if (ckbServeur.Checked)
+                else if (estServeur)
                 {
-                    estServeur = true;
+                    ModeleServeur.NouveauServeur(Idper);
+                    MessageBox.Show("Serveur ajouté");
+                    return;
                 }
-                if (ckbCuisinier.Checked)
+                else if (estCuisinier)
                 {
                     ModeleCuisinier.NouveauCuisinier(Idper);
                     MessageBox.Show("Cuisinier ajouté");
+                    return;
                 }
                 else
                 {
                     MessageBox.Show("Erreur lors de l'ajout du personnel");
+                    return;
                 }
             }
             else if (etatemploye == EtatGestionEmploye.UpdateEmploye)
@@ -172,8 +195,8 @@ namespace AP4_C
                     MessageBox.Show("Veuillez sélectionner un personnel à modifier.");
                     return;
                 }
-
-                if (ModelUser.ModifierUser(Idper, NomPersonnel, PrenomPersonnel, EmailPersonnel))
+                
+                if (ModelUser.ModifierUser(Idper, NomPersonnel, PrenomPersonnel, EmailPersonnel, mdphache))
                 {
                     MessageBox.Show("Personnel modifié");
                     RemplirlesEmploye();

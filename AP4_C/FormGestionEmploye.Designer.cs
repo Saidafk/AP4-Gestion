@@ -36,9 +36,12 @@
             txtFiltreEmp = new TextBox();
             EmployeDgv = new DataGridView();
             EmployeBs = new BindingSource(components);
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            supprimerToolStripMenuItem = new ToolStripMenuItem();
             pnlGestionEmploye.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)EmployeDgv).BeginInit();
             ((System.ComponentModel.ISupportInitialize)EmployeBs).BeginInit();
+            contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // pnlGestionEmploye
@@ -94,11 +97,29 @@
             // 
             EmployeDgv.BackgroundColor = SystemColors.ControlLightLight;
             EmployeDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            EmployeDgv.ContextMenuStrip = contextMenuStrip1;
             EmployeDgv.Location = new Point(62, 78);
             EmployeDgv.Name = "EmployeDgv";
             EmployeDgv.Size = new Size(657, 327);
             EmployeDgv.TabIndex = 0;
             EmployeDgv.CellContentClick += EmployeDgv_CellContentClick;
+            // 
+            // EmployeBs
+            // 
+            EmployeBs.CurrentChanged += EmployeBs_CurrentChanged;
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { supprimerToolStripMenuItem });
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(130, 26);
+            // 
+            // supprimerToolStripMenuItem
+            // 
+            supprimerToolStripMenuItem.Name = "supprimerToolStripMenuItem";
+            supprimerToolStripMenuItem.Size = new Size(129, 22);
+            supprimerToolStripMenuItem.Text = "Supprimer";
+            supprimerToolStripMenuItem.Click += supprimerToolStripMenuItem_Click;
             // 
             // FormGestionEmploye
             // 
@@ -114,6 +135,7 @@
             pnlGestionEmploye.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)EmployeDgv).EndInit();
             ((System.ComponentModel.ISupportInitialize)EmployeBs).EndInit();
+            contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -126,5 +148,7 @@
         private TextBox txtFiltreEmp;
         private Label label2;
         private ComboBox cmbFiltreRole;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem supprimerToolStripMenuItem;
     }
 }
