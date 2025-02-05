@@ -79,9 +79,13 @@ namespace AP4_C
                 }
 
                 txtTicket.Text = facture.Idfacture.ToString();
-                if (facture.Datefacture >= dtpDateFacture.MinDate && facture.Datefacture <= dtpDateFacture.MaxDate)
+                if (facture.Datefacture.HasValue && facture.Datefacture >= dtpDateFacture.MinDate && facture.Datefacture <= dtpDateFacture.MaxDate)
                 {
+
                     dtpDateFacture.Value = facture.Datefacture ?? DateTime.Now;
+
+                    
+
                 }
                 else
                 {

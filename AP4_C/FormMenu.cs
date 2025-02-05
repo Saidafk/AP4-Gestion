@@ -137,5 +137,12 @@ namespace AP4_C
             FormAccueil formAccueil = new FormAccueil(pnlMenu);
             SF.openChildForm(formAccueil);
         }
+
+        private void supprimerUnPlatToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SousFormulaire SF = new SousFormulaire(pnlMenu);
+            SF.openChildForm(new FormModificationPlat(EtatGestion.Delete));
+
+        }
     }
 }

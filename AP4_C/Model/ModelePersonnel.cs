@@ -31,6 +31,25 @@ namespace AP4_C.Model
             return Modele.MonModel.Personnel.ToList();
         }
 
+        public static bool ajoutPers(ulong id)
+        {
+            Personnel unPersonnel;
+            bool vretour = true;
+            try
+            {
+                unPersonnel = new Personnel();
+                unPersonnel.Idper = id;
+                unPersonnel.Idrestau = 1;
+                Modele.MonModel.Personnel.Add(unPersonnel);
+                Modele.MonModel.SaveChanges();
+            }
+            catch (Exception)
+            {
+                vretour = false;
+            }
+            return vretour;
+        }
+
         /*public static bool AjouterNouveauPersonnel(string NomPersonnel, string PrenomPersonnel, string EmailPersonnel)
         {
             User unUser;
@@ -59,5 +78,5 @@ namespace AP4_C.Model
             return vretour;
         }*/
     }
-
 }
+

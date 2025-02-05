@@ -41,7 +41,9 @@ namespace AP4_C.Controller
             // Ajouter les informations de la facture
             page.Paragraphs.Add(new TextFragment($"Numéro de facture : {facture.Idfacture}"));
             page.Paragraphs.Add(new TextFragment($"Date de facture : {facture.Datefacture?.ToShortDateString() ?? "N/A"}"));
+
             page.Paragraphs.Add(new TextFragment($"Moyen de paiement : {facture.IdmoyenpaiementNavigation?.Libellemoyenpaiement ?? "N/A"}"));
+
             page.Paragraphs.Add(new TextFragment($"Table : {commande.Idtable}"));
 
             // Ajouter un tableau pour les plats commandés

@@ -52,7 +52,7 @@ namespace AP4_C
                     EmployeAffiches = EmployeAffiches.Where(x => x.Cuisinier).ToList();
                     var cuisiniers = ModelEmploye.listeCuisiniers();
                     var employes = ModelEmploye.listeEmployes();
-                    
+
                     foreach (var employe in employes)
                     {
                         bool estCuisinier = cuisiniers.Any(c => c.Idper == employe.Id);
@@ -82,7 +82,7 @@ namespace AP4_C
 
         private void FormGestionEmploye_Load(object sender, EventArgs e)
         {
-            
+
 
             cmbFiltreRole.Items.AddRange(new string[] { "Tous", "Cuisinier", "Serveur" });
             cmbFiltreRole.SelectedIndex = 0;
@@ -101,6 +101,22 @@ namespace AP4_C
         private void txtFiltreEmp_TextChanged(object sender, EventArgs e)
         {
             Filtre();
+        }
+
+        private void EmployeBs_CurrentChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void supprimerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Type type = EmployeBs.Current.GetType();
+            ulong idE = (ulong)type.GetProperty("Id").GetValue(EmployeBs.Current, null);
+            if(MessageBox.Show("Voulez-vous vraiment supprimer cet employé ?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                ModelEmploye.SupprEmploye(idE);
+                MessageBox.Show("Employé supprimé avec succès.");
+            }
         }
     }
 }

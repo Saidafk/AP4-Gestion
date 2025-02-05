@@ -95,25 +95,26 @@ namespace AP4_C.Model
             return personnel;
         }
 
-        public static bool AjouterNouveauPersonnel(string NomPersonnel, string PrenomPersonnel, string EmailPersonnel)
+        public static bool AjouterNouveauPersonnel(string NomPersonnel, string PrenomPersonnel, string EmailPersonnel,string mdpH,string mdp)
         {
             AP4_C.Entities.User unUser;
-            ulong Idper = 0;
+            
             bool vretour = true;
             try
             {
                 // Générer un mot de passe aléatoire
-                string motDePasse = GenererUnMDP.GenerateRandomPassword();
-                string motDePasseHache = BCrypt.Net.BCrypt.HashPassword(motDePasse);
+                
+                
 
                 // Créer un nouvel utilisateur
-                unUser = new AP4_C.Entities.User
-                {
-                    Nom = NomPersonnel,
-                    Prenom = PrenomPersonnel,
-                    Email = EmailPersonnel,
-                    Mdp = motDePasseHache
-                };
+                unUser = new AP4_C.Entities.User();
+                unUser.Nom = NomPersonnel;
+                unUser.Prenom = PrenomPersonnel;
+                unUser.Email = EmailPersonnel;
+                unUser.Mdp = mdpH;
+
+                Modele.MonModel.SaveChanges();
+
 
                 // Ajouter l'utilisateur à la base de données
                 Modele.MonModel.Users.Add(unUser);
@@ -122,6 +123,22 @@ namespace AP4_C.Model
                 // Sauvegarder les modifications
                 Modele.MonModel.SaveChanges();
 
+
+
+                // Envoyer un e-mail de bienvenue
+                string sujet = "Bienvenue sur notre plateforme";
+                string corps = $@"
+                <h1>Bienvenue, {NomPersonnel} {PrenomPersonnel} !</h1>
+                <p>Votre compte a été créé avec succès.</p>
+                <p>Voici vos informations de connexion :</p>
+                <ul>
+                    <li><strong>E-mail :</strong> {EmailPersonnel}</li>
+                    <li><strong>Mot de passe :</strong> {mdp}</li>
+                </ul>
+                ";
+
+                // Envoyer l'email
+                Email.EnvoyerEmail(EmailPersonnel, sujet, corps);
 
             }
             catch (Exception ex)
@@ -133,7 +150,7 @@ namespace AP4_C.Model
             return vretour;
         }
 
-        public static bool ModifierUser(ulong Idper, string NomPersonnel, string PrenomPersonnel, string EmailPersonnel)
+        public static bool ModifierUser(ulong Idper, string NomPersonnel, string PrenomPersonnel, string EmailPersonnel,string mdp)
         {
             AP4_C.Entities.User unUser;
             bool vretour = true;
@@ -141,14 +158,13 @@ namespace AP4_C.Model
             {
                 if (estPersonnel(EmailPersonnel))
                 {
-                    string motDePasse = GenererUnMDP.GenerateRandomPassword();
-                    string motDePasseHache = BCrypt.Net.BCrypt.HashPassword(motDePasse);
+                    
 
-                    unUser = new AP4_C.Entities.User();
+                    unUser = Modele.MonModel.Users.First(x => x.Id == Idper);
                     unUser.Nom = NomPersonnel;
                     unUser.Prenom = PrenomPersonnel;
                     unUser.Email = EmailPersonnel;
-                    unUser.Mdp = motDePasseHache;
+                    unUser.Mdp = mdp;
 
                     Modele.MonModel.SaveChanges();
 
