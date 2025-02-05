@@ -164,13 +164,13 @@ namespace AP4_C
                     MessageBox.Show("Veuillez saisir une adresse e-mail valide.");
                     return;
                 }
-                if (ModelUser.RecupererUser(EmailPersonnel)!=null)
+                if (ModelUser.RecupererUser(EmailPersonnel) != null)
                 {
                     MessageBox.Show("Cet e-mail est déjà utilisé par un autre employé.");
                     return;
                 }
 
-                
+
 
 
                 if (ModelUser.AjouterNouveauPersonnel(NomPersonnel, PrenomPersonnel, EmailPersonnel, mdphache, motDePasseHache))
@@ -186,17 +186,17 @@ namespace AP4_C
                     string corps = $"Bonjour {PrenomPersonnel} {NomPersonnel},\n\nBienvenue dans l'équipe !\n\nVoici vos identifiants de connexion :\nUtilisateur: {EmailPersonnel}\nMot de passe : {motDePasseHache}\n\nCordialement,\nL'équipe RH";
 
                     MessageBox.Show("Personnel ajouté");
-                    
+
                     RemplirlesEmploye();
 
                     Email.EnvoyerEmailNouveauMembre(email, sujet, corps);
                     ResetForm();
-                    
+
 
                 }
 
                 Idper = ModelUser.listeUsers().Last().Id;
-                
+
                 ModelePersonnel.ajoutPers(Idper);
                 ModelEmploye.ajoutEmp(Idper);
 
@@ -223,29 +223,30 @@ namespace AP4_C
                     MessageBox.Show("Erreur lors de l'ajout du personnel");
                     return;
                 }
-            
-                else if (etatemploye == EtatGestionEmploye.UpdateEmploye)
-                {
-
-                    if (cbEmploye.SelectedValue != null)
-                    {
-                        Idper = (ulong)cbEmploye.SelectedValue;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Veuillez sélectionner un personnel à modifier.");
-                        return;
-                    }
-
-                    if (ModelUser.ModifierUser(Idper, NomPersonnel, PrenomPersonnel, EmailPersonnel, mdphache))
-                    {
-                        MessageBox.Show("Personnel modifié");
-                        RemplirlesEmploye();
-                        ResetForm();
-                    }
-
-                }
             }
+
+            else if (etatemploye == EtatGestionEmploye.UpdateEmploye)
+            {
+
+                if (cbEmploye.SelectedValue != null)
+                {
+                    Idper = (ulong)cbEmploye.SelectedValue;
+                }
+                else
+                {
+                    MessageBox.Show("Veuillez sélectionner un personnel à modifier.");
+                    return;
+                }
+
+                if (ModelUser.ModifierUser(Idper, NomPersonnel, PrenomPersonnel, EmailPersonnel, mdphache))
+                {
+                    MessageBox.Show("Personnel modifié");
+                    RemplirlesEmploye();
+                    ResetForm();
+                }
+
+            }
+            
         }
 
         private void ResetForm()
