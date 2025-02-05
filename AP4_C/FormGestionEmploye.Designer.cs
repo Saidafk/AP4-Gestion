@@ -46,7 +46,7 @@
             // 
             // pnlGestionEmploye
             // 
-            pnlGestionEmploye.BackColor = Color.White;
+            pnlGestionEmploye.BackColor = Color.FromArgb(130, 181, 239);
             pnlGestionEmploye.Controls.Add(label2);
             pnlGestionEmploye.Controls.Add(cmbFiltreRole);
             pnlGestionEmploye.Controls.Add(label1);
@@ -79,23 +79,26 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(62, 29);
+            label1.Font = new Font("Arial", 12F, FontStyle.Bold);
+            label1.Location = new Point(52, 34);
             label1.Name = "label1";
-            label1.Size = new Size(105, 15);
+            label1.Size = new Size(145, 19);
             label1.TabIndex = 2;
             label1.Text = "Nom de l'employe";
             // 
             // txtFiltreEmp
             // 
-            txtFiltreEmp.Location = new Point(173, 26);
+            txtFiltreEmp.Location = new Point(203, 34);
             txtFiltreEmp.Name = "txtFiltreEmp";
-            txtFiltreEmp.Size = new Size(100, 23);
+            txtFiltreEmp.Size = new Size(123, 23);
             txtFiltreEmp.TabIndex = 1;
             txtFiltreEmp.TextChanged += txtFiltreEmp_TextChanged;
             // 
             // EmployeDgv
             // 
-            EmployeDgv.BackgroundColor = SystemColors.ControlLightLight;
+            EmployeDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            EmployeDgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            EmployeDgv.BackgroundColor = Color.FromArgb(130, 181, 239);
             EmployeDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             EmployeDgv.ContextMenuStrip = contextMenuStrip1;
             EmployeDgv.Location = new Point(62, 78);

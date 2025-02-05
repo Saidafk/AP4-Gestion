@@ -86,7 +86,6 @@ namespace AP4_C
         {
             int Idcommande;
             string Commentaireclient = rtbCommentaire.Text;
-            //int idMoyenPaiement = (int)cbMoyenP.SelectedValue;
 
             int idMoyenPaiement = cbMoyenP.SelectedValue != null ? (int)cbMoyenP.SelectedValue : -1;
             if (idMoyenPaiement == -1)
@@ -94,7 +93,6 @@ namespace AP4_C
                 MessageBox.Show("Veuillez sélectionner un moyen de paiement.");
                 return;
             }
-
 
             int Idtable = cbTable.SelectedValue != null ? (int)cbTable.SelectedValue : -1;
             if (Idtable == -1)
@@ -107,7 +105,7 @@ namespace AP4_C
             {
                 Idcommande = ModeleCommande.listeCommande().Last().Idcommande;
                 bool tousLesPlatsAjoutes = true;
-                
+
                 for (int i = 0; i < dgvChoixPlat.Rows.Count; i++)
                 {
                     DataGridViewRow row = dgvChoixPlat.Rows[i];
@@ -127,6 +125,14 @@ namespace AP4_C
                             continue;
                         }
 
+                        int quantiteDisponible = ModelePlat.RetourneQuantitePlat(IdPlat);
+                        if (quantite > quantiteDisponible)
+                        {
+                            MessageBox.Show($"Erreur : La quantité demandée pour le plat '{nomPlat}' ({quantite}) est supérieure à la quantité disponible ({quantiteDisponible}).");
+                            tousLesPlatsAjoutes = false;
+                            continue;
+                        }
+
                         // Ajout des instances sans messages individuels
                         for (int j = 0; j < quantite; j++)
                         {
@@ -138,9 +144,17 @@ namespace AP4_C
                                 break;
                             }
                         }
+
+                        // Mettre à jour la quantité du plat
+                        bool quantiteMiseAJour = ModelePlat.MettreAJourQuantitePlat(IdPlat, quantite);
+                        if (!quantiteMiseAJour)
+                        {
+                            MessageBox.Show($"Erreur lors de la mise à jour de la quantité du plat '{nomPlat}'.");
+                            tousLesPlatsAjoutes = false;
+                        }
                     }
                 }
-                //MessageBox.Show(DateTime.Now);
+
                 DateTime dateFacture = DateTime.Now;
                 ModeleFacture.NouvelleFacture(Idcommande, idMoyenPaiement, 20, dateFacture);
                 ModeleTabler.MettreTableNonDisponible(Idtable);

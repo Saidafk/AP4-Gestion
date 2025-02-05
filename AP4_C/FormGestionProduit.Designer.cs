@@ -30,6 +30,8 @@
         {
             components = new System.ComponentModel.Container();
             pnlGestionProduit = new Panel();
+            tbNomPlat = new TextBox();
+            label1 = new Label();
             PlatDgv = new DataGridView();
             PlatBs = new BindingSource(components);
             pnlGestionProduit.SuspendLayout();
@@ -39,7 +41,9 @@
             // 
             // pnlGestionProduit
             // 
-            pnlGestionProduit.BackColor = SystemColors.ControlLightLight;
+            pnlGestionProduit.BackColor = Color.FromArgb(130, 181, 239);
+            pnlGestionProduit.Controls.Add(tbNomPlat);
+            pnlGestionProduit.Controls.Add(label1);
             pnlGestionProduit.Controls.Add(PlatDgv);
             pnlGestionProduit.Location = new Point(0, 0);
             pnlGestionProduit.Name = "pnlGestionProduit";
@@ -47,11 +51,32 @@
             pnlGestionProduit.TabIndex = 0;
             pnlGestionProduit.Paint += pnlGestionProduit_Paint;
             // 
+            // tbNomPlat
+            // 
+            tbNomPlat.Location = new Point(152, 21);
+            tbNomPlat.Name = "tbNomPlat";
+            tbNomPlat.Size = new Size(115, 23);
+            tbNomPlat.TabIndex = 3;
+            tbNomPlat.TextChanged += tbNomPlat_TextChanged;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Arial", 12F, FontStyle.Bold);
+            label1.Location = new Point(45, 21);
+            label1.Name = "label1";
+            label1.Size = new Size(101, 19);
+            label1.TabIndex = 2;
+            label1.Text = "Nom du plat";
+            // 
             // PlatDgv
             // 
-            PlatDgv.BackgroundColor = SystemColors.ControlLightLight;
+            PlatDgv.AllowUserToOrderColumns = true;
+            PlatDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            PlatDgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            PlatDgv.BackgroundColor = Color.FromArgb(130, 181, 239);
             PlatDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            PlatDgv.Location = new Point(26, 31);
+            PlatDgv.Location = new Point(57, 57);
             PlatDgv.Name = "PlatDgv";
             PlatDgv.Size = new Size(677, 339);
             PlatDgv.TabIndex = 1;
@@ -72,6 +97,7 @@
             Text = "FormGestionProduit";
             Load += FormGestionProduit_Load;
             pnlGestionProduit.ResumeLayout(false);
+            pnlGestionProduit.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)PlatDgv).EndInit();
             ((System.ComponentModel.ISupportInitialize)PlatBs).EndInit();
             ResumeLayout(false);
@@ -82,5 +108,7 @@
         private Panel pnlGestionProduit;
         private DataGridView PlatDgv;
         private BindingSource PlatBs;
+        private TextBox tbNomPlat;
+        private Label label1;
     }
 }
