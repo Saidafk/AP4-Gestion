@@ -169,7 +169,7 @@
             dgvCommande.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvCommande.Location = new Point(290, 98);
             dgvCommande.Name = "dgvCommande";
-            dgvCommande.Size = new Size(185, 169);
+            dgvCommande.Size = new Size(225, 226);
             dgvCommande.TabIndex = 21;
             // 
             // label6

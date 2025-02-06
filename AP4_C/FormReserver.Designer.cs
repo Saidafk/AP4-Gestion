@@ -70,6 +70,7 @@
             // 
             // cbMoyenP
             // 
+            cbMoyenP.DropDownStyle = ComboBoxStyle.DropDownList;
             cbMoyenP.FormattingEnabled = true;
             cbMoyenP.Location = new Point(11, 144);
             cbMoyenP.Name = "cbMoyenP";
@@ -129,6 +130,7 @@
             // 
             // cbTable
             // 
+            cbTable.DropDownStyle = ComboBoxStyle.DropDownList;
             cbTable.FormattingEnabled = true;
             cbTable.Location = new Point(11, 72);
             cbTable.Name = "cbTable";

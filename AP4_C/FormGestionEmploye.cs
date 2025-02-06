@@ -36,7 +36,7 @@ namespace AP4_C
                     .Where(x => string.IsNullOrEmpty(filtreNom) || x.Nom.Contains(filtreNom, StringComparison.OrdinalIgnoreCase))
                     .Select(x => new
                     {
-                        Id = x.Id,
+                        //Id = x.Id,
                         Nom = x.Nom,
                         Prenom = x.Prenom,
                         Email = x.Email,

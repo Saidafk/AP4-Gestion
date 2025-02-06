@@ -45,7 +45,7 @@ namespace AP4_C
                 .Where(x => string.IsNullOrEmpty(filtreNom) || x.Libelleplat.Contains(filtreNom, StringComparison.OrdinalIgnoreCase))
                     .Select(x => new
                     {
-                        Id = x.Idplat,
+                        //Id = x.Idplat,
                         //Type = x.IdtypeplatNavigation.Typeplat1,
                         Libelle = x.Libelleplat,
                         Description = x.Description,
