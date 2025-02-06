@@ -170,7 +170,7 @@ namespace AP4_C
             {
                 MessageBox.Show("Erreur lors de la création de la commande.");
             }
-            isCommandeButtonPressed = false;
+            
         }
 
 

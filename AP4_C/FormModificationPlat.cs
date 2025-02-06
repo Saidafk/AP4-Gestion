@@ -62,6 +62,8 @@ namespace AP4_C
                 cbPlat.Visible = true;
                 //cbVeggie.Items.Add(true);
                 //cbVeggie.Items.Add(false);
+
+
             }else if (etat == EtatGestion.Delete)
             {
                 label1.Text = "Suppression d'un plat";
@@ -143,19 +145,36 @@ namespace AP4_C
                         MessageBox.Show("Erreur lors de la récupération des données du plat.");
                     }
                 }
-            }else if(etat == EtatGestion.Delete)
+            }
+            else if (etat == EtatGestion.Delete)
             {
+                if (cbPlat.SelectedIndex != -1 && cbPlat.SelectedValue != null)
+                {
+                    int idP = Convert.ToInt32(cbPlat.SelectedValue);
+                    Plat P = ModelePlat.RetournePlat(idP);
+                    gbInfo.Visible = true;
+                }
+                else
+                {
+                    gbInfo.Visible = false;
+                }
+
                 if (cbPlat.SelectedValue != null)
                 {
                     int idPlat = (int)cbPlat.SelectedValue;
+
+
                     var plat = ModelePlat.RetournePlat(idPlat);
+
                     if (plat != null)
                     {
+
                         nomPlatTxt.Text = plat.Libelleplat;
                         prixTxt.Text = plat.Prixplatht.ToString();
                         tbDescription.Text = plat.Description;
                         checkBoxVeggie.Checked = plat.Veggie;
                         cbTypePlat.SelectedValue = plat.Idtypeplat;
+
                     }
                     else
                     {
@@ -165,7 +184,7 @@ namespace AP4_C
             }
         }
 
-        private void Annuler_Click()
+                private void Annuler_Click()
         {
 
             nomPlatTxt.Text = "";
@@ -245,12 +264,13 @@ namespace AP4_C
                     RemplirlesPlats();
                     Annuler_Click();
                 }
-            }else if(etat == EtatGestion.Delete)
+            }
+            else if(etat == EtatGestion.Delete)
             {
+
                 if (cbPlat.SelectedValue != null)
                 {
                     idPlat = (int)cbPlat.SelectedValue;
-                    //idPlat = Convert.ToInt32(cbPlat.SelectedValue);
                 }
                 else
                 {
