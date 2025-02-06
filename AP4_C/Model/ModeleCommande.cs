@@ -75,6 +75,46 @@ namespace AP4_C.Model
             return vretour;
         }
 
+        public static bool SupprimerCommande(int Idcommande)
+        {
+            Commande uneCommande;
+            bool vretour = true;
+            try
+            {  
+                uneCommande = new Commande();
+                {
+                    // Rechercher la commande à supprimer
+                    var commandeASupprimer = Modele.MonModel.Commandes.FirstOrDefault(c => c.Idcommande == Idcommande);
+
+                    if (commandeASupprimer != null)
+                    {
+                        // Supprimer les instances de plats associées à cette commande
+                        var instancesASupprimer = ModeleInstancePlat.listeInstancePlat().Where(ip => ip.Idcommande == Idcommande).ToList();
+                        Modele.MonModel.InstancePlats.RemoveRange(instancesASupprimer);
+
+                        // Supprimer la commande elle-même
+                        Modele.MonModel.Commandes.Remove(commandeASupprimer);
+
+                        // Sauvegarder les changements dans la base de données
+                        Modele.MonModel.SaveChanges();
+
+                        return true; // La suppression a réussi
+                    }
+                    else
+                    {
+                        // La commande n'existe pas
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Gérer les erreurs (journalisation, affichage d'un message, etc.)
+                MessageBox.Show($"Erreur lors de la suppression de la commande : {ex.Message}");
+                return false;
+            }
+        }
+
         /*public static List<Commande> RetourneCommandesParFacture(int idFacture)
         {
             try

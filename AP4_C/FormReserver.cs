@@ -101,76 +101,106 @@ namespace AP4_C
                 return;
             }
 
+            // Vérifier les quantités avant de créer la commande
+            bool quantitesSuffisantes = true;
+            List<(int IdPlat, int Quantite)> platsACommander = new List<(int, int)>();
+
+            for (int i = 0; i < dgvChoixPlat.Rows.Count; i++)
+            {
+                DataGridViewRow row = dgvChoixPlat.Rows[i];
+                if (row.Cells[2].Value != null && bool.TryParse(row.Cells[2].Value.ToString(), out bool isChecked) && isChecked)
+                {
+                    int IdPlat = int.Parse(row.Cells[0].Value.ToString());
+                    string nomPlat = row.Cells[1].Value.ToString();
+                    int quantite;
+
+                    if (row.Cells[3].Value == null || string.IsNullOrWhiteSpace(row.Cells[3].Value.ToString()))
+                    {
+                        quantite = 1;
+                    }
+                    else if (!int.TryParse(row.Cells[3].Value.ToString(), out quantite) || quantite <= 0)
+                    {
+                        MessageBox.Show($"Erreur : La quantité pour le plat '{nomPlat}' est invalide.");
+                        quantitesSuffisantes = false;
+                        break;
+                    }
+
+                    int quantiteDisponible = ModelePlat.RetourneQuantitePlat(IdPlat);
+                    if (quantite > quantiteDisponible)
+                    {
+                        MessageBox.Show($"Erreur : La quantité demandée pour le plat '{nomPlat}' ({quantite}) est supérieure à la quantité disponible ({quantiteDisponible}).");
+                        quantitesSuffisantes = false;
+                        break;
+                    }
+
+                    platsACommander.Add((IdPlat, quantite));
+                }
+            }
+
+            if (!quantitesSuffisantes)
+            {
+                MessageBox.Show("La commande ne peut pas être passée en raison de quantités insuffisantes.");
+                return;
+            }
+
+            // Si toutes les quantités sont suffisantes, procéder à la création de la commande
             if (ModeleCommande.AjouterCommande(Idtable, Commentaireclient))
             {
                 Idcommande = ModeleCommande.listeCommande().Last().Idcommande;
                 bool tousLesPlatsAjoutes = true;
 
-                for (int i = 0; i < dgvChoixPlat.Rows.Count; i++)
+                foreach (var (IdPlat, quantite) in platsACommander)
                 {
-                    DataGridViewRow row = dgvChoixPlat.Rows[i];
-                    if (row.Cells[2].Value != null && bool.TryParse(row.Cells[2].Value.ToString(), out bool isChecked) && isChecked)
+                    // Ajout des instances sans messages individuels
+                    for (int j = 0; j < quantite; j++)
                     {
-                        int IdPlat = int.Parse(row.Cells[0].Value.ToString());
-                        string nomPlat = row.Cells[1].Value.ToString();
-                        int quantite;
-
-                        if (row.Cells[3].Value == null || string.IsNullOrWhiteSpace(row.Cells[3].Value.ToString()))
+                        string Idinstance = Guid.NewGuid().ToString();
+                        if (!ModeleInstancePlat.AjouterInstancePlat(Idcommande, IdPlat, Idinstance))
                         {
-                            quantite = 1;
-                        }
-                        else if (!int.TryParse(row.Cells[3].Value.ToString(), out quantite) || quantite <= 0)
-                        {
-                            MessageBox.Show($"Erreur : La quantité pour le plat '{nomPlat}' est invalide.");
-                            continue;
-                        }
-
-                        int quantiteDisponible = ModelePlat.RetourneQuantitePlat(IdPlat);
-                        if (quantite > quantiteDisponible)
-                        {
-                            MessageBox.Show($"Erreur : La quantité demandée pour le plat '{nomPlat}' ({quantite}) est supérieure à la quantité disponible ({quantiteDisponible}).");
                             tousLesPlatsAjoutes = false;
-                            continue;
+                            MessageBox.Show($"Erreur lors de l'ajout du plat '{ModelePlat.RentourneNomPlat(IdPlat)}'.");
+                            break;
                         }
+                    }
 
-                        // Ajout des instances sans messages individuels
-                        for (int j = 0; j < quantite; j++)
-                        {
-                            string Idinstance = Guid.NewGuid().ToString();
-                            if (!ModeleInstancePlat.AjouterInstancePlat(Idcommande, IdPlat, Idinstance))
-                            {
-                                tousLesPlatsAjoutes = false;
-                                MessageBox.Show($"Erreur lors de l'ajout du plat '{nomPlat}'.");
-                                break;
-                            }
-                        }
+                    if (!tousLesPlatsAjoutes)
+                    {
+                        break;
+                    }
 
-                        // Mettre à jour la quantité du plat
-                        bool quantiteMiseAJour = ModelePlat.MettreAJourQuantitePlat(IdPlat, quantite);
-                        if (!quantiteMiseAJour)
-                        {
-                            MessageBox.Show($"Erreur lors de la mise à jour de la quantité du plat '{nomPlat}'.");
-                            tousLesPlatsAjoutes = false;
-                        }
+                    // Mettre à jour la quantité du plat
+                    bool quantiteMiseAJour = ModelePlat.MettreAJourQuantitePlat(IdPlat, quantite);
+                    if (!quantiteMiseAJour)
+                    {
+                        MessageBox.Show($"Erreur lors de la mise à jour de la quantité du plat '{ModelePlat.RentourneNomPlat(IdPlat)}'.");
+                        tousLesPlatsAjoutes = false;
+                        break;
                     }
                 }
 
-                DateTime dateFacture = DateTime.Now;
-                ModeleFacture.NouvelleFacture(Idcommande, idMoyenPaiement, 20, dateFacture);
-                ModeleTabler.MettreTableNonDisponible(Idtable);
-                RemplirTable();
-
                 if (tousLesPlatsAjoutes)
                 {
+                    DateTime dateFacture = DateTime.Now;
+                    ModeleFacture.NouvelleFacture(Idcommande, idMoyenPaiement, 20, dateFacture);
+                    ModeleTabler.MettreTableNonDisponible(Idtable);
+                    RemplirTable();
+
                     MessageBox.Show("Commande passée avec succès!");
                     ReinitialiserFormulaire();
+                }
+                else
+                {
+                    // Si un plat n'a pas pu être ajouté, annuler la commande
+                    ModeleCommande.SupprimerCommande(Idcommande);
+                    MessageBox.Show("Erreur lors de la création de la commande. La commande a été annulée.");
                 }
             }
             else
             {
                 MessageBox.Show("Erreur lors de la création de la commande.");
             }
-            
+
+            isCommandeButtonPressed = false;
         }
 
 
