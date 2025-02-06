@@ -137,9 +137,9 @@
             // 
             // btnMDP
             // 
-            btnMDP.Location = new Point(6, 157);
+            btnMDP.Location = new Point(30, 156);
             btnMDP.Name = "btnMDP";
-            btnMDP.Size = new Size(276, 23);
+            btnMDP.Size = new Size(287, 23);
             btnMDP.TabIndex = 9;
             btnMDP.Text = "button1";
             btnMDP.UseVisualStyleBackColor = true;
@@ -147,7 +147,7 @@
             // 
             // txtMDP
             // 
-            txtMDP.Location = new Point(305, 157);
+            txtMDP.Location = new Point(388, 156);
             txtMDP.Name = "txtMDP";
             txtMDP.ReadOnly = true;
             txtMDP.Size = new Size(287, 23);

@@ -187,7 +187,7 @@ namespace AP4_C
                     string email = EmailPersonnel;
                     string sujet = "Bienvenue dans l'équipe";
                     string corps = $"Bonjour {PrenomPersonnel} {NomPersonnel},\n\nBienvenue dans l'équipe !\n\nVoici vos identifiants de connexion :\nUtilisateur: {EmailPersonnel}\nMot de passe : {motDePasseHache}\n\nCordialement,\nL'équipe RH";
-
+                    MessageBox.Show("Email envoyé");
                     
 
                     RemplirlesEmploye();
@@ -240,19 +240,26 @@ namespace AP4_C
                     MessageBox.Show("Veuillez sélectionner un personnel à modifier.");
                     return;
                 }
-                MessageBox.Show("id user" + Idper );
 
-                MessageBox.Show("nom du personnel" + NomPersonnel);
-
-                MessageBox.Show("prenom personnel" + PrenomPersonnel);
-                MessageBox.Show("Email personnel" + EmailPersonnel);
-                MessageBox.Show("mdphache" + mdphache);
 
                 if (ModelUser.ModifierUser(Idper, NomPersonnel, PrenomPersonnel, EmailPersonnel, mdphache))
                 {
                     MessageBox.Show("Personnel modifié");
+
+                    string email = EmailPersonnel;
+                    string sujet = "Mise à jour de vos informations";
+                    string corps = $"Bonjour {PrenomPersonnel} {NomPersonnel},\n\nNous vous informons que vos informations ont été modifiées avec succès.\n\nVoici vos identifiants de connexion :\nUtilisateur : {EmailPersonnel}\nMot de passe : {motDePasseHache}\n\nSi vous avez des questions, n'hésitez pas à nous contacter.\n\nCordialement,\nL'équipe RH";
+                    MessageBox.Show("Email envoyé");
+                    // Vous pouvez maintenant utiliser ces informations pour envoyer un email à l'employé.
+
+
+
                     RemplirlesEmploye();
+
+                    Email.EnvoyerEmailNouveauMembre(email, sujet, corps);
                     ResetForm();
+
+                   
                 }
 
             }
