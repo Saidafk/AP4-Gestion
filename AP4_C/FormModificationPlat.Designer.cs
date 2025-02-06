@@ -101,7 +101,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Arial", 12F);
-            label5.Location = new Point(47, 137);
+            label5.Location = new Point(47, 149);
             label5.Name = "label5";
             label5.Size = new Size(58, 18);
             label5.TabIndex = 15;
@@ -110,7 +110,7 @@
             // checkBoxVeggie
             // 
             checkBoxVeggie.AutoSize = true;
-            checkBoxVeggie.Location = new Point(26, 137);
+            checkBoxVeggie.Location = new Point(26, 153);
             checkBoxVeggie.Name = "checkBoxVeggie";
             checkBoxVeggie.Size = new Size(15, 14);
             checkBoxVeggie.TabIndex = 14;
@@ -201,19 +201,21 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Left;
             label1.AutoSize = true;
             label1.Font = new Font("Arial", 12F);
-            label1.Location = new Point(355, 9);
+            label1.Location = new Point(258, 9);
             label1.Name = "label1";
             label1.Size = new Size(50, 18);
             label1.TabIndex = 2;
             label1.Text = "label1";
+            label1.TextAlign = ContentAlignment.TopCenter;
             // 
             // cbPlat
             // 
             cbPlat.DropDownStyle = ComboBoxStyle.DropDownList;
             cbPlat.FormattingEnabled = true;
-            cbPlat.Location = new Point(258, 41);
+            cbPlat.Location = new Point(222, 41);
             cbPlat.Name = "cbPlat";
             cbPlat.Size = new Size(257, 23);
             cbPlat.TabIndex = 1;

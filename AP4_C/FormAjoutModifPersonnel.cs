@@ -164,13 +164,16 @@ namespace AP4_C
                     MessageBox.Show("Veuillez saisir une adresse e-mail valide.");
                     return;
                 }
+
+
+               
                 if (ModelUser.RecupererUser(EmailPersonnel) != null)
                 {
                     MessageBox.Show("Cet e-mail est déjà utilisé par un autre employé.");
                     return;
                 }
 
-
+                
 
 
                 if (ModelUser.AjouterNouveauPersonnel(NomPersonnel, PrenomPersonnel, EmailPersonnel, mdphache, motDePasseHache))
@@ -185,7 +188,7 @@ namespace AP4_C
                     string sujet = "Bienvenue dans l'équipe";
                     string corps = $"Bonjour {PrenomPersonnel} {NomPersonnel},\n\nBienvenue dans l'équipe !\n\nVoici vos identifiants de connexion :\nUtilisateur: {EmailPersonnel}\nMot de passe : {motDePasseHache}\n\nCordialement,\nL'équipe RH";
 
-                    MessageBox.Show("Personnel ajouté");
+                    
 
                     RemplirlesEmploye();
 
@@ -237,6 +240,13 @@ namespace AP4_C
                     MessageBox.Show("Veuillez sélectionner un personnel à modifier.");
                     return;
                 }
+                MessageBox.Show("id user" + Idper );
+
+                MessageBox.Show("nom du personnel" + NomPersonnel);
+
+                MessageBox.Show("prenom personnel" + PrenomPersonnel);
+                MessageBox.Show("Email personnel" + EmailPersonnel);
+                MessageBox.Show("mdphache" + mdphache);
 
                 if (ModelUser.ModifierUser(Idper, NomPersonnel, PrenomPersonnel, EmailPersonnel, mdphache))
                 {
@@ -246,7 +256,7 @@ namespace AP4_C
                 }
 
             }
-            
+
         }
 
         private void ResetForm()
@@ -254,6 +264,7 @@ namespace AP4_C
             tbNom.Text = "";
             tbPrenom.Text = "";
             tbEmail.Text = "";
+            txtMDP.Text = "";
             ckbCuisinier.Checked = false;
             ckbServeur.Checked = false;
         }
@@ -270,6 +281,11 @@ namespace AP4_C
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelemploye_Click(object sender, EventArgs e)
         {
 
         }

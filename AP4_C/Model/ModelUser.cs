@@ -56,7 +56,7 @@ namespace AP4_C.Model
             AP4_C.Entities.User unUser = new AP4_C.Entities.User();
             try
             {
-                unUser = Modele.MonModel.Users.First(x => x.Email == login);
+                unUser = Modele.MonModel.Users.FirstOrDefault(x => x.Email == login);
             }
             catch (Exception ex)
             {
@@ -102,10 +102,7 @@ namespace AP4_C.Model
             bool vretour = true;
             try
             {
-                // Générer un mot de passe aléatoire
-                
-                
-
+                // Générer un mot de passe aléatoire              
                 // Créer un nouvel utilisateur
                 unUser = new AP4_C.Entities.User();
                 unUser.Nom = NomPersonnel;
@@ -140,23 +137,16 @@ namespace AP4_C.Model
             bool vretour = true;
             try
             {
-                if (estPersonnel(EmailPersonnel))
-                {
+                
                     
 
-                    unUser = Modele.MonModel.Users.First(x => x.Id == Idper);
+                    unUser = Modele.MonModel.Users.FirstOrDefault(x => x.Id == Idper);
                     unUser.Nom = NomPersonnel;
                     unUser.Prenom = PrenomPersonnel;
                     unUser.Email = EmailPersonnel;
                     unUser.Mdp = mdp;
 
-                    Modele.MonModel.SaveChanges();
-
-                }
-                else
-                {
-                    throw new Exception("Error");
-                }
+                    Modele.MonModel.SaveChanges();         
             }
             catch (Exception)
             {

@@ -68,11 +68,12 @@
             // 
             labelemploye.AutoSize = true;
             labelemploye.Font = new Font("Arial", 12F, FontStyle.Bold);
-            labelemploye.Location = new Point(53, 29);
+            labelemploye.Location = new Point(32, 29);
             labelemploye.Name = "labelemploye";
             labelemploye.Size = new Size(76, 19);
             labelemploye.TabIndex = 2;
             labelemploye.Text = "Employe";
+            labelemploye.Click += labelemploye_Click;
             // 
             // gbinfoEmployer
             // 
@@ -217,7 +218,7 @@
             // 
             cbEmploye.DropDownStyle = ComboBoxStyle.DropDownList;
             cbEmploye.FormattingEnabled = true;
-            cbEmploye.Location = new Point(261, 29);
+            cbEmploye.Location = new Point(310, 29);
             cbEmploye.Name = "cbEmploye";
             cbEmploye.Size = new Size(121, 23);
             cbEmploye.TabIndex = 0;

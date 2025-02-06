@@ -121,7 +121,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Arial", 12F, FontStyle.Bold);
-            label1.Location = new Point(12, 21);
+            label1.Location = new Point(50, 21);
             label1.Name = "label1";
             label1.Size = new Size(318, 19);
             label1.TabIndex = 3;
@@ -131,7 +131,7 @@
             // 
             cbPlat.DropDownStyle = ComboBoxStyle.DropDownList;
             cbPlat.FormattingEnabled = true;
-            cbPlat.Location = new Point(330, 21);
+            cbPlat.Location = new Point(391, 21);
             cbPlat.Name = "cbPlat";
             cbPlat.Size = new Size(229, 23);
             cbPlat.TabIndex = 2;

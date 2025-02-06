@@ -30,7 +30,6 @@
         {
             pictureBox1 = new PictureBox();
             label1 = new Label();
-            btnReserver = new Button();
             btnCommander = new Button();
             btnFacture = new Button();
             btnStocks = new Button();
@@ -57,17 +56,6 @@
             label1.Size = new Size(420, 29);
             label1.TabIndex = 1;
             label1.Text = "Bienvenue sur l'application de gestion";
-            // 
-            // btnReserver
-            // 
-            btnReserver.BackColor = Color.FromArgb(130, 181, 239);
-            btnReserver.Location = new Point(348, 119);
-            btnReserver.Name = "btnReserver";
-            btnReserver.Size = new Size(396, 43);
-            btnReserver.TabIndex = 2;
-            btnReserver.Text = "Réserver";
-            btnReserver.UseVisualStyleBackColor = false;
-            btnReserver.Click += button1_Click;
             // 
             // btnCommander
             // 
@@ -98,7 +86,7 @@
             btnStocks.Name = "btnStocks";
             btnStocks.Size = new Size(306, 43);
             btnStocks.TabIndex = 5;
-            btnStocks.Text = "Gestion des stocks";
+            btnStocks.Text = "Gestion des produits";
             btnStocks.UseVisualStyleBackColor = false;
             btnStocks.Click += btnStocks_Click;
             // 
@@ -123,7 +111,6 @@
             Controls.Add(btnStocks);
             Controls.Add(btnFacture);
             Controls.Add(btnCommander);
-            Controls.Add(btnReserver);
             Controls.Add(label1);
             Controls.Add(pictureBox1);
             Name = "FormAccueil";
@@ -137,7 +124,6 @@
 
         private PictureBox pictureBox1;
         private Label label1;
-        private Button btnReserver;
         private Button btnCommander;
         private Button btnFacture;
         private Button btnStocks;
