@@ -17,26 +17,24 @@ using System.Windows.Forms;
 
 namespace AP4_C
 {
-
     public enum EtatGestionEmploye
     {
         CreateEmploye,
         UpdateEmploye
     }
+
     public partial class FormAjoutModifPersonnel : Form
     {
         private EtatGestionEmploye etatemploye;
+
         public FormAjoutModifPersonnel(EtatGestionEmploye etatemploye)
         {
             InitializeComponent();
             this.etatemploye = etatemploye;
-
         }
-
 
         private void FormAjoutModifPersonnel_Load(object sender, EventArgs e)
         {
-
             if (etatemploye == EtatGestionEmploye.CreateEmploye) // cas etat create
             {
                 labelemploye.Text = "Ajout d'un nouvel employé";
@@ -47,14 +45,12 @@ namespace AP4_C
                 tbPrenom.Visible = true;
                 cbEmploye.Visible = false;
                 btnMDP.Visible = true;
-
             }
             else if (etatemploye == EtatGestionEmploye.UpdateEmploye)
             {
                 labelemploye.Text = "Modification d'un employé";
                 buttonemploye.Text = "MODIFIER";
                 btnMDP.Text = "Re generer un mot de passe";
-                //labelMDP.Text = "Re generer un mot de passe"; 
 
                 ckbCuisinier.Visible = false;
                 ckbServeur.Visible = false;
@@ -63,6 +59,7 @@ namespace AP4_C
                 gbinfoEmployer.Visible = false;
                 cbEmploye.Visible = true;
             }
+
             RemplirlesEmploye();
         }
 
@@ -100,11 +97,9 @@ namespace AP4_C
 
                     if (employe != null)
                     {
-
                         tbNom.Text = employe.Nom;
                         tbPrenom.Text = employe.Prenom;
                         tbEmail.Text = employe.Email;
-
                     }
                     else
                     {
@@ -116,33 +111,31 @@ namespace AP4_C
 
         public static void EnvoyerEmailNouveauMembre(string destinataire, string sujet, string corps)
         {
-
             string to = destinataire;
             string from = "Camoel@gmail.com";
             MailMessage message = new MailMessage(from, to);
-            message.Subject = "";
-            message.Body = "";
-            SmtpClient client = new SmtpClient();
+            message.Subject = sujet;
+            message.Body = corps;
+            SmtpClient client = new SmtpClient
+            {
+                Host = "mail.dombtsig.local",
+                Port = 1025,
+                UseDefaultCredentials = true
+            };
 
-            client.Host = "mail.dombtsig.local";
-            client.Port = 1025;
-
-            client.UseDefaultCredentials = true;
             try
             {
                 client.Send(message);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception caught in CreateTestMessage2(): {0}",
-                    ex.ToString());
-
+                Console.WriteLine("Exception caught in CreateTestMessage2(): {0}", ex.ToString());
             }
         }
 
         private void buttonemploye_Click(object sender, EventArgs e)
         {
-            ulong Idper;
+            ulong Idper = 0;
             string NomPersonnel = tbNom.Text;
             string PrenomPersonnel = tbPrenom.Text;
             string EmailPersonnel = tbEmail.Text;
@@ -151,7 +144,6 @@ namespace AP4_C
             bool estServeur = ckbServeur.Checked;
             string mdphache = BCrypt.Net.BCrypt.HashPassword(motDePasseHache);
 
-
             if (etatemploye == EtatGestionEmploye.CreateEmploye)
             {
                 if (string.IsNullOrEmpty(NomPersonnel) || string.IsNullOrEmpty(PrenomPersonnel) || string.IsNullOrEmpty(EmailPersonnel))
@@ -159,19 +151,18 @@ namespace AP4_C
                     MessageBox.Show("Veuillez remplir tous les champs obligatoires");
                     return;
                 }
+
                 if (!Controller.Controller.ValidMail(EmailPersonnel))
                 {
                     MessageBox.Show("Veuillez saisir une adresse e-mail valide.");
                     return;
                 }
-                if (ModelUser.RecupererUser(EmailPersonnel)!=null)
+
+                if (ModelUser.RecupererUser(EmailPersonnel) != null)
                 {
                     MessageBox.Show("Cet e-mail est déjà utilisé par un autre employé.");
                     return;
                 }
-
-                
-
 
                 if (ModelUser.AjouterNouveauPersonnel(NomPersonnel, PrenomPersonnel, EmailPersonnel, mdphache, motDePasseHache))
                 {
@@ -186,58 +177,50 @@ namespace AP4_C
                     string corps = $"Bonjour {PrenomPersonnel} {NomPersonnel},\n\nBienvenue dans l'équipe !\n\nVoici vos identifiants de connexion :\nUtilisateur: {EmailPersonnel}\nMot de passe : {motDePasseHache}\n\nCordialement,\nL'équipe RH";
 
                     MessageBox.Show("Personnel ajouté");
-                    
+
                     RemplirlesEmploye();
 
                     Email.EnvoyerEmailNouveauMembre(email, sujet, corps);
                     ResetForm();
-                    
 
-                }
+                    Idper = ModelUser.RecupererUser(EmailPersonnel).Id;
 
-                {
-                    MessageBox.Show("Il ne peut pas être les deux à la fois");
-                    return;
-                }
-                else if (estServeur)
-                {
-                    ModeleServeur.NouveauServeur(Idper);
-                    MessageBox.Show("Serveur ajouté");
-                    return;
-                }
-                else if (estCuisinier)
-                {
-                    ModeleCuisinier.NouveauCuisinier(Idper);
-                    MessageBox.Show("Cuisinier ajouté");
-                    return;
+                    if (estServeur)
+                    {
+                        ModeleServeur.NouveauServeur(Idper);
+                        MessageBox.Show("Serveur ajouté");
+                        return;
+                    }
+                    else if (estCuisinier)
+                    {
+                        ModeleCuisinier.NouveauCuisinier(Idper);
+                        MessageBox.Show("Cuisinier ajouté");
+                        return;
+                    }
                 }
                 else
                 {
                     MessageBox.Show("Erreur lors de l'ajout du personnel");
                     return;
                 }
-            */
-                else if (etatemploye == EtatGestionEmploye.UpdateEmploye)
+            }
+            else if (etatemploye == EtatGestionEmploye.UpdateEmploye)
+            {
+                if (cbEmploye.SelectedValue != null)
                 {
+                    Idper = (ulong)cbEmploye.SelectedValue;
+                }
+                else
+                {
+                    MessageBox.Show("Veuillez sélectionner un personnel à modifier.");
+                    return;
+                }
 
-                    if (cbEmploye.SelectedValue != null)
-                    {
-                        Idper = (ulong)cbEmploye.SelectedValue;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Veuillez sélectionner un personnel à modifier.");
-                        return;
-                    }
-
-
-                
                 if (ModelUser.ModifierUser(Idper, NomPersonnel, PrenomPersonnel, EmailPersonnel, mdphache))
                 {
                     MessageBox.Show("Personnel modifié");
                     RemplirlesEmploye();
                     ResetForm();
-
                 }
             }
         }
@@ -250,22 +233,15 @@ namespace AP4_C
             ckbCuisinier.Checked = false;
             ckbServeur.Checked = false;
         }
-        private void panelAjoutModif_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void btnMDP_Click(object sender, EventArgs e)
         {
-
             string motDePasse = GenererUnMDP.GenerateRandomPassword();
             txtMDP.Text = motDePasse;
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
-
         }
     }
 }
-

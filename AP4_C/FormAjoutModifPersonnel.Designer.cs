@@ -62,7 +62,6 @@
             panelAjoutModif.Name = "panelAjoutModif";
             panelAjoutModif.Size = new Size(799, 451);
             panelAjoutModif.TabIndex = 0;
-            panelAjoutModif.Paint += panelAjoutModif_Paint;
             // 
             // labelemploye
             // 

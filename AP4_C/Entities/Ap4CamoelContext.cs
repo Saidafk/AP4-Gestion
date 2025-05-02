@@ -84,7 +84,7 @@ public partial class Ap4CamoelContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=192.168.147.20;port=3306;user=admin;password=Camoel;database=AP4_Camoel", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.4.3-mysql"));
+        => optionsBuilder.UseMySql("server=192.168.148.20;port=3306;user=admin;password=Camoel;database=AP4_Camoel", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.4.3-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -216,7 +216,6 @@ public partial class Ap4CamoelContext : DbContext
 
             entity.HasOne(d => d.IdperNavigation).WithOne(p => p.Cuisinier)
                 .HasForeignKey<Cuisinier>(d => d.Idper)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("cuisinier_ibfk_1");
         });
 
@@ -244,7 +243,6 @@ public partial class Ap4CamoelContext : DbContext
 
             entity.HasOne(d => d.IdperNavigation).WithOne(p => p.Employe)
                 .HasForeignKey<Employe>(d => d.Idper)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("employe_ibfk_1");
         });
 
@@ -379,12 +377,12 @@ public partial class Ap4CamoelContext : DbContext
             entity.HasOne(d => d.IdetatNavigation).WithMany(p => p.InstancePlats)
                 .HasForeignKey(d => d.Idetat)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("instance_plat_ibfk_3");
+                .HasConstraintName("instance_plat_ibfk_5");
 
             entity.HasOne(d => d.IdplatNavigation).WithMany(p => p.InstancePlats)
                 .HasForeignKey(d => d.Idplat)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("instance_plat_ibfk_1");
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("instance_plat_ibfk_6");
         });
 
         modelBuilder.Entity<Job>(entity =>
@@ -761,7 +759,6 @@ public partial class Ap4CamoelContext : DbContext
 
             entity.HasOne(d => d.IdperNavigation).WithOne(p => p.Serveur)
                 .HasForeignKey<Serveur>(d => d.Idper)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("serveur_ibfk_1");
         });
 

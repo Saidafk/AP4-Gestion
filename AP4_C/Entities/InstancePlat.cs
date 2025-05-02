@@ -17,5 +17,5 @@ public partial class InstancePlat
 
     public virtual Etatplat IdetatNavigation { get; set; } = null!;
 
-    public virtual Plat IdplatNavigation { get; set; } = null!;
+    public virtual Plat? IdplatNavigation { get; set; }
 }

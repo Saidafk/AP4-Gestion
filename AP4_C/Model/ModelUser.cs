@@ -138,7 +138,7 @@ namespace AP4_C.Model
                 ";
 
                 // Envoyer l'email
-                Email.EnvoyerEmail(EmailPersonnel, sujet, corps);
+                Email.EnvoyerEmailNouveauMembre(EmailPersonnel, sujet, corps);
 
             }
             catch (Exception ex)
