@@ -41,6 +41,13 @@ MySQL Server
 Git (pour le versionnement du code)
 Visual Studio (ou VS Code avec extensions C#)
 
+Étapes
+Cloner le dépôt Git :
+Restaurer les dépendances .NET : dotnet restore
+Créer un fichier appsettings.Development.json à partir du modèle appsettings.Development.example.json.
+Configurer les informations de base de données dans appsettings.Development.json (ConnectionStrings:DefaultConnection).
+Appliquer les migrations à la base de données : dotnet ef database update
+Lancer le projet ASP.NET Core : dotnet run
 
 ## Contributeurs
 
